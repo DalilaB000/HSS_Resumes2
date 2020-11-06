@@ -36,7 +36,9 @@ experience_headings = pd.DataFrame()
 skills_headings = pd.DataFrame()
 education_headings = pd.DataFrame()
 heading_dict = {}
-
+edu_list = pd.DataFrame()
+job_list = pd.DataFrame()
+skill_list = ""
 
 # In[889]:
 
@@ -222,6 +224,98 @@ def get_date_ent(st):
             return date_s, s
     return (date_s, s)
 
+def get_skills_info(resume_df,resume_l,skill_start):
+    global skill_list
+    in_skill = True
+    i = skill_start+1
+    len_res = resume_df.shape[0]
+    not_end_line = True
+    while in_skill and not_end_line:
+        if i == len_res:
+            not_end_line = False
+        elif check_if_heading(resume_df.Block_Title[i]):
+            in_skill = False
+        else:
+            i += 1
+    start_extract = resume_df.Block_Pos[skill_start]+1
+    if not_end_line:
+        end_extract = resume_df.Block_Pos[i-1]
+        tmp_res = resume_l[start_extract:end_extract]
+    else:
+        tmp_res = resume_l[start_extract:]
+    for skill_val in tmp_res:
+        skill_val = skill_val.replace(".","")
+        pos = re.search("\:",skill_val)
+        if pos:
+            skill_val = skill_val[pos.end():]
+        tp_s = re.sub("[^a-zA-Z0-9\s]",";",skill_val)
+        if not skill_list:
+            skill_list = tp_s
+        else:
+            skill_list = " ; ".join([skill_list,tp_s])
+    return i
+def get_job_info(resume_df,resume_l,work_start):
+    global job_list
+    job_dict = {"ORG":"","JOB":"","DATE":"","GPE":""}
+    work_start = 3
+    in_job = True
+    i = work_start
+    while in_job:
+        s = resume_df.Block_Title[i]
+        s = re.sub("('|’)s", "s", s)
+        s = re.sub("\s{1,}", " ", s)
+        s = re.sub("\.","",s)
+        date_s, s = get_date_ent(s)
+        pos = re.search("\-\s+((P|p)resent|(C|c)urrent)", s)
+        if date_s:
+            if pos:
+                date_s = date_s + " "+ s[pos.start():pos.end()]
+                s = s.replace(s[pos.start():pos.end()],"").strip()
+            if job_dict["DATE"]:
+                job_list = job_list.append(job_dict, ignore_index=True)
+                for key in job_dict:
+                    job_dict[key]=""
+            job_dict["DATE"] = date_s
+        s = re.sub(r'\([^)]*\)', '', s)
+        s = re.sub("\s*[A-Z]{2}","",s)
+        start, end, job_title = list(get_job_title(s))[0]
+        if job_title:
+            s = s.replace(job_title,"").strip()
+            if job_dict["JOB"]:
+                job_list = job_list.append(job_dict, ignore_index=True)
+                for key in job_dict:
+                    job_dict[key]=""
+            job_dict["JOB"] = job_title
+        else:
+            doc = nlp(s)
+            company_s = ""
+            city_s = ""
+            for ent in doc.ents:
+                if ent.label_ == "ORG":
+                    if not company_s:
+                        company_s = ent.text
+                    else:
+                        company_s = company_s +" "+ent.text
+                elif ent.label_ == "GPE":
+                    city_s = city_s +" "+ent.text
+            if company_s:
+                if job_dict["ORG"]:
+                    job_list = job_list.append(job_dict, ignore_index=True)
+                    for key in job_dict:
+                        job_dict[key] = ""
+                job_dict["ORG"] = company_s
+            if city_s:
+                if job_dict["GPE"]:
+                    job_list = job_list.append(job_dict, ignore_index=True)
+                    for key in job_dict:
+                        job_dict[key] = ""
+                job_dict["GPE"]= city_s
+        i += 1
+        if check_if_heading(resume_df.Block_Title[i]):
+            job_list = job_list.append(job_dict, ignore_index=True)
+            in_job = False
+
+    return i
 
 def get_education_info(resume_df, edu_start):
     global edu_list
@@ -242,14 +336,14 @@ def get_education_info(resume_df, edu_start):
         s = re.sub("\s*(W|w)ith$", "", s)
         if date_s:
             if degree_dict["DATE"]:
-                edu_list.append(degree_dict,ignore_index = True)
+                edu_list = edu_list.append(degree_dict,ignore_index = True)
                 for key in degree_dict:
                     degree_dict[key] = ""
             degree_dict["DATE"] = date_s
             s = re.sub(r'\([^)]*\)', '', s)
         if gpa_s:
             if degree_dict["GPA"]:
-                edu_list.append(degree_dict,ignore_index = True)
+                edu_list = edu_list.append(degree_dict,ignore_index = True)
                 for key in degree_dict:
                     degree_dict[key] = ""
             degree_dict["GPA"] = gpa_s
@@ -317,7 +411,7 @@ def get_education_info(resume_df, edu_start):
         if check_if_heading(resume_df.Block_Title[i]):
             edu_list = edu_list.append(degree_dict,ignore_index= True)
             in_edu = False
-    print("Finished EDU")
+    return(i)
 
 # In[8]:
 
@@ -708,7 +802,7 @@ for ent in doc.ents:
 # print(major, " * ",city_s," * ",degree, " * ", company_s, " * ",date_s)
 # s = "Fordham University, New York City PhD, Economics In progress, ABD"
 # extract_city("New York City")
-def get_job_info(s):
+def get_job_info2(s):
     found = False
     found_date = False
     job_dict = {"DATE": "", "ORG": "", "GPE": "", "Job_Title": ""}
@@ -1028,7 +1122,7 @@ def check_if_heading(st):
     elif re.search("\A(language(s)*\s*(and|\,|&)*)", s) \
             or re.search("\A[a-z]*\s+(skills)", s) \
             or re.search("\A(skills$|skills\s+(and|\,|&)*)", s):
-        return ("SKIL")
+        return ("SKI")
     elif re.search("\A(projects$|projects\s+(and|\,|&)*)", s) or \
             re.search("\A[a-z]*\s+(projects)", s):
         return ("PRO")
@@ -1263,14 +1357,18 @@ resume_l = initial_cleaning(text)
 resume_df = V2_gather_headings(resume_l, resume_name)
 resume_df.reset_index(inplace=True, drop=True)
 found = False
-counter = 0
-while not found:
-    if check_if_heading(resume_df.Block_Title[counter]) == "EDU":
-        found = True
-    else:
-        counter += 1
-
-get_education_info(resume_df, counter)
+counter = 18
+#while not found:
+# #     # if check_if_heading(resume_df.Block_Title[counter]) == "EDU":
+# #     #     counter = get_education_info(resume_df, counter+1)
+# #     #     found = True
+#      if check_if_heading(resume_df.Block_Title[counter]) == "SKI":
+#          counter = get_skills_info(resume_df,resume_l,counter+1)
+#          found = True
+#      else:
+#          counter += 1
+#counter = get_skills_info(resume_df,resume_l,counter)
+counter = get_job_info(resume_df,resume_l,3)
 resume_df.to_csv("resume_df_130118433.csv")
 print("test")
 resume_df.to_csv("resume_df_130118433.csv")
