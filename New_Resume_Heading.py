@@ -13,6 +13,8 @@ import re
 import nltk
 import fitz
 from nltk.corpus import stopwords
+from allennlp.predictors.predictor import Predictor
+import allennlp_models.tagging
 from nltk.tokenize import word_tokenize
 from ipykernel import kernelapp as app
 
@@ -38,6 +40,8 @@ education_headings = pd.DataFrame()
 heading_dict = {}
 edu_list = pd.DataFrame()
 job_list = pd.DataFrame()
+predictor = Predictor.from_path("https://storage.googleapis.com/allennlp-public-models/\
+fine-grained-ner.2020-06-24.tar.gz")
 skill_list = ""
 
 # In[889]:
@@ -151,26 +155,25 @@ s : a string
 def get_date(s):
     # Covers 90% of date patters
     doc = nlp(s)
-    date_pattern = "(\w{3,9}\.*\s+|[0-9]{2}\/)\d{4}\s*(\-|\–|To|to|TO)\s*((P|p|C|c)|(\w{3,9}\.*\s+|[0-9]{2}\/)\d{4})"
+    date_pattern = "(\w{3,9}\.?|\d{2})(\/|\.)\d{4}\s?(-|–|—|—|To|to|TO)?\s*(P|p|C|c|(\w{3,9}\.?|\d{2})(\/|.)\d{4})?"
 
-    date_pattern2 = "(\d{4}\s*(\-|\–|To|to|TO)\s*(\d{4}|(P|p|C|c)))|(\s+(\d{2}\/\d{4}))"
-    data_pattern3 = "\d{4}\-\d{2}\s*(\-|\–|To|to|TO)\s*((P|p|C|c)|\d{4}\-\d{2})"
-    tp = re.search(date_pattern, s)
+    date_pattern2 = "(\d{4}\s*(\-|\–|—|To|to|TO)\s*(\d{4}|(P|p|C|c)))|(\s+(\d{2}\/\d{4}))"
+    data_pattern3 = "\d{4}\-\d{2}\s*(\-|\–|—|To|to|TO)\s*((P|p|C|c)|\d{4}\-\d{2})"
+    tp = re.search("((\w{3,9}\.?)|\d{2})?(\/|\.)?\s*\d{4}\s?(-|–|—|—|)?\s?(P|p|C|c|(\w{3,9}\.?|\d{2})?(\/|\.)?\s*\d{4})?", s)
     if not tp:
-        tp2 = re.search(date_pattern2, s)
+        tp2 = re.search("(\d{4}\s*(\-|\–|—|To|to|TO)\s*(\d{4}|(P|p|C|c)))|(\s+(\d{2}\/\d{4}))", s)
         if not tp2:
-            tp3 = re.search(data_pattern3, s)
+            tp3 = re.search("\d{4}\-\d{2}\s*(\-|\–|—|To|to|TO)\s*((P|p|C|c)|\d{4}\-\d{2})", s)
             if tp3:
                 start = tp3.span()[0]
                 end = tp3.span()[1]
                 return [start, end, tp3.string[start:end]]
             else:
-                '''for ent in doc.ents:
-                    if ent.label_ == "DATE":
-                        pos = re.search(ent.text, s)
-                        start = pos.start()
-                        end = pos.end()
-                        return (start, end, ent.text)'''
+                tp4 = re.search("^(\d{4}\s?(\/\d{1,2})?|\d{2}\s?(\/\d{4}))\s*",s)
+                if tp4:
+                    start = tp4.span()[0]
+                    end = tp4.span()[1]
+                    return [start, end, tp4.string[start:end]]
                 return [0, 0, ""]
         if tp2:
             start = tp2.span()[0]
@@ -209,7 +212,9 @@ def get_date_and_remove_it_from_title(st):
                 end = end + 7
             s = s[:start] + s[end:]
     else:
-        date_s = ""
+        date_s,s = get_date_ent(s)
+        if not re.search("\d{4}",s):
+            date_s = ""
     return date_s, s
 
 
@@ -223,6 +228,28 @@ def get_date_ent(st):
             s = st.replace(date_s, "")
             return date_s, s
     return (date_s, s)
+def get_company_allennlp(st):
+    st = ""
+    tp = predictor.predict(
+        sentence=st
+    )
+    for word, tag in zip(tp["words"], tp["tags"]):
+        if tag[2:] == "ORG":
+            st = st + " " + word
+        print(f"{word}\t{tag}")
+    st = st.strip()
+    return(st)
+def get_city_allennlp_and_remove_it(st):
+    s = st
+    tp = predictor.predict(
+        sentence= st
+    )
+    for word, tag in zip(tp["words"], tp["tags"]):
+        if tag[2:] == "GPE":
+            s = rreplace(s,word,"",1)
+    s = s.strip()
+    s= re.sub("[^a-zA-Z0-9]$","",s).strip()
+    return(s)
 
 def get_skills_info(resume_df,resume_l,skill_start):
     global skill_list
@@ -329,7 +356,8 @@ def get_education_info(resume_df, edu_start):
         s = resume_df.Block_Title[i]
         s = re.sub("('|’)s", "s", s)
         s = re.sub("\s{1,}", " ", s)
-        date_s, s = get_date_ent(s)
+        s = re.sub("&","and",s)
+        date_s, s = get_date_and_remove_it_from_title(s)
         s = s.strip()
         gpa_s, s = extract_GPA_clean_s(s)
         s = s.strip()
@@ -349,20 +377,35 @@ def get_education_info(resume_df, edu_start):
             degree_dict["GPA"] = gpa_s
         s = s.strip()
         #s = s.replace(".", "")
-        if re.search("\,?\s?[A-Z]{2}$",s):
-            s = re.sub("\,?\s?[A-Z]{2}$","",s).strip()
-            s2 = re.search("[A-Za-z]{4,}$",s)
-            city = extract_city(s[s2.start():s2.end()])
-            print(city)
-            if city:
-                s = rreplace(s,city[0],"",1)
+        s = re.sub("(MO|MS|MD)$","",s)
+        if s :
+            s = get_city_allennlp_and_remove_it(s)
+        # if re.search("\,?\s?[A-Z]{2}$",s):
+        #     s = re.sub("\,?\s?[A-Z]{2}$","",s).strip()
+        #     #s2 = re.search("[A-Za-z]{4,}$",s)
+        #     # city = extract_city(s[s2.start():s2.end()])
+        #     # print(city)
+        #     # if city:
+        #     #     s = rreplace(s,city[0],"",1)
+        #     s = get_city_allennlp_and_remove_it(s)
         degree, degree_type = extract_degree_level(s)
+        s = re.sub("\s*(-|-|—)\s+",",",s)
+        s = re.sub("[^a-zA-Z0-9\s,]",",",s)
         if degree_type:
             s = re.sub("(\A[^a-zA-Z0-9]|[^a-zA-Z0-9]$)", "", s)
             s = s.strip()
-            tp = re.split("(\s*( in | at )|[^a-zA-Z0-9\s\.])", s)
+            tp = re.split("(\s*( in | at | IN | In)|[^a-zA-Z0-9\s\.])", s)
             tp = [x for x in tp if x]
-            tp = [x for x in tp if not re.search("(\s*( in | at )|[^a-zA-Z0-9\s\.])", x)]
+            num_in = 0
+
+            for c,in_v in enumerate(tp):
+                in_v = in_v.lower().strip()
+                if in_v == "in":
+                    num_in += 1
+                    pos = c
+            if num_in == 2:
+                tp = tp[:pos]
+            tp = [x for x in tp if not re.search("(\s*( in | at | IN | In )|[^a-zA-Z0-9\s\.])", x)]
             if degree_dict["DEGREE"]:
                edu_list = edu_list.append(degree_dict,ignore_index = True)
                for key in degree_dict:
@@ -378,9 +421,15 @@ def get_education_info(resume_df, edu_start):
                     university_s = ""
                     for ent in doc.ents:
                         if ent.label_ == "MAJ":
-                            major_s = major_s + " ; " + ent.text
+                            if not major_s:
+                                major_s = ent.text
+                            else:
+                                major_s = major_s + " ; " + ent.text
                         elif ent.label_ == "ORG":
-                            university_s = university_s + " - " + ent.text
+                            if not university_s:
+                                university_s = ent.text
+                            else:
+                                university_s = university_s + " - " + ent.text
                     if university_s and major_s:
                         if degree_dict["MAJ"]:
                             university_s = university_s + major_s
@@ -494,7 +543,7 @@ def check_if_potential_title(st):
     if len(all_cap) == len(tp):
         return (True)
 
-    if re.search("\A[^a-zA-Z1-9+]", s):
+    if re.search("\A[^a-zA-Z0-9+]", s):
         return (False)
     if re.search("\A[A-Z]{1}[a-z]{2,}\.$", s):
         return (False)
@@ -1368,7 +1417,7 @@ def parse_all_engineers_resume():
 nlp = spacy.load('./')
 initialize_headings_file()
 path_name = "../CFDS/"
-resume_name = "110973756.pdf"
+resume_name = "122024287.pdf"
 pdf_document = path_name + resume_name
 text = read_pdf_resume(pdf_document)
 resume_l = initial_cleaning(text)
