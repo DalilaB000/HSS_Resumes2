@@ -394,25 +394,25 @@ def get_education_info(resume_df, edu_start):
         if degree_type:
             s = re.sub("(\A[^a-zA-Z0-9]|[^a-zA-Z0-9]$)", "", s)
             s = s.strip()
-            tp = re.split("(\s*( in | at | IN | In)|[^a-zA-Z0-9\s\.])", s)
-            tp = [x for x in tp if x]
-            num_in = 0
-
-            for c,in_v in enumerate(tp):
-                in_v = in_v.lower().strip()
-                if in_v == "in":
-                    num_in += 1
-                    pos = c
-            if num_in == 2:
-                tp = tp[:pos]
-            tp = [x for x in tp if not re.search("(\s*( in | at | IN | In )|[^a-zA-Z0-9\s\.])", x)]
+            if not re.search("[^a-zA-Z0-9\s\.]",s) and re.search("\s+(I|i)(N|n)\s+",s):
+                tp = re.split("\s+(In|IN|in)\s+", s,1)
+                tp = [x.strip() for x in tp if x]
+                tp = [x for x in tp if x not in ["in","IN","In"]]
+                major_s = tp[1]
+            else:
+                tp = re.split("(\s*( in | at | IN | In )|[^a-zA-Z0-9\s\.])",s)
+                tp = [x for x in tp if not re.search("(\s*( in | at | IN | In )|[^a-zA-Z0-9\s\.])", x)]
             if degree_dict["DEGREE"]:
                edu_list = edu_list.append(degree_dict,ignore_index = True)
                for key in degree_dict:
                    degree_dict[key]=""
             degree_dict["DEGREE"] = degree_type
             if len(tp) == 2 and re.search("\s*(in|In|IN)\s*",s):
-                degree_dict["MAJ"] = tp[1]
+                if degree_dict["MAJ"]:
+                    edu_list = edu_list.append(degree_dict, ignore_index=True)
+                    for key in degree_dict:
+                        degree_dict[key] = ""
+                degree_dict["MAJ"] = major_s
             else:
                 print(tp)
                 for val in tp:
