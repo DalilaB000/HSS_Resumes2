@@ -159,10 +159,9 @@ def get_date(s):
 
     date_pattern2 = "(\d{4}\s*(\-|\–|—|To|to|TO)\s*(\d{4}|(P|p|C|c)))|(\s+(\d{2}\/\d{4}))"
     data_pattern3 = "\d{4}\-\d{2}\s*(\-|\–|—|To|to|TO)\s*((P|p|C|c)|\d{4}\-\d{2})"
-
-    tp = re.search("(\d{4}\s*(\-|\–|—|To|to|TO)\s*(\d{4}|(P|p|C|c)))|(\s+(\d{2}\/\d{4}))", s)
+    tp = re.search("((\w{3,9}\.?)|\d{2})?(\/|\.)?\s*\d{4}\s?(-|–|—|—|)?\s?(P|p|C|c|(\w{3,9}\.?|\d{2})?(\/|\.)?\s*\d{4})?", s)
     if not tp:
-        tp2 = re.search( "((\w{3,9}\.?)|\d{2})?(\/|\.)?\s*\d{4}\s?(-|–|—|—|)?\s?(P|p|C|c|(\w{3,9}\.?|\d{2})?(\/|\.)?\s*\d{4})?", s)
+        tp2 = re.search("(\d{4}\s*(\-|\–|—|To|to|TO)\s*(\d{4}|(P|p|C|c)))|(\s+(\d{2}\/\d{4}))", s)
         if not tp2:
             tp3 = re.search("\d{4}\-\d{2}\s*(\-|\–|—|To|to|TO)\s*((P|p|C|c)|\d{4}\-\d{2})", s)
             if tp3:
@@ -176,9 +175,9 @@ def get_date(s):
                     end = tp4.span()[1]
                     return [start, end, tp4.string[start:end]]
                 return [0, 0, ""]
-        else:
-            start = tp2.start()
-            end = tp2.end()
+        if tp2:
+            start = tp2.span()[0]
+            end = tp2.span()[1]
             return [start, end, tp2.string[start:end]]
 
     else:
@@ -242,30 +241,16 @@ def get_company_allennlp(st):
     return(st)
 def get_city_allennlp_and_remove_it(st):
     s = st
-    city_s = ""
     tp = predictor.predict(
         sentence= st
     )
     for word, tag in zip(tp["words"], tp["tags"]):
         if tag[2:] == "GPE":
-            city_s = word
             s = rreplace(s,word,"",1)
     s = s.strip()
     s= re.sub("[^a-zA-Z0-9]$","",s).strip()
-    return(city_s, s)
-def get_company_allennlp(st):
-    s = st
-    tp = predictor.predict(
-        sentence=st
-    )
-    org_s = ""
-    for word, tag in zip(tp["words"], tp["tags"]):
-        if tag[2:] == "ORG":
-            if not org_s:
-                org_s = word
-            else:
-                org_s = org_s + " "+word
-    return org_s
+    return(s)
+
 def get_skills_info(resume_df,resume_l,skill_start):
     global skill_list
     in_skill = True
@@ -307,44 +292,27 @@ def get_job_info(resume_df,resume_l,work_start):
         s = re.sub("('|’)s", "s", s)
         s = re.sub("\s{1,}", " ", s)
         s = re.sub("\.","",s)
-        date_s, s = get_date_and_remove_it_from_title(s)
+        date_s, s = get_date_ent(s)
+        pos = re.search("(\-|-)\s+((P|p)resent|(C|c)urrent)", s)
         if date_s:
+            if pos:
+                date_s = date_s + " "+ s[pos.start():pos.end()]
+                s = s.replace(s[pos.start():pos.end()],"").strip()
             if job_dict["DATE"]:
                 job_list = job_list.append(job_dict, ignore_index=True)
                 for key in job_dict:
                     job_dict[key]=""
             job_dict["DATE"] = date_s
-        if s:
-            city_s, s = get_city_allennlp_and_remove_it(s)
         s = re.sub(r'\([^)]*\)', '', s)
-        s = re.sub("(\||-|-|—|-)"," , ",s)
-        s = re.sub("\s+"," ",s)
+        s = re.sub("\s*[A-Z]{2}","",s)
         start, end, job_title = list(get_job_title(s))[0]
         if job_title:
-            if not re.search("\s+(At|AT|at)\s+",s) and not re.search(",",s):
-                if job_dict["JOB"]:
-                    job_list = job_list.append(job_dict, ignore_index=True)
-                    for key in job_dict:
-                        job_dict[key]=""
-                job_title = s
-                job_dict["JOB"] = s
-            elif re.search("\s+(At|AT|at)\s+",s) and not re.search(",",s):
-                tp = re.split("\s+(At|AT|at)\s+",s)
-                tp = [x.strip() for x in tp if x]
-                tp = [x for x in tp if x not in ["at","AT","At"]]
-                if not job_title["JOB"] and not job_title["ORG"]:
-                    job_title = tp[0]
-                    job_dict["JOB"] = job_title
-                    job_dict["ORG"] = tp[1]
-                elif job_title["JOB"] and not job_title["ORG"]:
-                    job_dict["ORG"] = s
-                elif job_title["JOB"] and  job_title["ORG"]:
-                    job_list = job_list.append(job_dict, ignore_index=True)
-                    for key in job_dict:
-                        job_dict[key] = ""
-                    job_title = tp[0]
-                    job_dict["JOB"] = job_title
-                    job_dict["ORG"] = tp[1]
+            s = s.replace(job_title,"").strip()
+            if job_dict["JOB"]:
+                job_list = job_list.append(job_dict, ignore_index=True)
+                for key in job_dict:
+                    job_dict[key]=""
+            job_dict["JOB"] = job_title
         else:
             doc = nlp(s)
             company_s = ""
@@ -355,6 +323,8 @@ def get_job_info(resume_df,resume_l,work_start):
                         company_s = ent.text
                     else:
                         company_s = company_s +" "+ent.text
+                elif ent.label_ == "GPE":
+                    city_s = city_s +" "+ent.text
             if company_s:
                 if job_dict["ORG"]:
                     job_list = job_list.append(job_dict, ignore_index=True)
@@ -389,7 +359,6 @@ def get_education_info(resume_df, edu_start):
         s = re.sub("('|’)s", "s", s)
         s = re.sub("\s{1,}", " ", s)
         s = re.sub("&","and",s)
-
         date_s, s = get_date_and_remove_it_from_title(s)
         s = s.strip()
         gpa_s, s = extract_GPA_clean_s(s)
@@ -410,10 +379,9 @@ def get_education_info(resume_df, edu_start):
             degree_dict["GPA"] = gpa_s
         s = s.strip()
         #s = s.replace(".", "")
-        #s = re.sub("(MO|MS|MD)$","",s)
-        s = re.sub("\A[^a-zA-Z0-9]","",s).strip()
+        s = re.sub("(MO|MS|MD)$","",s)
         if s :
-            city_s,s = get_city_allennlp_and_remove_it(s)
+            s = get_city_allennlp_and_remove_it(s)
         # if re.search("\,?\s?[A-Z]{2}$",s):
         #     s = re.sub("\,?\s?[A-Z]{2}$","",s).strip()
         #     #s2 = re.search("[A-Za-z]{4,}$",s)
@@ -423,11 +391,10 @@ def get_education_info(resume_df, edu_start):
         #     #     s = rreplace(s,city[0],"",1)
         #     s = get_city_allennlp_and_remove_it(s)
         degree, degree_type = extract_degree_level(s)
-        s = re.sub("\s{0}(-|-|—|-)\s?","",s)
+        s = re.sub("\s*(-|-|—)\s+",",",s)
         s = re.sub("[^a-zA-Z0-9\s,.]",",",s)
         s = re.sub(",$","",s).strip()
         s = re.sub(",$","",s).strip()
-        s = re.sub("\s+,",",",s)
         major_s = ""
         university_s = ""
         if degree_type:
@@ -464,21 +431,7 @@ def get_education_info(resume_df, edu_start):
                 tp.pop(p)
                 if len(tp) == 1:
                     university_s = tp[0]
-            elif not re.search("[^a-zA-Z0-9\s\.]",s) and not p_in:
-                degree = degree.strip()
-                if degree[-1] == ".":
-                    s = s.replace(degree[:-1], "")
-                    s = s.replace(".", "").strip()
-                else:
-                    s = s.replace(degree,"")
-                    s = re.sub("[^a-zA-Z0-9\s]","",s).strip()
-                    if s:
-                        major_s = s
             else:
-                degree = degree.strip()
-                if degree[-1] == ".":
-                    s = s.replace(degree[:-1], "")
-                    s = s.replace(".","").strip()
                 doc = nlp(s)
                 p = 0
                 for ent in doc.ents:
@@ -487,28 +440,18 @@ def get_education_info(resume_df, edu_start):
                             university_s = ent.text
                             p += 1
                         else:
-                            if not major_s:
-                                major_s = university_s
-                                university_s = university_s+" "+ent.text
+                            major_s = university_s
+                            university_s = ent.text
                     elif ent.label_ == "MAJ":
-                        if not major_s:
-                            major_s = ent.text
-                        else:
-                            major_s = major_s + " ; "+ent.text
-                if not university_s and not major_s and city_s:
-                    s = re.sub("[^a-zA-Z0-9\s]", "", s)
-                    degree = re.sub("[^a-zA-Z0-9\s]", "", degree)
-                    s = s.replace(degree, "")
-                    university_s = s
+                        major_s = ent.text
+                if university_s and not major_s:
+                    s = s.replace(university_s,"").strip()
+                    s = re.sub(",$","",s).strip()
+                    s = re.sub(",$","",s).strip()
+                    if s:
+                        major_s = s
 
 
-
-            if university_s:
-                if degree_dict["ORG"]:
-                    edu_list = edu_list.append(degree_dict, ignore_index=True)
-                    for key in degree_dict:
-                        degree_dict[key] = ""
-                degree_dict["ORG"]= university_s
             if degree_dict["DEGREE"]:
                edu_list = edu_list.append(degree_dict,ignore_index = True)
                for key in degree_dict:
@@ -520,7 +463,12 @@ def get_education_info(resume_df, edu_start):
                     for key in degree_dict:
                         degree_dict[key] = ""
                 degree_dict["MAJ"] = major_s
-
+            if university_s:
+                if degree_dict["ORG"]:
+                    edu_list = edu_list.append(degree_dict, ignore_index=True)
+                    for key in degree_dict:
+                        degree_dict[key] = ""
+                degree_dict["ORG"]= university_s
             # if len(tp) == 2 and re.search("\s*(in|In|IN)\s*",s):
             #     if degree_dict["MAJ"]:
             #         edu_list = edu_list.append(degree_dict, ignore_index=True)
@@ -563,48 +511,36 @@ def get_education_info(resume_df, edu_start):
 
         else:
             #remove everything between brackets
-            if degree_dict["ORG"] and degree_dict["DEGREE"] and not degree_dict["MAJ"] and s:
-                pos = s.split(":")
-                if len(pos) == 2:
-                    degree_dict["MAJ"] = pos[1]
-                else:
-                    degree_dict["MAJ"] = s
-            elif not degree_dict["ORG"] and degree_dict["DEGREE"] and degree_dict["MAJ"] and s:
-                degree_dict["ORG"] = s
-            else:
-                doc = nlp(s)
-                university_s = ""
-                major_s = ""
-                for ent in doc.ents:
-                    if ent.label_ == "MAJ":
-                        if not major_s:
-                            major_s = ent.text
-                        else:
-                            major_s = major_s + " : "+ent.text
-                    elif ent.label_ == "ORG":
-                        university_s = university_s + " " + ent.text
-                if university_s:
-                    if degree_dict["ORG"] and not degree_dict["MAJ"]:
-                        degree_dict["MAJ"] = university_s
-                    elif  degree_dict["ORG"]:
-                        edu_list = edu_list.append(degree_dict,ignore_index = True)
-                        for key in degree_dict:
-                            degree_dict[key] = ""
-                    degree_dict["ORG"] = university_s
-                if major_s:
-                    if degree_dict["MAJ"]:
-                        edu_list = edu_list.append(degree_dict, ignore_index=True)
-                        for key in degree_dict:
-                            degree_dict[key] = ""
-                    degree_dict['MAJ']= major_s
+            doc = nlp(s)
+            university_s = ""
+            major_s = ""
+            for ent in doc.ents:
+                if ent.label_ == "EDU":
+                    if not major_s:
+                        major_s = ent.text
+                    else:
+                        major_s = major_s + " : "+ent.text
+                elif ent.label_ == "ORG":
+                    university_s = university_s + " " + ent.text
+            if university_s:
+                if degree_dict["ORG"] and not degree_dict["MAJ"]:
+                    degree_dict["MAJ"] = university_s
+                elif  degree_dict["ORG"]:
+                    edu_list = edu_list.append(degree_dict,ignore_index = True)
+                    for key in degree_dict:
+                        degree_dict[key] = ""
+                degree_dict["ORG"] = university_s
+            if major_s:
+                if degree_dict["MAJ"]:
+                    edu_list = edu_list.append(degree_dict, ignore_index=True)
+                    for key in degree_dict:
+                        degree_dict[key] = ""
+                degree_dict['MAJ']= major_s
         info_needed = [key for key in degree_dict if not degree_dict[key]]
         i += 1
-        if i == len(resume_df):
-            in_edu = False
-        elif check_if_heading(resume_df.Block_Title[i]) :
+        if check_if_heading(resume_df.Block_Title[i]):
             edu_list = edu_list.append(degree_dict,ignore_index= True)
             in_edu = False
-
     return(i)
 
 # In[8]:
@@ -872,7 +808,6 @@ def get_date_or_company(st):
 
 def extract_degree_level(st):
     s = st.strip()
-    s = re.sub("[^a-zA-Z0-9\s]",".",s)
     doc = nlp(s)
     degree = ""
     degree_type = ""
@@ -881,6 +816,7 @@ def extract_degree_level(st):
         if ent.label_ == "EDU":
             degree_type = ent.ent_id_
             degree = ent.text
+            return degree, degree_type
     return degree, degree_type
 
 
@@ -908,12 +844,7 @@ def extract_GPA_clean_s(st):
             s_gpa = st[pos2.start():pos2.end()]
             st = st.replace(s_gpa, "")
         else:
-            pos3 = re.search("Overall Percentage:\s*\d{2}(.\d{1,2})?",st)
-            if pos3:
-                s_gpa = st[pos3.start():pos3.end()]
-                st = st.replace(s_gpa, "")
-            else:
-                s_gpa = ""
+            s_gpa = ""
     return (s_gpa, st)
 
 
@@ -1548,10 +1479,9 @@ def parse_all_engineers_resume():
 nlp = spacy.load('./')
 initialize_headings_file()
 path_name = "../CFDS/"
-resume_name = "output0.txt"
+resume_name = "110973756.pdf"
 pdf_document = path_name + resume_name
-#text = read_pdf_resume(pdf_document)
-text = open(pdf_document, "r").read()
+text = read_pdf_resume(pdf_document)
 resume_l = initial_cleaning(text)
 
 resume_df = V2_gather_headings(resume_l, resume_name)
@@ -1559,13 +1489,13 @@ resume_df.reset_index(inplace=True, drop=True)
 found = False
 counter = 0
 while not found:
-    if check_if_heading(resume_df.Block_Title[counter]) == "EXP":
-        counter = get_job_info(resume_df, resume_l, counter+1)
-        found = True
-    # counter += 1
-    # if check_if_heading(resume_df.Block_Title[counter]) == "EDU":
-    #     counter = get_education_info(resume_df, counter+1)
+    #if check_if_heading(resume_df.Block_Title[counter]) == "EXP":
+    #counter = get_job_info(resume_df, resume_l, counter+1)
     #     found = True
+    # counter += 1
+    if check_if_heading(resume_df.Block_Title[counter]) == "EDU":
+        counter = get_education_info(resume_df, counter+1)
+        found = True
     counter += 1
 #       if check_if_heading(resume_df.Block_Title[counter]) == "SKI":
 #          counter = get_skills_info(resume_df,resume_l,counter+1)
