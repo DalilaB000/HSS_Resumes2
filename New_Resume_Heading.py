@@ -303,6 +303,9 @@ def get_job_info(resume_df,resume_l,work_start):
     in_job = True
     i = work_start
     while in_job:
+        company_s = ""
+        city_s = ""
+        job_title = ""
         s = resume_df.Block_Title[i]
         s = re.sub("('|’)s", "s", s)
         s = re.sub("\s{1,}", " ", s)
@@ -316,9 +319,14 @@ def get_job_info(resume_df,resume_l,work_start):
             job_dict["DATE"] = date_s
         if s:
             city_s, s = get_city_allennlp_and_remove_it(s)
-        s = re.sub(r'\([^)]*\)', '', s)
-        s = re.sub("(\||-|-|—|-)"," , ",s)
-        s = re.sub("\s+"," ",s)
+        if len(s) <= 2:
+            s = ""
+        s = re.sub(r'\([^)]*\)', '', s).strip()
+        s = re.sub(r'\([^)]*','', s).strip()
+
+        s = re.sub("\s*(\||-|-|—|-|\:)\s*",", ",s).strip()
+        s = re.sub("\s+"," ",s).strip()
+        s = re.sub("(\A,|,$)","",s).strip()
         start, end, job_title = list(get_job_title(s))[0]
         if job_title:
             if not re.search("\s+(At|AT|at)\s+",s) and not re.search(",",s):
@@ -346,28 +354,87 @@ def get_job_info(resume_df,resume_l,work_start):
                     job_dict["JOB"] = job_title
                     job_dict["ORG"] = tp[1]
         else:
-            doc = nlp(s)
-            company_s = ""
-            city_s = ""
-            for ent in doc.ents:
-                if ent.label_ == "ORG":
-                    if not company_s:
-                        company_s = ent.text
-                    else:
-                        company_s = company_s +" "+ent.text
-            if company_s:
+
+            if re.search("\s+(At|AT|at)\s+") and not re.search(",",s):
+                tp = re.split("\s+(At|AT|at)\s+",s)
+                tp = [x.strip() for x in tp if x]
+                tp = [x for x in tp if x not in ["at","AT","At"]]
+                company_s = tp[1]
                 if job_dict["ORG"]:
                     job_list = job_list.append(job_dict, ignore_index=True)
                     for key in job_dict:
                         job_dict[key] = ""
                 job_dict["ORG"] = company_s
-            if city_s:
-                if job_dict["GPE"]:
-                    job_list = job_list.append(job_dict, ignore_index=True)
-                    for key in job_dict:
-                        job_dict[key] = ""
-                job_dict["GPE"]= city_s
+                if job_dict["ORG"] and not job_dict["Job_Title"]:
+                    job_dict["Job_Title"] = tp[0]
+
+            elif not re.search("\s+(At|AT|at)\s+") and not re.search(",",s):
+                if city_s:
+                    company_s = s
+                    if job_dict["ORG"]:
+                        job_list = job_list.append(job_dict, ignore_index=True)
+                        for key in job_dict:
+                            job_dict[key] = ""
+                    job_dict["ORG"] = company_s
+                else:
+                    doc = nlp(s)
+                    company_s = ""
+                    for ent in doc.ents:
+                        if ent.label_ == "ORG":
+                            if not company_s:
+                                company_s = ent.text
+                            else:
+                                company_s = company_s + " " + ent.text
+                    if company_s:
+                        if job_dict["ORG"]:
+                            job_list = job_list.append(job_dict, ignore_index=True)
+                            for key in job_dict:
+                                job_dict[key] = ""
+                        job_dict["ORG"] = s
+                    else:
+                        if job_dict["ORG"] and not job_dict["Job_Title"]:
+                            job_dict["Job_Title"] = s
+                        elif not job_dict["ORG"] and  job_dict["Job_Title"]:
+                            job_dict["ORG"] = s
+                        else:
+                            unknown =s
+
+            elif re.search(",",s):
+                s = re.sub("(\A,|,$)","",s).strip()
+                tp = s.split(",")
+
+                doc = nlp(s)
+                company_s = ""
+                company_tmp = []
+                p = 0
+                for ent in doc.ents:
+                    if ent.label_ == "ORG":
+                        company_tmp.append(ent.text)
+                        s = s.replace(ent.text,"").strip()
+                if len(company_tmp) == 2:
+                    if not job_dict["ORG"] and not job_dict["Job_Title"]:
+                        job_dict["Job_Title"] = company_tmp[0]
+                        job_dict["ORG"] = company_tmp[1]
+                    elif job_dict["ORG"] and job_dict["Job_Title"]:
+                        job_list = job_list.append(job_dict, ignore_index=True)
+                        for key in job_dict:
+                            job_dict[key] = ""
+                        job_dict["Job_Title"] = company_tmp[0]
+                        job_dict["ORG"] = company_tmp[1]
+                elif len(company_tmp) == 1:
+                    if job_dict["ORG"]:
+                        job_list = job_list.append(job_dict, ignore_index=True)
+                        for key in job_dict:
+                            job_dict[key] = ""
+                    job_dict["ORG"] = company_tmp[0]
+                    if not job_dict["Job_Title"] and s:
+                        job_dict["Job_Title"] = s
+
+
+
         i += 1
+        if i == resume_df.shape[0]:
+            in_job = False
         if check_if_heading(resume_df.Block_Title[i]):
             job_list = job_list.append(job_dict, ignore_index=True)
             in_job = False
@@ -1093,7 +1160,7 @@ def get_job_title(s):
         start, end = f.span(0)
         title_s = f.string
         print(start, end)
-        yield start, end, s
+        yield start, end, title_s
     else:
         s = s.title()
         finder = FinderAcora()
@@ -1547,11 +1614,11 @@ def parse_all_engineers_resume():
 # In[1008]:
 nlp = spacy.load('./')
 initialize_headings_file()
-path_name = "../CFDS/"
-resume_name = "output0.txt"
+path_name = "../Engineers/"
+resume_name = "100010239.pdf"
 pdf_document = path_name + resume_name
-#text = read_pdf_resume(pdf_document)
-text = open(pdf_document, "r").read()
+text = read_pdf_resume(pdf_document)
+#text = open(pdf_document, "r").read()
 resume_l = initial_cleaning(text)
 
 resume_df = V2_gather_headings(resume_l, resume_name)
