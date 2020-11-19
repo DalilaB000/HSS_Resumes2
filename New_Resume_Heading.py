@@ -17,6 +17,8 @@ from allennlp.predictors.predictor import Predictor
 import allennlp_models.tagging
 from nltk.tokenize import word_tokenize
 from ipykernel import kernelapp as app
+import pytesseract as pt
+import pdf2image
 
 # In[2]:
 
@@ -40,6 +42,8 @@ education_headings = pd.DataFrame()
 heading_dict = {}
 edu_list = pd.DataFrame()
 job_list = pd.DataFrame()
+master_job_df = pd.DataFrame()
+master_ski_df = pd.DataFrame()
 predictor = Predictor.from_path("https://storage.googleapis.com/allennlp-public-models/\
 fine-grained-ner.2020-06-24.tar.gz")
 skill_list = ""
@@ -71,7 +75,7 @@ Return: text: all the text in all pages of the pdf document
 '''
 
 
-def read_pdf_resume(pdf_document):
+def read_pdf_resume_old(pdf_document):
     try:
         doc = fitz.open(pdf_document)
         text = ''
@@ -86,7 +90,12 @@ def read_pdf_resume(pdf_document):
 
 # In[6]:
 
-
+def read_pdf_resume(pdf_document):
+    pages = pdf2image.convert_from_path(pdf_path=pdf_document, dpi=200, size=(1654, 2340))
+    content = ""
+    for page in pages:
+        content = content+"\n"+pt.image_to_string(page)
+    return content
 '''
 initial_cleaning:  split documents using return controler \n; remove empty lines
 Parameter: doc_2_clean, a string variable containing the whole resume of a given person
@@ -152,29 +161,36 @@ s : a string
 '''
 
 
-def get_date(s):
+def get_date(st):
     # Covers 90% of date patters
-    doc = nlp(s)
-    date_pattern = "(\w{3,9}\.?|\d{2})(\/|\.)\d{4}\s?(-|–|—|—|To|to|TO)?\s*(P|p|C|c|(\w{3,9}\.?|\d{2})(\/|.)\d{4})?"
+    s = st.title()
+    months = "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)([a-z]{0,6})?\.?\s*"
+    date_pattern = "(\w{3,9}\.?|\d{1,2})(\/|\.)\d{4}\s?(-|–|—|—|To|to|TO)?\s*(P|p|C|c|(\w{3,9}\.?|\d{1,2})(\/|.)\d{4})?"
 
     date_pattern2 = "(\d{4}\s*(\-|\–|—|To|to|TO)\s*(\d{4}|(P|p|C|c)))|(\s+(\d{2}\/\d{4}))"
     data_pattern3 = "\d{4}\-\d{2}\s*(\-|\–|—|To|to|TO)\s*((P|p|C|c)|\d{4}\-\d{2})"
-
-    tp = re.search("(\d{4}\s*(\-|\–|—|To|to|TO)\s*(\d{4}|(P|p|C|c)))|(\s+(\d{2}\/\d{4}))", s)
+    tp = re.search("("+months+"|\d{1,2})?(\/|\.)?\s*(1|2)\d{3}\s?(-|–|—|—|to|TO|To)?\s?(P|p|C|c|("+months+"|\d{1,2})?(\/|\.)?\s*(1|2)\d{3})?",s)
     if not tp:
-        tp2 = re.search( "((\w{3,9}\.?)|\d{2})?(\/|\.)?\s*\d{4}\s?(-|–|—|—|)?\s?(P|p|C|c|(\w{3,9}\.?|\d{2})?(\/|\.)?\s*\d{4})?", s)
+        tp2 = re.search("(\d{4}\s*(\-|\–|—|To|to|TO)\s*((1|2)\d{3}|(P|p|C|c)))|(\s+(\d{2}\/(1|2)\d{3}))", s)
         if not tp2:
-            tp3 = re.search("\d{4}\-\d{2}\s*(\-|\–|—|To|to|TO)\s*((P|p|C|c)|\d{4}\-\d{2})", s)
+            tp3 = re.search("(1|2)\d{3}\-\d{2}\s*(\-|\–|—|To|to|TO)\s*((P|p|C|c)|(1|2)\d{3}\-\d{2})", s)
             if tp3:
                 start = tp3.span()[0]
                 end = tp3.span()[1]
                 return [start, end, tp3.string[start:end]]
             else:
-                tp4 = re.search("^(\d{4}\s?(\/\d{1,2})?|\d{2}\s?(\/\d{4}))\s*",s)
+                tp4 = re.search("^((1|2)\d{3}\s?(\/\d{1,2})?|\d{2}\s?(\/(1|2)\d{3}))\s*",s)
                 if tp4:
                     start = tp4.span()[0]
                     end = tp4.span()[1]
                     return [start, end, tp4.string[start:end]]
+                else:
+                    tp5= re.search("[a-zA-Z]{3,9}\.?('|`|’)\d{2}\s?(\-|\–|—|To|to|TO)\s+([a-zA-Z]{3,9}\.?('|`|’)\d{2}|\
+                    (P|p|C|c))",s)
+                    if tp5:
+                        start = tp5.span()[0]
+                        end = tp5.span()[1]
+                        return [start, end, tp5.string[start:end]]
                 return [0, 0, ""]
         else:
             start = tp2.start()
@@ -186,7 +202,14 @@ def get_date(s):
         end = tp.span()[1]
         return [start, end, tp.string[start:end]]
 
-
+def get_candidate_name(resume_l):
+    st = resume_l[0]
+    doc = nlp(st)
+    p_name = ""
+    for ent in doc.ents:
+        if ent.label_ == "PERSON":
+            p_name = ent.text
+    return p_name
 '''
 get_date_and_remove_it_from_title:  find the date and remove it.
 '''
@@ -250,6 +273,9 @@ def get_city_allennlp_and_remove_it(st):
         if tag[2:] == "GPE":
             city_s = word
             s = rreplace(s,word,"",1)
+    states = '\s*(AZ|BC|AL|AK|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|LA|ME|MD|MA|MI|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)([^a-zA-Z0-9]|\Z)'
+    s = re.sub(states,"",s).strip()
+    s = re.sub(",$","",s).strip()
     s = s.strip()
     s= re.sub("[^a-zA-Z0-9]$","",s).strip()
     return(city_s, s)
@@ -263,9 +289,11 @@ def get_company_allennlp(st):
         if tag[2:] == "ORG":
             if not org_s:
                 org_s = word
+                s = s.replace(word, "")
             else:
                 org_s = org_s + " "+word
-    return org_s
+                s = s.replace(word,"")
+    return org_s,s
 def get_skills_info(resume_df,resume_l,skill_start):
     global skill_list
     in_skill = True
@@ -279,167 +307,334 @@ def get_skills_info(resume_df,resume_l,skill_start):
             in_skill = False
         else:
             i += 1
-    start_extract = resume_df.Block_Pos[skill_start]+1
+    start_extract = resume_df.Block_Pos[skill_start]
     if not_end_line:
         end_extract = resume_df.Block_Pos[i-1]
         tmp_res = resume_l[start_extract:end_extract]
     else:
         tmp_res = resume_l[start_extract:]
-    for skill_val in tmp_res:
-        skill_val = skill_val.replace(".","")
-        pos = re.search("\:",skill_val)
+    skill_list =""
+    for i,skill_val in enumerate(tmp_res):
+        s = re.sub("[A-Za-z]'s","s",skill_val)
+        pos = re.search(":\s+",s)
         if pos:
-            skill_val = skill_val[pos.end():]
-        tp_s = re.sub("[^a-zA-Z0-9\s]",";",skill_val)
+            s = s[pos.end():]
+        s = re.sub("[^a-zA-Z0-9\s,\.\$%\&\"]",":",s)
         if not skill_list:
-            skill_list = tp_s
+            skill_list = s
         else:
-            skill_list = " ; ".join([skill_list,tp_s])
-    return i
+            skill_list = skill_list +";"+s
+    skill_df = pd.DataFrame([{"SKI": skill_list,"Resume_Name":resume_df.Resume_Name[skill_start]}])
+    return skill_df,i
 def get_job_info(resume_df,resume_l,work_start):
-    global job_list
-    job_dict = {"ORG":"","JOB":"","DATE":"","GPE":""}
+    job_list = pd.DataFrame()
+    job_dict = {"ORG":"","JOB":"","DATE":"","GPE":"","EXP":""}
     #work_start = 3
     in_job = True
     i = work_start
+    last_pos =0
+    assume_job = False
     while in_job:
         company_s = ""
         city_s = ""
         job_title = ""
         s = resume_df.Block_Title[i]
-        s = re.sub("('|’)s", "s", s)
+        s = re.sub("('|’)(s|i)", "s", s)
         s = re.sub("\s{1,}", " ", s)
-        s = re.sub("\.","",s)
+        s = re.sub("\s+[b-hj-z]\s+",", ",s)
+        s = re.sub("\s+gg\s+",",",s)
+        if not re.search("[a-z]\.com",s):
+            s = re.sub("\.","",s)
         date_s, s = get_date_and_remove_it_from_title(s)
-        if date_s:
-            if job_dict["DATE"]:
-                job_list = job_list.append(job_dict, ignore_index=True)
-                for key in job_dict:
-                    job_dict[key]=""
-            job_dict["DATE"] = date_s
-        if s:
-            city_s, s = get_city_allennlp_and_remove_it(s)
+
+        s = re.sub(r'\([^)]*\)', '', s).strip()
+        s = re.sub(r'\([^)]*', '', s).strip()
+
         if len(s) <= 2:
             s = ""
-        s = re.sub(r'\([^)]*\)', '', s).strip()
-        s = re.sub(r'\([^)]*','', s).strip()
+        if s:
+            city_s, s = get_city_allennlp_and_remove_it(s)
 
-        s = re.sub("\s*(\||-|-|—|-|\:)\s*",", ",s).strip()
-        s = re.sub("\s+"," ",s).strip()
-        s = re.sub("(\A,|,$)","",s).strip()
-        start, end, job_title = list(get_job_title(s))[0]
-        if job_title:
-            if not re.search("\s+(At|AT|at)\s+",s) and not re.search(",",s):
-                if job_dict["JOB"]:
-                    job_list = job_list.append(job_dict, ignore_index=True)
-                    for key in job_dict:
-                        job_dict[key]=""
-                job_title = s
-                job_dict["JOB"] = s
-            elif re.search("\s+(At|AT|at)\s+",s) and not re.search(",",s):
-                tp = re.split("\s+(At|AT|at)\s+",s)
-                tp = [x.strip() for x in tp if x]
-                tp = [x for x in tp if x not in ["at","AT","At"]]
-                if not job_title["JOB"] and not job_title["ORG"]:
-                    job_title = tp[0]
-                    job_dict["JOB"] = job_title
-                    job_dict["ORG"] = tp[1]
-                elif job_title["JOB"] and not job_title["ORG"]:
-                    job_dict["ORG"] = s
-                elif job_title["JOB"] and  job_title["ORG"]:
-                    job_list = job_list.append(job_dict, ignore_index=True)
-                    for key in job_dict:
-                        job_dict[key] = ""
-                    job_title = tp[0]
-                    job_dict["JOB"] = job_title
-                    job_dict["ORG"] = tp[1]
-        else:
 
-            if re.search("\s+(At|AT|at)\s+") and not re.search(",",s):
-                tp = re.split("\s+(At|AT|at)\s+",s)
-                tp = [x.strip() for x in tp if x]
-                tp = [x for x in tp if x not in ["at","AT","At"]]
-                company_s = tp[1]
-                if job_dict["ORG"]:
-                    job_list = job_list.append(job_dict, ignore_index=True)
-                    for key in job_dict:
-                        job_dict[key] = ""
-                job_dict["ORG"] = company_s
-                if job_dict["ORG"] and not job_dict["Job_Title"]:
-                    job_dict["Job_Title"] = tp[0]
 
-            elif not re.search("\s+(At|AT|at)\s+") and not re.search(",",s):
-                if city_s:
-                    company_s = s
-                    if job_dict["ORG"]:
+            #s = re.sub("\s*(\||-|-|—|-|\:|\=|\@)\s*",", ",s).strip()
+            s = re.sub("\s*[^a-zA-Z0-9\,]\s+", ", ", s).strip()
+            s = re.sub("\s+"," ",s).strip()
+            s = re.sub("(\A,|,$)","",s).strip()
+            s = re.sub("(,\s?){2,}",", ",s)
+            start, end, job_title = list(get_job_title(s))[0]
+
+            if job_title:
+                job_title = s[start:end]
+                if not re.search("\s+(At|AT|at)\s+",s) and not re.search(",",s):
+                    if assume_job and job_dict["JOB"]:
+                        job_dict["JOB"]= s
+                        assume_job = False
+                    elif job_dict["JOB"]:
+                        if last_pos == 0:
+                            last_pos = resume_df.Block_Pos[i]+1
+                        else:
+                            job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos, resume_df.Block_Pos[i])
+                            last_pos = resume_df.Block_Pos[i]+1
+                        job_list = job_list.append(job_dict, ignore_index=True)
+                        for key in job_dict:
+                            job_dict[key]=""
+
+                    job_title = s
+                    job_dict["JOB"] = s
+                elif re.search("\s+(At|AT|at)\s+",s) and not re.search(",",s):
+                    tp = re.split("\s+(At|AT|at)\s+",s)
+                    tp = [x.strip() for x in tp if x]
+                    tp = [x for x in tp if x not in ["at","AT","At"]]
+                    if not job_dict["JOB"] and not job_dict["ORG"]:
+                        job_title = tp[0]
+                        job_dict["JOB"] = job_title
+                        job_dict["ORG"] = tp[1]
+                        last_pos = resume_df.Block_Pos[i]+1
+                    elif job_dict["JOB"] and not job_dict["ORG"]:
+                        job_dict["ORG"] = s
+                        last_pos = resume_df.Block_Pos[i]+1
+                    elif job_dict["JOB"] and  job_dict["ORG"]:
+                        if last_pos == 0:
+                            last_pos = resume_df.Block_Pos[i]+1
+                        else:
+                            job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos, resume_df.Block_Pos[i])
+                            last_pos = resume_df.Block_Pos[i]+1
                         job_list = job_list.append(job_dict, ignore_index=True)
                         for key in job_dict:
                             job_dict[key] = ""
-                    job_dict["ORG"] = company_s
-                else:
-                    doc = nlp(s)
-                    company_s = ""
-                    for ent in doc.ents:
-                        if ent.label_ == "ORG":
-                            if not company_s:
+
+                        job_title = tp[0]
+                        job_dict["JOB"] = job_title
+                        job_dict["ORG"] = tp[1]
+                elif re.search(",",s):
+                    tp = s.split(",")
+                    tp = [x.strip() for x in tp if x]
+                    job_t = [x for x in tp if re.search(job_title,x)]
+                    if job_t:
+                        job_title = job_t[0]
+                    s = s.replace(job_title,"")
+                    if not job_dict["JOB"] and job_dict["ORG"]:
+                            job_dict["JOB"] = job_title
+                            last_pos = resume_df.Block_Pos[i] + 1
+                    elif not job_dict["JOB"] and not job_dict["ORG"]:
+                        job_dict["JOB"] = job_title
+                        doc = nlp(s)
+                        company_s = ""
+                        for ent in doc.ents:
+                            if ent.label_ == "ORG":
                                 company_s = ent.text
-                            else:
-                                company_s = company_s + " " + ent.text
-                    if company_s:
+                        tp.remove(job_title)
+                        job_dict["ORG"] = company_s
+                        last_pos = resume_df.Block_Pos[i]+1
+
+                    elif job_dict["JOB"] and job_dict["ORG"]:
+                        if last_pos == 0:
+                            last_pos = resume_df.Block_Pos[i]+1
+                        else:
+                            job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos, resume_df.Block_Pos[i])
+                            last_pos = resume_df.Block_Pos[i]+1
+                        job_list = job_list.append(job_dict, ignore_index=True)
+                        for key in job_dict:
+                            job_dict[key] = ""
+                        job_dict["JOB"] = job_title
+                        doc = nlp(s)
+                        company_s = ""
+                        for ent in doc.ents:
+                            if ent.label_ == "ORG":
+                                company_s = ent.text
+                        tp = [ x for x in tp if x != job_title]
+                        #tp.remove(job_title)
+                        if company_s:
+                            job_dict["ORG"] = company_s
+
+                    elif job_dict["JOB"]:
+                        company_s = job_dict["ORG"]
+                        if last_pos == 0:
+                            last_pos = resume_df.Block_Pos[i]+1
+                        else:
+                            job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos, resume_df.Block_Pos[i])
+                            last_pos = resume_df.Block_Pos[i]+1
+                        job_list = job_list.append(job_dict, ignore_index=True)
+                        for key in job_dict:
+                            job_dict[key] = ""
+
+                        job_dict["JOB"] = job_title
+                        doc = nlp(s)
+                        company_s = ""
+                        for ent in doc.ents:
+                            if ent.label_ == "ORG":
+                                company_s = ent.text
+                        job_dict["ORG"] = company_s
+
+
+
+
+            else:
+                if re.search("\s+(At|AT|at)\s+",s) and not re.search(",",s):
+                    tp = re.split("\s+(At|AT|at)\s+",s)
+                    tp = [x.strip() for x in tp if x]
+                    tp = [x for x in tp if x not in ["at","AT","At"]]
+                    company_s = tp[1]
+                    if job_dict["ORG"]:
+                        if last_pos == 0:
+                            last_pos = resume_df.Block_Pos[i]+1
+                        else:
+                            job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos, resume_df.Block_Pos[i])
+                            last_pos = resume_df.Block_Pos[i]+1
+                        job_list = job_list.append(job_dict, ignore_index=True)
+                        for key in job_dict:
+                            job_dict[key] = ""
+
+                    job_dict["ORG"] = company_s
+                    if job_dict["ORG"] and not job_dict["JOB"]:
+                        job_dict["JOB"] = tp[0]
+                        last_pos = resume_df.Block_Pos[i]+1
+
+                elif not re.search("\s+(At|AT|at)\s+",s) and not re.search(",",s):
+                    if city_s:
+                        company_s = s
                         if job_dict["ORG"]:
+                            if last_pos == 0:
+                                last_pos = resume_df.Block_Pos[i] + 1
+                            else:
+                                job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos,
+                                                                              resume_df.Block_Pos[i])
+                                last_pos = resume_df.Block_Pos[i] + 1
                             job_list = job_list.append(job_dict, ignore_index=True)
                             for key in job_dict:
                                 job_dict[key] = ""
-                        job_dict["ORG"] = s
+
+                        job_dict["ORG"] = company_s
                     else:
-                        if job_dict["ORG"] and not job_dict["Job_Title"]:
-                            job_dict["Job_Title"] = s
-                        elif not job_dict["ORG"] and  job_dict["Job_Title"]:
+                        doc = nlp(s)
+                        company_s = ""
+                        for ent in doc.ents:
+                            if ent.label_ == "ORG":
+                                if not company_s:
+                                    company_s = ent.text
+                                else:
+                                    company_s = company_s + " " + ent.text
+                        if company_s:
+                            if job_dict["ORG"]:
+                                if last_pos == 0:
+                                    last_pos = resume_df.Block_Pos[i] + 1
+                                else:
+                                    job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos,
+                                                                                  resume_df.Block_Pos[i])
+                                    last_pos = resume_df.Block_Pos[i] + 1
+                                job_list = job_list.append(job_dict, ignore_index=True)
+
+                                for key in job_dict:
+                                    job_dict[key] = ""
+
                             job_dict["ORG"] = s
                         else:
-                            unknown =s
+                            if job_dict["ORG"] and not job_dict["JOB"]:
+                                job_dict["JOB"] = s
+                                assume_job = True
+                                last_pos = resume_df.Block_Pos[i]+1
+                            elif not job_dict["ORG"] and  job_dict["JOB"]:
+                                job_dict["ORG"] = s
+                                last_pos = resume_df.Block_Pos[i]+1
+                            else:
+                                unknown =s
 
-            elif re.search(",",s):
-                s = re.sub("(\A,|,$)","",s).strip()
-                tp = s.split(",")
+                elif re.search(",",s):
+                    s = re.sub("(\A,|,$)"," ",s).strip()
+                    tp = s.split(",")
+                    company_s, s = get_company_allennlp(s)
+                    if not company_s:
+                        doc = nlp(s)
+                        for ent in doc.ents:
+                            if ent.label_ == "ORG":
+                                if not company_s:
+                                    company_s = ent.text
+                                    s = s.replace(ent.text,"")
+                                else:
+                                    company_s = company_s+"; "+ company_s
+                                    s = s.replace(ent.text,"")
+                    s = s.strip()
 
-                doc = nlp(s)
-                company_s = ""
-                company_tmp = []
-                p = 0
-                for ent in doc.ents:
-                    if ent.label_ == "ORG":
-                        company_tmp.append(ent.text)
-                        s = s.replace(ent.text,"").strip()
-                if len(company_tmp) == 2:
-                    if not job_dict["ORG"] and not job_dict["Job_Title"]:
-                        job_dict["Job_Title"] = company_tmp[0]
-                        job_dict["ORG"] = company_tmp[1]
-                    elif job_dict["ORG"] and job_dict["Job_Title"]:
-                        job_list = job_list.append(job_dict, ignore_index=True)
-                        for key in job_dict:
-                            job_dict[key] = ""
-                        job_dict["Job_Title"] = company_tmp[0]
-                        job_dict["ORG"] = company_tmp[1]
-                elif len(company_tmp) == 1:
-                    if job_dict["ORG"]:
-                        job_list = job_list.append(job_dict, ignore_index=True)
-                        for key in job_dict:
-                            job_dict[key] = ""
-                    job_dict["ORG"] = company_tmp[0]
-                    if not job_dict["Job_Title"] and s:
-                        job_dict["Job_Title"] = s
+                    s = re.sub("[^a-zA-Z0-9]"," ",s).strip()
+                    if len(s) <= 3:
+                        s = ""
+                    # doc = nlp(s)
+                    # company_s = ""
+                    # company_tmp = []
+                    # p = 0
+                    # for ent in doc.ents:
+                    #     if ent.label_ == "ORG":
+                    #         company_tmp.append(ent.text)
+                    #         s = s.replace(ent.text,"").strip()
+                    if company_s and s:
+                        if not job_dict["ORG"] and not job_dict["JOB"]:
+
+                            job_dict["JOB"] = s
+                            assume_job = True
+                            job_dict["ORG"] = company_s
+                            last_pos = resume_df.Block_Pos[i]+1
+                        elif job_dict["ORG"] and job_dict["JOB"]:
+                            if last_pos == 0:
+                                last_pos = resume_df.Block_Pos[i] + 1
+                            else:
+                                job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos,
+                                                                              resume_df.Block_Pos[i])
+                                last_pos = resume_df.Block_Pos[i] + 1
+                            job_list = job_list.append(job_dict, ignore_index=True)
+                            for key in job_dict:
+                                job_dict[key] = ""
+                            job_dict["JOB"] = s
+                            assume_job = True
+                            job_dict["ORG"] = company_s
+                    elif company_s and not s:
+                        if not job_dict["ORG"]:
+                            job_dict["ORG"] = company_s
+                        else:
+                            if last_pos == 0:
+                                last_pos = resume_df.Block_Pos[i] + 1
+                            else:
+                                job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos,
+                                                                              resume_df.Block_Pos[i])
+                                last_pos = resume_df.Block_Pos[i] + 1
+                            job_list = job_list.append(job_dict, ignore_index=True)
+                            for key in job_dict:
+                                job_dict[key] = ""
+                            job_dict["ORG"] = company_s
+
+                        if not job_dict["JOB"] and s and date_s:
+                            job_dict["JOB"] = s
+                            assume_job = True
+                            last_pos = resume_df.Block_Pos[i]+1
 
 
-
+        if date_s:
+            if job_dict["DATE"]:
+                if last_pos == 0:
+                    last_pos = resume_df.Block_Pos[i] + 1
+                else:
+                    job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos, resume_df.Block_Pos[i])
+                    last_pos = resume_df.Block_Pos[i] + 1
+                job_list = job_list.append(job_dict, ignore_index=True)
+                for key in job_dict:
+                    job_dict[key]=""
+            last_pos = resume_df.Block_Pos[i] + 1
+            job_dict["DATE"] = date_s
         i += 1
         if i == resume_df.shape[0]:
-            in_job = False
-        if check_if_heading(resume_df.Block_Title[i]):
+            job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos + 1, resume_df.shape[0]-1)
             job_list = job_list.append(job_dict, ignore_index=True)
+            job_list["Resume_Name"] = resume_df.Resume_Name[work_start]
+            in_job = False
+        elif check_if_heading(resume_df.Block_Title[i]):
+            print(last_pos)
+            print(resume_df.Block_Pos[i])
+            job_dict["EXP"] = extract_job_experience_text(resume_l, last_pos+1, resume_df.Block_Pos[i])
+            job_list = job_list.append(job_dict, ignore_index=True)
+            job_list["Resume_Name"]= resume_df.Resume_Name[i]
             in_job = False
 
-    return i
+    return job_list
 
 def get_education_info(resume_df, edu_start):
     global edu_list
@@ -588,45 +783,7 @@ def get_education_info(resume_df, edu_start):
                         degree_dict[key] = ""
                 degree_dict["MAJ"] = major_s
 
-            # if len(tp) == 2 and re.search("\s*(in|In|IN)\s*",s):
-            #     if degree_dict["MAJ"]:
-            #         edu_list = edu_list.append(degree_dict, ignore_index=True)
-            #         for key in degree_dict:
-            #             degree_dict[key] = ""
-            #     degree_dict["MAJ"] = major_s
-            # else:
-            #     print(tp)
-            #     for val in tp:
-            #         doc = nlp(val)
-            #         major_s = ""
-            #         university_s = ""
-            #         for ent in doc.ents:
-            #             if ent.label_ == "MAJ":
-            #                 if not major_s:
-            #                     major_s = ent.text
-            #                 else:
-            #                     major_s = major_s + " ; " + ent.text
-            #             elif ent.label_ == "ORG":
-            #                 if not university_s:
-            #                     university_s = ent.text
-            #                 else:
-            #                     university_s = university_s + " - " + ent.text
-            #         if university_s and major_s:
-            #             if degree_dict["MAJ"]:
-            #                 university_s = university_s + major_s
-            #                 major_s = ""
-            #         if major_s:
-            #             if degree_dict["MAJ"]:
-            #                 edu_list = edu_list.append(degree_dict,ignore_index = True)
-            #                 for key in degree_dict:
-            #                     degree_dict[key] = ""
-            #             degree_dict["MAJ"]= major_s
-            #         if university_s:
-            #             if degree_dict["ORG"]:
-            #                 edu_list = edu_list.append(degree_dict,ignore_index = True)
-            #                 for key in degree_dict:
-            #                     degree_dict[key] = ""
-            #             degree_dict["ORG"] = university_s
+
 
         else:
             #remove everything between brackets
@@ -712,29 +869,49 @@ tmp check_if_headings(block)
 def check_if_potential_title(st):
     s = st.strip()
     s = re.sub(r'\([^)]*\)', '', s)
+    s = re.sub(r'\([^)]*', '', s).strip()
+    s = re.sub("[a-z]\'[a-z]\s+"," ",s)
+    s = re.sub("\s+[a-z]{1,2}\s+",", ",s)
+    s = re.sub("\s+[^a-zA-Z0-9\s\.\,]\s+",", ",s)
+    s = re.sub("\A,","",s).strip()
     if len(s) <= 3:
         return (False)
     if re.search("\s*((C|c)*(GPA|gpa)\:*)", s):
         return (True)
+    if re.search("\A[a-z][A-Z]",s):
+        return(True)
     if re.search("\A([a-z]|(A\s+))", s):
         return (False)
+    if is_email(s):
+        return(False)
     if re.search("\A(Skills|SKILLS)", s):
         return (True)
+    if re.search("\D\d{3}\D",s):
+        return(False)
     tp = s.split()
     tp = [x for x in tp if x]
     tp = [x.strip() for x in tp]
+    stop_words = set(stopwords.words('english'))
     if len(tp) >= 2:
-        stop_words = set(stopwords.words('english'))
         word_tokens = word_tokenize(s)
         filtered_sentence = [w for w in word_tokens if w in stop_words]
         left = set(filtered_sentence) - set(["in", "of", "at", "the", "for", "and", "to", "by", "s"])
         if left:
             return (False)
-    s_tp = res = re.sub(r'[^\w\s]', '', s)
-    tp = s_tp.split()
-    all_cap = [x for x in tp if x.isupper()]
-    if len(all_cap) == len(tp):
-        return (True)
+    s_tp = re.sub(r'[^\w\s]', '', s)
+    word_tokens = word_tokenize(s_tp)
+    tp = [w for w in word_tokens if w not in stop_words]
+    tp = [w for w in tp if w not in ["de","die"]]
+    tp = [w for w in tp if not re.search("\A\d{1,}\Z",w)]
+    if tp:
+        all_cap = [x for x in tp if x.istitle()|x.isupper()]
+        if len(all_cap) == len(tp):
+            return (True)
+        elif len(all_cap) == len(tp)-1:
+            return(True)
+        else:
+            return(False)
+
 
     if re.search("\A[^a-zA-Z0-9+]", s):
         return (False)
@@ -745,18 +922,18 @@ def check_if_potential_title(st):
     s = s.replace("\t", " ")
     s = s.replace("&", "")
     s = s.replace("|", "")
-
+    if re.search("\s+(1|2)\d{3}\Z", s):
+        return (True)
+    if re.search("^(1|2){3}\Z", s):
+        return (True)
+    if re.search("\A(1|2)\d{3}", s):
+        return (True)
     date_s, s = get_date_and_remove_it_from_title(s)
     if re.search("\s+\d{5}$", s):
         return (False)
     if date_s:
-        return (True)
-    if re.search("\s+(1|2)\d{3}\Z", s):
-        return (True)
-    if re.search("^[0-9]{4}\Z", s):
-        return (True)
-    if re.search("\A[0-9]{4}", s):
-        return (True)
+        return(False)
+
     match = re.findall("[:,]", s)
     '''pos_q = re.search(":",s)
     pos_c = re.search(",",s)
@@ -961,6 +1138,11 @@ def check_if_city_and_remove_it(s):
             return s
     return ""
 
+def extract_job_experience_text(resume_l,start_ndx,end_ndx):
+    text_exp = ""
+    for text_n in range(start_ndx,end_ndx):
+        text_exp = text_exp+ "\n"+resume_l[text_n]
+    return text_exp
 
 # GPA re.search("GPA\:*\s+[0-9]{1,2}\.*([0-9]{1,2})*","Master of Technology in Intelligent Systems, GPA 4")
 def extract_GPA_clean_s(st):
@@ -1139,15 +1321,13 @@ def count_n_POS(s):
 
 def is_phone_number(s):
     res = re.sub(r'[^\w^\s]', '', s)
-    res = res.replace(' ', "")
-    l = list(res)
-    if res.isnumeric() and (len(l) >= 9):
-        return (True)
+    pos = re.search("\d{10,}", s)
+    if pos:
+        return(True)
     else:
-        return (False)
+        return(False)
 
 
-# In[899]:
 
 
 # "from find_job_titles import FinderAcora"
@@ -1155,12 +1335,13 @@ def is_phone_number(s):
 # s = 'SR. DATA PROCESSING SYSTEMS ANALYST'
 # Find Job Title
 def get_job_title(s):
-    f = re.search("(QA\s|ASSISTANT|Assistant|ANALYST|Analyst|PRINCIPAL|Principal)", s)
+    f = re.search("(QA\s|Head|HEAD|ASSISTANT|Intern|INTERN|Assistant|ANALYST|\
+    Analyst|PRINCIPAL|Principal|Consultant|CONSULTANT)", s)
     if f:
         start, end = f.span(0)
         title_s = f.string
         print(start, end)
-        yield start, end, title_s
+        yield start, end, title_s[start:end]
     else:
         s = s.title()
         finder = FinderAcora()
@@ -1552,44 +1733,6 @@ def get_all_experiences(resume_l, start_t, end_extract_pos):
 # In[ ]:
 
 
-def tag_headings(resume_df):
-    for index, row in resume_df.iterrows():
-        s = row["Block_Title"]
-        degree, degree_type = extract_degree_level(row["Block_Title"])
-        start, end, job_title = get_job_title(s)
-        pos_degree = re.search(degree, s)
-        if pos_degree.start() == 0:
-            resume_df[index, "MAJ"] = job_title
-            resume_df[index, "Job_Title"] = ""
-            doc = nlp(s)
-            print(" major ", job_title)
-            for ent in doc.ents:
-                if ent.label_ == "ORG":
-                    if n == 1:
-                        resume_df.loc[index, "ORG"] = ent.text
-                        s = s.replace(ent.text, "").strip()
-                        n += 1
-                    else:
-                        s = s.replace(ent.text, "").strip()
-                        resume_df.loc[index, "ORG"] = resume_df.loc[index, "ORG"] + " : " + ent.text
-        if degree:
-
-            degree_info = extract_all_info_degree(row["Block_Title"])
-            #
-            #    print(key, " * ",index)
-            for key, val in degree_info.items():
-                resume_df.loc[index, key] = val
-        else:
-            job_info = get_job_info(row["Block_Title"])
-            print(" JOB INFO ", job_info)
-            for key, val in job_info.items():
-                resume_df.loc[index, key] = val
-            # tp = [1 for x in list(job_info.values()) if x]
-            # if tp:
-            #   for key, val in job_info.items():
-            #       print(key, " * ",index)
-            #       resume_df.iloc[index,key] = val
-    return resume_df
 
 
 def parse_all_engineers_resume():
@@ -1610,41 +1753,52 @@ def parse_all_engineers_resume():
     print("Finished")
     return ("Complete")
 
+def get_job_info_1_resume(pdf_document):
+    global job_list,master_job_df,resume_df,resume_l,master_ski_df
+    resume_df = pd.DataFrame()
+    resume_l = []
+    text = read_pdf_resume(pdf_document)
+    # text = open(pdf_document, "r").read()
+    resume_l = initial_cleaning(text)
+    resume_df = V2_gather_headings(resume_l, resume_name)
+    resume_df.reset_index(inplace=True, drop=True)
+    candidate_name = get_candidate_name(resume_l)
+    if candidate_name:
+        resume_df = resume_df[resume_df.Block_Title != candidate_name]
+        resume_df.reset_index(inplace=True, drop=True)
+    found = False
+    counter = 0
+    print(resume_name)
+    job_list = pd.DataFrame()
+    while not found:
+        if check_if_heading(resume_df.Block_Title[counter]) == "TXT":
+            job_list = get_job_info(resume_df, resume_l, counter + 1)
+            master_job_df = master_job_df.append(job_list, ignore_index=True)
+            master_job_df.to_csv("hiring_manager_Job_201118-24-12.csv")
+            found = True
+        elif check_if_heading(resume_df.Block_Title[counter]) == "SKI":
+            skill_df,i = get_skills_info(resume_df,resume_l,counter)
+            master_ski_df = master_ski_df.append(skill_df)
 
+            master_ski_df.to_csv("hiring_manager_ski_201119-2-29.csv")
+            found = True
+        counter += 1
+        if counter == resume_df.shape[0]:
+            found = True
+    return master_ski_df
 # In[1008]:
 nlp = spacy.load('./')
 initialize_headings_file()
-path_name = "../Engineers/"
-resume_name = "100010239.pdf"
-pdf_document = path_name + resume_name
-text = read_pdf_resume(pdf_document)
-#text = open(pdf_document, "r").read()
-resume_l = initial_cleaning(text)
-
-resume_df = V2_gather_headings(resume_l, resume_name)
-resume_df.reset_index(inplace=True, drop=True)
-found = False
-counter = 0
-while not found:
-    if check_if_heading(resume_df.Block_Title[counter]) == "EXP":
-        counter = get_job_info(resume_df, resume_l, counter+1)
-        found = True
-    # counter += 1
-    # if check_if_heading(resume_df.Block_Title[counter]) == "EDU":
-    #     counter = get_education_info(resume_df, counter+1)
-    #     found = True
-    counter += 1
-#       if check_if_heading(resume_df.Block_Title[counter]) == "SKI":
-#          counter = get_skills_info(resume_df,resume_l,counter+1)
-#          found = True
-#       counter += 1
-#      else:
-#          counter += 1
-#counter = get_skills_info(resume_df,resume_l,counter)
-#counter = get_job_info(resume_df,resume_l,3)
-resume_df.to_csv("resume_df_130118433.csv")
-print("test")
-resume_df.to_csv("resume_df_130118433.csv")
+resume_2_process = pd.read_csv("../Resume2Parse.csv")
+path_name = "../HSS Resumes/hiring-manager/"
+for j in range(2,29):
+    resume_name = "hiring_manager_review1 (dragged) "+str(j)+".pdf"
+    pdf_document = path_name + resume_name
+    final_df = get_job_info_1_resume(pdf_document)
+final_df.reset_index(inplace=True, drop=True)
+final_df.to_csv("resume_hiring_manager_review1_skill_201119.csv")
+# print("test")
+# resume_df.to_csv("resume_df_130118433.csv")
 # outcome = parse_all_engineers_resume()
 
 # path_name = "../HSS_Resumes/"
@@ -1670,17 +1824,7 @@ resume_df.to_csv("resume_df_130118433.csv")
 #         resume_df.loc[ndx,"Head_Tag"] =  tmp
 #         resume_df.loc[ndx,"Subheading"]= ""
 # resume_df.to_csv("Analyze Resume_df.csv")
-#
-# start_t, end_extract_pos = V2_get_start_and_end_experience(resume_df,experience_headings)
-# resume_df.reset_index(inplace=True,drop=True)
-# resume_df2 = tag_headings(resume_df)
-# resume_df2.loc[resume_df2.Block_Pos < start_t, "Job_Title"] = ""
 
-# total_experience = get_all_experiences(resume_l,start_t,end_extract_pos)
-# resume_df
-
-
-# In[1011]:
 
 
 resumes2process = pd.read_csv("../CFDS_Resume_2_Process.csv")
@@ -1770,74 +1914,6 @@ def tag_headings(resume_df):
     return resume_df
 
 
-# In[1000]:
 
 
-start_t
 
-# In[419]:
-
-
-# def get_start_end_continous_Rows(resume_df,)
-'''found_block = False
-
-resume_df2 = add_flags_2_resume_df(resume_df.query("index > "+str(start_pos)+" and index < "+str(end_extract_pos)))
-resume_df2.reset_index(drop=True, inplace=True)
-
-resume_df2["Sum_Experience_Val"] = resume_df2[["Job_Title","Company_Name","Date_s","City_Name"]].sum(axis = 1)
-end_resume_df = False
-index = 0
-start = 0
-len_resume_df2,_ = resume_df2.shape
-start_end_df = pd.DataFrame()
-for index, row in enumerate(resume_df2):
-    if index+1 < len_resume_df2: 
-        diff_val = resume_df2.Block_Pos[index+1] - resume_df2.Block_Pos[index]
-        if resume_df2.Sum_Val[index] == 0:
-            start_end_df = start_end_df.append({"start":resume_df2.Block_Pos[start],"end":resume_df2.Block_Pos[index],
-                                               "sum_val":resume_df2.Sum_Experience_Val[start:index+1].sum(axis=0)}, ignore_index = True)
-            start = index+1
-        else:
-            if  diff_val > 2:
-                start_end_df = start_end_df.append({"start":resume_df2.Block_Pos[start],"end":resume_df2.Block_Pos[index],
-                                                   "sum_val":resume_df2.Sum_Experience_Val[start:index+1].sum(axis=0)},ignore_index = True)
-                start = index+1
-            
-        
-        '''
-
-# In[420]:
-
-
-'''start_end_df
-
-
-# In[421]:
-
-
-#start_end_df = start_end_df[1:,:]
-finished = False
-index = 0 
-len_df,_ = start_end_df.shape
-experience_df = pd.DataFrame()
-counter = 1 
-for idx in range(0,len_df-1):
-    if start_end_df.sum_val[idx] > 0:
-        text_data = ""
-        for i in range(int(start_end_df.end[idx]+1),int(start_end_df.start[idx+1])):
-            text_data = text_data+"\n"+resume_l[i]
-        counter += 1
-        experience_df = experience_df.append({"Experiences":text_data},ignore_index = True)
-        if (counter > 3):
-            break
-experience_df
-
-
-# In[374]:
-
-
-resume_df2 = resume_df2.assign(Sum_Val = 0)
-resume_df2["Sum_Val"] = resume_df2[["Job_Title","Company_Name","Date_s","City_Name"]].sum(axis = 1)
-'''
-
-# In[ ]:

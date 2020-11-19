@@ -1,0 +1,339 @@
+,DATE,EXP,GPE,JOB,ORG,Resume_Name
+0,January 2019 to P,"
+Fareena Saqib; both Assistant Professors in the Electrical and Computer Engineering Department.
+This project mainly involves data collection from Phasor Measurement Units, extraction into human readable
+format, processing the data using machine learning techniques and thus designing a model to detect
+anomalies in the same.
+Extraction of raw data consisting of 2 million records each day using openHistorian2.0 tool.
+Implementing distributed file systems like Hadoop to decrease data processing time on the data.",,Graduate Research Assistant,University of North Carolina,100010239.pdf
+1,May 2018 to Aug 2018,"
+• Developed a deep Siamese convolutional neural network for image recognition
+of Philips products from customer images, testing with real-world images
+• Gained experience with various stages of the ML project lifecycle, using data
+processing tools including Selenium, Pandas, Keras, TensorFlow, AWS",,Machine Learning Intern,Philips Lighting,100010265.pdf
+2,June 2017 to Aug 2017,"
+• Built prototype of a reinforcement learning framework for optimizing allocation
+of resources in DNS hosting service, using Python and TensorFlow
+Graduate
+Research",,Research Intern,AT&T Labs,100010265.pdf
+3,Jan 2013 to p,"
+variable screening methods for statistical inference in high-dimensional linear
+models, demonstrating application in NLP and genomic data analysis
+• Derived new sample complexity bounds for learning multi-modal (tensor)
+regression models using projected gradient descent
+• (MS thesis) Formulated bottom-up clustering approaches to manifold learning
+Graduate",,Graduate Assistant,Rutgers University,100010265.pdf
+4,September 2014 - P,"
+Project: IntroPro is a privately held company that specializes on complete life cycle of embedded software
+development and enterprise applications development/integration for satellite TV broadcasting and
+telecommunication industries. • OS: Linux/Unix, Windows; • Tools: JIRA, TestLink, CVS, Getter,
+Minicom, VirtualBox; • Manual testing: smoke testing, black box/functionality, installation testing,
+performance testing, ux, regression, configuration/compatibility; • Testing new features and support of
+existing Linux Embedded software for DirecTV Satellite and Cable TV Set Top Boxes; • Responsible for
+full-cycle testing and other software product verification and validation activities; Installation testing of
+different hardware; • New feature functionality testing; • Helping new-comers with understanding testing
+processes and client-server architecture. #Achievements# Provided valuable feedback on product quality
+so dev team was able to fix a number of critical issues. #onverted some manual tests in auto-tests (https://
+github.com/kutsevol/intropro).",,QA Engineer,Intro Pro,10006283.pdf
+5,June 2013 - August 2014,"
+Charles, Fiddler, ADB, Air-server, Wireshark; • Manual testing: functional, smoke, usability, regression,
+exploratory, ux; • Creating, verifying and executing test cases, checklists; • Creating bug reports in bug
+tracking system (JIRA); • Helping new-comers with understanding testing processes and client-server
+architecture. #Achievements# Provided valuable feedback on product quality so dev team was able to
+fix a number of critical issues. Tune-up online service for over-the-air installation and testing of mobile
+applications.",,Mobile QA Engineer,Playtika,10006283.pdf
+6,2014 to 2018,"
+- Designing workflow for real time labor hours tracking.
+- Training employees on using new software system
+- Input employee info into new database",,IT Intern/ Customer Service Intern,Webster Industries Inc,100102005.pdf
+7,,,,,Autodesk Asia Pvt Ltd,100123442.pdf
+8,,"
+Machine learning and data science intern
+Aug ’18 – Mar’19
+Researched and implemented methods to evaluate similarity between 3D design parts using
+deep learning models and custom similarity measures
+Implemented a novel approach to evaluate transformability between 3D designs
+Developed a web application to visualize interaction between designs and design parts as graphs
+Visenze
+Singapore
+Data analyst intern
+Feb ’18 – May’18
+Developed and maintained Python scripts to crawl images for training image recognition models
+Analyzed crawled images and updated training data collection strategy as required
+Microsoft India Pvt. Ltd.",,,Microsoft India Pvt Ltd,100123442.pdf
+9,,"
+SQL Server and third-party products – custom applications, Telnet servers, etc.
+Developed interactive web widgets using Angular JS, HTML and CSS",,Web API,Jun ’ – Dec’17,100123442.pdf
+10,Feb 2008 – ,"
+Product Information:
+Founded in 1997, Saba (NASDAQ: SABA) is the premier global provider of
+strategic Talent Management Solution software and services.
+Saba people/Talent management solutions are used by more
+than 4000+ customers and over 33 million end users
+worldwide.
+Saba solutions increase organizational performance by aligning
+workforce goals with organizational strategy; developing, managing and
+rewarding their people; and improving collaboration.
+Saba product offerings address all aspects of strategic HCM which
+includes various product lines such as Learning Management, Content",,"Sr Module Lead,",Saba Software Pvt Ltd,100147143.pdf
+11,,"
+Key Responsibilities:
+Ensure design, build and implementation of work product; participate in
+requirements elicitation, validation of architecture, creation and review
+of design, assign and review tasks.
+Perform High Level and low level design.
+Conducting architecture review sessions, provide inputs through
+framework analysis, and identify scope for design patterns usage to
+create high level design specification.
+Perform code quality reviews and Unit test plan reviews, conduct
+independent system testing and sign off code for testing.
+Handle customer escalations and provide solutions.
+Mentoring 7 member’s team by giving technical guidance and helping
+them in analysing their task.
+Technologies and Tools :
+Spring, Hibernate, Angular JS, REST, Bitbucket, Oracle 11g, GIT, Nginx.",,"Management, , Collaboration",Performance Management,100147143.pdf
+12,Sep 2018,"
+Developed client similarity algorithm in stock recommendation system (over 3 million clients) using
+new features with k-means clustering, improved 30% in variety of stocks presented.
+Implemented sentiment analysis (NLP) for financial news with SVM and Logistic Regression, to build
+BLACK-SWAN event analysis toolkit on web platform using Python & Java.",,Software Engineer Intern,Jun,100173135.pdf
+13,,,,,WIN WIND SECURITIES LTD,100173135.pdf
+14,Jul 2015 - Sep 2016,"
+implemented architecture and algorithm to manage user-defined trading strategies.
+Developed standalone application to calculate over 40 indicators with customized query interface.
+Monitored real-time trading strategies, implemented APIs to brokers for live order management.",,Software Engineer,,100173135.pdf
+15,,,,Fellow,The Data Incubator,100222685.pdf
+16,Feb 2019,"
+• Scraped and explored the audio and transcripts from more than 2900 TED talks
+• Developed a web application that compares user audio with that of TED presenters to
+provide real-time feedback on how they can improve at public speaking
+• Implemented NLP algorithms to analyze a user’s spoken presentation and wrote custom
+interactive visualizations using D3.js to present this data in an understandable manner
+Washington University",,,Washington University,100222685.pdf
+17,Aug 2012 – Apr 2019,"
+• Designed experiments and applied quantitative genomics, machine learning, and computer
+vision to identify genes and neurons important for directing social behaviors in the fruit ﬂy
+• Developed three Qt-based graphical user interfaces for the acquisition, tracking, and
+analysis of animal behaviors, and utilized these programs to analyze 4TB+ of video data
+• Applied signal processing techniques, including sliding window, FFT, and wavelet analysis,
+on timeseries data to generate salient features for classification algorithms
+• Trained and validated boosted decision trees and neural networks to classify animal
+behaviors with >95% accuracy",,Graduate Student,,100222685.pdf
+18,Aug 2013 – Dec 2018,"
+• Provided mentoring to 3 high school and 5 undergraduate students
+• Developed research proposals, trained students in experimental techniques, and helped
+students cultivate skills in critical thinking and scientific writing
+Massachusetts Institute of Technology",,Research Supervisor,Massachusetts Institute of Technology,100222685.pdf
+19,Aug 2010 – May 2012,"
+• Generated an array of genetic constructs to determine regions of DNA associated with
+transcriptional activation kinetics",,Research Technician,,100222685.pdf
+20,June 2018 - P,"
+HL Investrade is a Quantitative Asset Management firm which engages in research on financial data using AI.
+Data Scientist
+● Developing a tactical asset allocation model to diversify portfolio among equities, bonds and commodities like gold.
+● Built a multi-objective NSGA-II Portfolio Optimizer to assign weights to each stocks in the portfolio.
+● Created new Target Y for the classification data set and generated statistics for each target class to verify high boundary
+separations between all classes.
+● Worked on Data cleaning module to detect outliers and worked on data visualization to evaluate each feature.
+● Created Database in PostgreSQL to store time series data which included fundamental and technical indicators.",,Data Scientist,HL Investrade,100249178.pdf
+21,March 2017 - June 2017,"
+● Implemented a wrapper based feature subset selection method to reduce the number of features in the dataset.
+● Implemented Naive Bayes and Random Forest classifiers to predict the class rank of a given stock. The time series data
+on which the model was trained, contained the class ranks assigned to each stock based on their past performance.
+● Implemented “Classification Rule Learning with APRIORI-C” to classify stocks based on a set of rules.",,Data Science Intern,HL Investrade,100249178.pdf
+22,Engineer 2015 to P,"
+TECH KUNJA PVT. LTD.
+Managing company from the ground up, strategically and innovatively growing the
+business. Developing React and React Native projects.",,founder and Software,TECH KUNJA PVT LTD,100262946.pdf
+23,nstructor 2018 to P,"
+LINE ACADEMY NEPAL",,Founder and I,LINE ACADEMY NEPAL,100262946.pdf
+24,LECTURER 2018 to P,"
+SWASTIK COLLEGE
+Give Lecture on subjects like Artificial Intelligence, Data Science, Database Management
+System, E-commerce, Internet Technology.",,,SWASTIK COLLEGE,100262946.pdf
+25,Manager 2016 to 2017,"
+LOCUS
+An annual technological fest organized by the students of IOE Pulchowk Campus.",,,,100262946.pdf
+26,Member 2015 to 2017,"
+A youth organization that works on the field of environment, youth, health, science and
+technology.",,,Sano Sansar Initiative,100262946.pdf
+27,May 2016 – ,"
+Highly Automated Driving – Machine learning tools
+Working on development of tools for image annotation for training of ML algorithms
+Unit testing suites
+NDS map compiler - Volvo
+Worked on Routing, BMD and Traffic building blocks of Navigation Data Standard
+(NDS-2.2.1) maps
+Enhanced various testing tools to ease testability.",,till date,Sr Engineer,100280413.pdf
+28,June 2010 – April 2018,"
+Application development for Daimler’s procurement department
+Application development for Daimler’s certificate printing application",,Software Engineer,Capgemini India,100280413.pdf
+29,June 2008 – May 2010,"
+Involved in development of Dassault’s lathe machining software in CNEXT framework
+Testing of software on lathe machines",,Software Engineer,Dassault Systems,100280413.pdf
+30,Sep 2004 – May 2008,,,Industrial Engineer,Capgemini India,100280413.pdf
+31,June 2018 to P,"
+• Worked on converting monolith system into a microservices architecture (tech stack: Python,",,Python Software Engineer,NumbersUSA,100280470.pdf
+32,,"
+Docker, Kubernetes, Redis, gRPC)
+• Designed, built, and maintained API services (RESTful, gRPC)
+• Designed and implemented database schemas
+• Testing included integration, unit, and manual testing
+• Wrote and maintained code base documentation (GitHub Wikis)
+• Capable of reading, understanding, and refactoring legacy code",,SQL,AWS,100280470.pdf
+33,January 2017 to December 2017,"
+• Developed predictive analytics model for rainfall time series data using Recurrent Neural Network
+(Python, Keras, MySQL, Scikit-learn)
+• Conducted statistical analysis and wrote reports/presentations for Professors (Python, Tableau, Excel)
+• Created frontend and content management system for climate change project (PHP, Laravel, MySQL,
+Javascript)
+• Implemented functions for storm event analysis site (Python, PHP)
+• Enhanced storm event system by resolving missing data with data mining/ETL (Python, MySQL)
+• Found new solutions for handling heavy computation of large data (Python, Scala, Apache Spark)",,Graduate Assistant,,100280470.pdf
+34,February 2014 to August 2016,"
+• Successfully prepared for tests (IELTS, GRE) and requirements to apply for Master's Degrees program
+Developer",,Freelancer/Student,Studied English at LADO International Institute,100280470.pdf
+35,June 2012 to January 2014,"
+• Developed and implemented a social network site between businesses to share information
+• Created, provided and analyzed APIs services for mobile applications to share, listen to music and
+socialize
+• Designed and implemented many frontend websites in different fields
+• Managed and optimized database system for several projects",,,QSOFT,100280470.pdf
+36,April 2011 to P,"
+- Wrote custom Nagios scripts using JUNOScript API to monitor switch health and trigger configuration
+change events to decrease downtime
+- Implemented Ansible automation for Juniper and Linux systems to reduce errors and standardize the
+environment
+- Built network registration system on Linux, Apache, PostrgreSQL, and Perl for tracking student device
+ownership
+- Automated processing of DMCA notifications: ingesting notification emails, query network registration
+system, generate student notifications, and removing access
+- Created Python and XSLT script to parse Juniper interface statistics, send data to Graphite, and create
+HTML files to browse network graphs
+- Python script to correlate BGP routes and traffic logs to determine top bandwidth sources and
+destinations
+- Script to load Palo Alto firewall logs and configuration to cleanup unreferenced objects, refactor
+security zones, and enhance security rules
+- Installed OpenShift for Docker container environment and develop containerized web applications
+- Wrote Ruby script to sync Active Directory information into Zendesk
+- Set up RANCID with Subversion and additional custom scripts for network device configuration
+change management keeping the networking team notified of changes
+- Plan and coordinate datacenter move from on-site to co-location facility: rack layout, cross connect
+moves, network rework, power off and power on of environment
+- Train and develop skills of new and current team members",,Network Administrator/Engineer,Emerson College,100314900.pdf
+37,September 2004 to April 2011,"
+and firewalls.
+- Configured and maintained BGP peering with multiple ISPs, implemented OSPF, configured and
+monitored PIM routing and other multicast routing issues.
+- Maintained firewall policy and static routes.
+- Analyzed packet traces to diagnose server and network problems, firewall and IPS behavior.
+- Researched and recommended new security and core network equipment and software.
+- Installed and managed wireless network of over 400 APs using 802.1x authentication against RADIUS
+servers.
+- Advised on AP placement for coverage and channel assignment.
+- Maintained a multi-master DNS environment with internal DNS run on Active Directory integrated
+zones and external queries handled by BIND9 on Linux.
+- Installed and recommended upgrades of PureMessage for Linux anti-spam mail gateways handling all
+inbound mail from the Internet.
+- Managed Windows Active Directory with over 10,000 accounts and created scripts for automating
+account creation for over 1,000 new students every year.
+- Monitored Microsoft Exchange environment with over 10,000 mailboxes.
+- Planned and performed Exchange upgrades from 2000 to versions 2003 and 2007 in clustered
+environments.
+- Managed private Certificate Authority with subordinate Microsoft Certificate Services and maintained
+a certificate revocation list.
+- Performed system administration tasks, such as applying patches, and administrating group policies.",,Systems Analyst,Emerson College,100314900.pdf
+38,Mar 2019 – P,"
+Focuses included:
+Implementing Lambda APIs
+Implementing Monitoring
+Automating software build processes with BuildBot
+Automating hardware production processes with AWS IOT Core
+Redshift administration
+Software development process change",,Software Development Engineer,Centra Tech Solutions,100326001.pdf
+39,Apr 2017 – Mar 2019,"
+Focusses include:
+Managing Agile Ceremonies
+Scrum team management of the software/firmware and hardware teams
+Epic planning, analysis and writing
+Achievements have included:
+Regular completed fortnightly sprints
+Moving the firmware team from irregular releases to delivering new
+software and updates on a regular basis
+Transitioning the hardware team from having no methodology or regular
+delivery to an regularly delivering team with scrum",,Scrum Master,Cornerstone Solutions,100326001.pdf
+40,Feb 2015 – P,"
+C/C++ on Beaglebone SOC and AVR
+Windows Server/IIS management with Powershell
+Achievements have included:
+Re-architecting the mail interface
+Re-architecting the external storage interface to support AWS, Dropbox,",,Software Development Engineer,Python,100326001.pdf
+41,,"
+Developing an automatic time-lapse generation tool
+Training new graduates to work within a professional software team
+Other work experience",,,FTP and Aconex,100326001.pdf
+42,Dec 2013 – Jul 2014,"
+Governance officer",,Junior Legal Counsel,Country Fire Authority,100326001.pdf
+43,Apr 2012 – Dec 2013,"
+Private Guitar Teaching
+Private Game Development (Non professionally)
+Demonstrated skills
+Project management
+My role as a scrum master has incorporated managing a team and projects from
+conception, to planning, to execution, to testing, to release. I have demonstrated an ability
+to have projects appropriately scoped and scheduled.
+Communication
+My legal training and finance training combined with my experience in software has given
+me an ability to communicate with people involved in business operations and
+requirements, as well as software developers. My scrum master role involves regular
+presentations to the rest of the company. I am ideally placed for understanding business
+requirements from a software perspective.
+Software architecture
+My software development role has involved significant rework of legacy code as well as
+planning new code. Due to the scale of the codebase and ongoing operations of the
+photoSentinel product, these changes required significant planning. The rearchitecture
+projects have resulted in a codebase that is more reliable, enforces data consistency, and
+significantly improves the team’s ability to add new features to the code.",,,,100326001.pdf
+44,08/2015—P,"
+• Led a team of 4 research assistants for the development of open-source packages in both MATLAB and R
+(https://github.com/CABSEL/CALISTA and https://github.com/CABSEL/SINCERITIES ).
+• Mentored 1 visiting PhD student from Zhejiang University and 2 Master students in ETH Zurich on their research
+projects. Trained undergraduates in Chemistry courses.
+• Published 4 refereed journal articles in MDPI Processes (2018), Bioinformatics (2017), PLoS Biology (2016) top
+50 most downloaded, IFACPapersOnLine (2016).
+Master’s Researcher",,Chemical and Biological System Engineering Laboratory,Biel,100334882.pdf
+45,09/2014—02/2015,"
+Tested and compared the performance of different models using in silico data and cross-validation.
+Developed an algorithm for bacteriophage quantification in MATLAB. The approach adopts ordinary
+differential equations (ODEs) describing phage-host interaction.
+Spearheaded collaboration between 2 group leaders for thesis work.
+Assisted in lab maintenance and organization.
+Developed experimental protocols and mentored graduate students.",,,"University of Warwick, School of Life Sciences",100334882.pdf
+46,MAY 2017 – ,"
+Automation Engineer / Beyondsoft International PTE. LTD,
+Singapore (on-site HP Inc.)
+1. Design, develop, and maintain scripts and web applications for testing purpose
+2. Package executing environments and deliver them to the corresponding testing team
+with VMware or docker
+3. Work closely with R&D developers, managers and testing teams to identify critical
+testing scenarios for automation
+4. Provide test and ROI reports for the management
+5. Guide and mentor cross team members to write and execute automation test cases",,Automation Engineer / Beyondsoft International PTE LTD,,100371795.pdf
+47,APRIL 2015 – ,"
+Automation Engineer / Huiyingjinfu Co. LTD, China
+1. Design, develop, and maintain automated testing script and other web applications for
+financial system
+2. Work closely with development, business and manual testing team to identify critical
+business scenarios for automation
+3. Quantify and estimate automation activities
+4. Design automation test cases for Web, API and mobile tests
+5. Guide and mentor cross team members to write and execute automation test cases",,Automation Engineer / Huiyingjinfu Co LTD,,100371795.pdf
+48,SPET 2013 – ,,,Software Developer / China,Canada Technology Co LTD,100371795.pdf
+49,JULY 2012 – ,"
+Inc., Canada
+1. Develop and maintain web and mobile applications in Python and JavaScript
+2. Provide IT support and create project wiki
+3. Responsible for CentOS server maintenance",,Software Developer / Rowan Williams Davies and Irwin,Inc,100371795.pdf
+50,May 2015-Aug 2015,"
+Hewlett-Packard",,Software Engineer Intern,"Hewlett, Packard",10051187.pdf
+51,June 2013-May 2015,,,Software Engineering Intern,TX,10051187.pdf
