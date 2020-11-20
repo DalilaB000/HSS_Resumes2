@@ -297,6 +297,13 @@ def get_date_and_remove_it_from_title(st):
 
 
 def get_date_ent(st):
+    '''
+    get_date_ent: use spacy to extract dates that cannot be extracted by get_date like summer 2019.
+    Unfortunately, neither spacy nor allennlp are able to extract dates properly (which explains the
+    reason for needing get_date)
+    :param st: string
+    :return: date_s (date) and leftover string
+    '''
     doc = nlp(st)
     s = st
     date_s = ""
@@ -306,18 +313,15 @@ def get_date_ent(st):
             s = st.replace(date_s, "")
             return date_s, s
     return (date_s, s)
-def get_company_allennlp(st):
-    st = ""
-    tp = predictor.predict(
-        sentence=st
-    )
-    for word, tag in zip(tp["words"], tp["tags"]):
-        if tag[2:] == "ORG":
-            st = st + " " + word
-        print(f"{word}\t{tag}")
-    st = st.strip()
-    return(st)
+
+
+
 def get_city_allennlp_and_remove_it(st):
+    '''
+    get_city_allennlp_and_remove_it: get a string and extract the city if it is in it
+    :param: st: string
+    :return city, and remaining of the string
+    '''
     s = st
     city_s = ""
     tp = predictor.predict(
@@ -333,7 +337,14 @@ def get_city_allennlp_and_remove_it(st):
     s = s.strip()
     s= re.sub("[^a-zA-Z0-9]$","",s).strip()
     return(city_s, s)
+
 def get_company_allennlp(st):
+    '''
+    get_company_allennlp: extract company name from a string and return the string
+    without the company name
+    :param st: string
+    :return: company name, and remaining string
+    '''
     s = st
     tp = predictor.predict(
         sentence=st
@@ -348,7 +359,16 @@ def get_company_allennlp(st):
                 org_s = org_s + " "+word
                 s = s.replace(word,"")
     return org_s,s
+
 def get_skills_info(resume_df,resume_l,skill_start):
+    '''
+    get_skills_info: given the title dataframe, and the resume_l, and the starting position
+    of the skill section extract the skills
+    :param resume_df: dataframe with titles, sections and their position
+    :param resume_l: list of resume lines
+    :param skill_start: position in resume_df of skills section
+    :return: dataframe with skills, and position in resume_df
+    '''
     global skill_list
     in_skill = True
     i = skill_start+1
@@ -380,7 +400,15 @@ def get_skills_info(resume_df,resume_l,skill_start):
             skill_list = skill_list +";"+s
     skill_df = pd.DataFrame([{"SKI": skill_list,"Resume_Name":resume_df.Resume_Name[skill_start]}])
     return skill_df,i
+
 def get_job_info(resume_df,resume_l,work_start):
+    '''
+    get_job_info: extract company name, job title, date, location, and experience (text paragraph)
+    :param resume_df: dataframe with titles and their location in resume_l
+    :param resume_l: list of lines (strings) in resume
+    :param work_start: starting position of job desc in resume_df
+    :return: dataframe, and position reached in resume_df
+    '''
     job_list = pd.DataFrame()
     job_dict = {"ORG":"","JOB":"","DATE":"","GPE":"","EXP":""}
     #work_start = 3
@@ -691,6 +719,12 @@ def get_job_info(resume_df,resume_l,work_start):
     return job_list
 
 def get_education_info(resume_df, edu_start):
+    '''
+    get_education_info: get education info from resume_df
+    :param resume_df: dataframe with titles
+    :param edu_start: start of education section
+    :return: education dataframe with all the educations, and position in resume_df
+    '''
     global edu_list
     degree_dict = {"ORG": "", "DEGREE": "", "MAJ": "", "DATE": "", "GPA": ""}
     edu_list =pd.DataFrame()
@@ -885,18 +919,12 @@ def get_education_info(resume_df, edu_start):
 
     return edu_list,i
 
-# In[8]:
-
-
-'''
-clean_title_df: initial cleaning of the titles.  Some titles will have tabs instead of space, or some non-digit 
-characters
-parameters:
-s: string
-'''
-
-
 def clean_title_df(s):
+    '''
+    clean_title_df: clean string from weird patters
+    :param s: string
+    :return: cleaned strings
+    '''
     pattern1 = "\|\s|(\:)$"
     pattern2 = "^[a-z]\."
     s = s.replace("\t", " ")
@@ -909,18 +937,15 @@ def clean_title_df(s):
     return (s)
 
 
-# In[290]:stop_words = set(stopwords.words('english'))
 
-
-'''
-gather_headings:  get the headings name, and their location for a given resume
-Parameters:  doc_list: resume as a list of strings; resume_name: the resume file name
-Return: blocks_df: a pandas dataframe with the resume name, position of a heading, and its name
-tmp check_if_headings(block)
-'''
 
 
 def check_if_potential_title(st):
+    '''
+    check_if_potential_title: check if the string is a title
+    :param st: string
+    :return: boolean (true if title, else false)
+    '''
     s = st.strip()
     s = re.sub(r'\([^)]*\)', '', s)
     s = re.sub(r'\([^)]*', '', s).strip()
@@ -987,19 +1012,8 @@ def check_if_potential_title(st):
         return (False)
     if date_s:
         return(False)
-
+#MAY NOT NEED ALL THESE
     match = re.findall("[:,]", s)
-    '''pos_q = re.search(":",s)
-    pos_c = re.search(",",s)
-    if pos_c and pos_q:
-        if pos_c.start() > pos_q.start():
-            return(False)
-    if pos_q:
-        tp = re.split("[:\,]",s)
-        tp = [x for x in tp if x]
-        if len(tp) == 2 or len(tp) == 1:
-            return(False)'''
-
     if len(match) > 4:
         return (False)
 
@@ -1098,24 +1112,24 @@ Returns:
 '''
 
 
-def gather_headings(doc_list, resume_name):
-    blocks_df = pd.DataFrame()
-    for i, block in enumerate(doc_list):
-        block = clean_title_df(block)
-        tmp = block.split()
-        if len(tmp) == 1:
-            block = block.strip()
-            if block[0].isupper():
-                tmp_df = pd.DataFrame({"Resume_Name": resume_name, "Block_Pos": i, "Block_Title": block}, index=[i])
-                blocks_df = blocks_df.append(tmp_df)
-        elif check_if_potential_title(block):
-            tmp_df = pd.DataFrame({"Resume_Name": resume_name, "Block_Pos": i, "Block_Title": block}, index=[i])
-            blocks_df = blocks_df.append(tmp_df)
-    blocks_df.reset_index()
-    tp = [x for ix, x in blocks_df.iterrows() if check_number_uppercases_words(x.Block_Title)]
-    blocks_df = pd.DataFrame(tp)
-    # blocks_df.reset_index()
-    return (blocks_df)
+# def gather_headings(doc_list, resume_name):
+#     blocks_df = pd.DataFrame()
+#     for i, block in enumerate(doc_list):
+#         block = clean_title_df(block)
+#         tmp = block.split()
+#         if len(tmp) == 1:
+#             block = block.strip()
+#             if block[0].isupper():
+#                 tmp_df = pd.DataFrame({"Resume_Name": resume_name, "Block_Pos": i, "Block_Title": block}, index=[i])
+#                 blocks_df = blocks_df.append(tmp_df)
+#         elif check_if_potential_title(block):
+#             tmp_df = pd.DataFrame({"Resume_Name": resume_name, "Block_Pos": i, "Block_Title": block}, index=[i])
+#             blocks_df = blocks_df.append(tmp_df)
+#     blocks_df.reset_index()
+#     tp = [x for ix, x in blocks_df.iterrows() if check_number_uppercases_words(x.Block_Title)]
+#     blocks_df = pd.DataFrame(tp)
+#     # blocks_df.reset_index()
+#     return (blocks_df)
 
 
 # In[292]:
@@ -1136,12 +1150,6 @@ def V2_gather_headings(doc_list, resume_name):
     # blocks_df.reset_index()
     return (blocks_df)
 
-
-# In[982]:
-
-
-# Create an nlp object
-from spacy.matcher import Matcher
 
 
 def maybe_company(s):
@@ -1169,6 +1177,11 @@ def get_date_or_company(st):
 
 
 def extract_degree_level(st):
+    '''
+    extract_degree_level: get the degree level (Bachelor, Master, Doctor) and degree type BS, MSc.
+    :param st: string
+    :return: degree level and degree type
+    '''
     s = st.strip()
     s = re.sub("[^a-zA-Z0-9\s]",".",s)
     doc = nlp(s)
@@ -1183,6 +1196,11 @@ def extract_degree_level(st):
 
 
 def check_if_city_and_remove_it(s):
+    '''
+    check if city and remove it: using spacy, find the city and remove it
+    :param s: string
+    :return: string with out the city
+    '''
     doc = nlp(s)
     n = 1
     for ent in doc.ents:
@@ -1193,6 +1211,13 @@ def check_if_city_and_remove_it(s):
     return ""
 
 def extract_job_experience_text(resume_l,start_ndx,end_ndx):
+    '''
+    extract_city_experience_text: from resume_l, extract all texts between start index and end index
+    :param resume_l: list
+    :param start_ndx: start position
+    :param end_ndx: end position
+    :return: experience text
+    '''
     text_exp = ""
     for text_n in range(start_ndx,end_ndx):
         text_exp = text_exp+ "\n"+resume_l[text_n]
