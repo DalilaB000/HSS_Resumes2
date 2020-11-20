@@ -20,17 +20,11 @@ from ipykernel import kernelapp as app
 import pytesseract as pt
 import pdf2image
 
-# In[2]:
-
 
 from nltk import word_tokenize, pos_tag, ne_chunk
 
-'''from nltk import RegexpParser
-from nltk import Tree
-from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk.corpus import stopwords'''
 
-# In[813]:
+
 
 
 # Load en_core_web_md augmented
@@ -44,15 +38,20 @@ edu_list = pd.DataFrame()
 job_list = pd.DataFrame()
 master_job_df = pd.DataFrame()
 master_ski_df = pd.DataFrame()
+master_edu_df = pd.DataFrame()
 predictor = Predictor.from_path("https://storage.googleapis.com/allennlp-public-models/\
 fine-grained-ner.2020-06-24.tar.gz")
 skill_list = ""
 
-# In[889]:
+
 
 
 # Get Dictionary of Experience
 # This can also be added to the dictionary spacy, and can be updated as needed
+'''
+initialize_headings_file()
+Initialize the heading dictionary
+'''
 def initialize_headings_file():
     global heading_dictionary, experience_headings, skills_headings, education_headings
     global heading_dict
@@ -65,13 +64,15 @@ def initialize_headings_file():
     heading_dict = dict(heading_dict.values.tolist())
 
 
-# In[5]:
+
 
 
 '''
 read_pdf_resume: get the path and the name of the pdf resume and read all the pages into a string variable
 Parameter:  pdf_document: a full path to a pdf resume
 Return: text: all the text in all pages of the pdf document
+This was the initial function to reading directly pdf files into a text file; unfortunately, 
+all the pdf converters to text libraries has issue with pdf with special fonts, ot type
 '''
 
 
@@ -88,23 +89,30 @@ def read_pdf_resume_old(pdf_document):
         return (text)
 
 
-# In[6]:
+
 
 def read_pdf_resume(pdf_document):
-    pages = pdf2image.convert_from_path(pdf_path=pdf_document, dpi=200, size=(1654, 2340))
+    '''
+    read_pdf_resume:  take a pdf file transform it into an image and then ocr to a text
+    :param pdf_document: the pdf file name with its path
+    :return: text (string)
+
+    '''
+    pages = pdf2image.convert_from_path(pdf_path=pdf_document, dpi=300, size=(1654, 2340))
     content = ""
     for page in pages:
         content = content+"\n"+pt.image_to_string(page)
     return content
-'''
-initial_cleaning:  split documents using return controler \n; remove empty lines
-Parameter: doc_2_clean, a string variable containing the whole resume of a given person
-'''
 
 
-# is_symbol: check if the string has only at most 2 characters (so it may be a symbol)
+
 def remove_stopwords(st):
-    # stop_words = set(stopwords.words('english'))
+    '''
+    remove_stopwords: get a string and remove stopwords.  Very useful for detecting titles, as
+    stopwords are kept lowercase in English
+    :param st: a string
+    :return: string with no stopwords
+    '''
     stop_words = set(["of", "in", "at", "and", "for", "with", "der", "de"])
     word_tokens = word_tokenize(st)
     filtered_sentence = [w for w in word_tokens if not w in stop_words]
@@ -112,6 +120,12 @@ def remove_stopwords(st):
 
 
 def is_symbol(s):
+    '''
+    check if the string has less than 3 characters.  If it does, return true.  This is done, as when
+    I used the pdf to text libraries, I was getting junk characters
+    :param s: string
+    :return: boolean
+    '''
     res = s.strip()
     l = list(s)
     if (len(l) < 3):
@@ -121,12 +135,25 @@ def is_symbol(s):
 
 
 def remove_symbols(text_l):
+    '''
+    remove from a list, symbols
+    :param text_l: a list
+    :return: cleaned list
+    '''
     global nlp
     tmp = [x for x in text_l if not is_symbol(x)]
     return (tmp)
 
 
 def initial_cleaning(doc_2_clean):
+    '''
+    initial_cleaning:  read the text, split it by return line, and remove
+    all empty strings, and symbols.
+    Note:  while I could have kept the blank lines as a reference; unfortunately, such format is
+    not followed by all resumes
+    :param doc_2_clean: string
+    :return: a list of strings (lines in a resume)
+    '''
     text2 = doc_2_clean.split("\n")
     text2 = [i.strip() for i in text2]
     text2 = list(filter(lambda x: x != '', text2))
@@ -136,11 +163,24 @@ def initial_cleaning(doc_2_clean):
 
 
 def rreplace(s, old, new, occurrence):
+    '''
+    rreplace: replace starting from the end of string
+    :param s: the original string
+    :param old: old value
+    :param new: new value
+    :param occurrence: number of changes
+    :return: string
+    '''
     li = s.rsplit(old, occurrence)
     return new.join(li)
 
 
 def check_for_nns_nnps(st):
+    '''
+    check if tags are only noun
+    :param st: string
+    :return: boolean
+    '''
     text = st.title()
     tokens = nltk.word_tokenize(text)
     tag = nltk.pos_tag(tokens)
@@ -150,25 +190,27 @@ def check_for_nns_nnps(st):
     return (False)
 
 
-# In[7]:
-
-
-'''
-get_date:  Extract dates from resume.  This is specifically for extracting the date in job experience 
-( a range of 2 dates).  For education, one can just use Spicy to extract the date 
-parameters:
-s : a string
-'''
 
 
 def get_date(st):
+    '''
+    get_date: extract the date from a string. It covers over 95% of potential dates in a resume
+    month can be:
+        * a digit 1-31 or 2 digits 01-02...-31
+        * abbreviated month name, or full month name
+    year can be:
+        * four digits or 'dd
+    it can also extract a range of date:
+    a range of dates are taken a one long string so if date is as 10/2002 - 12/2020 in a string
+    the whole range is extracted
+    a range can be defined by to or -, but there are many type of -
+    for all other dates, like summer 2019, not captured by get_date, we have another function to extract them
+    :param st: a string
+    :return: a date string
+    '''
     # Covers 90% of date patters
     s = st.title()
     months = "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)([a-z]{0,6})?\.?\s*"
-    date_pattern = "(\w{3,9}\.?|\d{1,2})(\/|\.)\d{4}\s?(-|–|—|—|To|to|TO)?\s*(P|p|C|c|(\w{3,9}\.?|\d{1,2})(\/|.)\d{4})?"
-
-    date_pattern2 = "(\d{4}\s*(\-|\–|—|To|to|TO)\s*(\d{4}|(P|p|C|c)))|(\s+(\d{2}\/\d{4}))"
-    data_pattern3 = "\d{4}\-\d{2}\s*(\-|\–|—|To|to|TO)\s*((P|p|C|c)|\d{4}\-\d{2})"
     tp = re.search("("+months+"|\d{1,2})?(\/|\.)?\s*(1|2)\d{3}\s?(-|–|—|—|to|TO|To)?\s?(P|p|C|c|("+months+"|\d{1,2})?(\/|\.)?\s*(1|2)\d{3})?",s)
     if not tp:
         tp2 = re.search("(\d{4}\s*(\-|\–|—|To|to|TO)\s*((1|2)\d{3}|(P|p|C|c)))|(\s+(\d{2}\/(1|2)\d{3}))", s)
@@ -203,6 +245,12 @@ def get_date(st):
         return [start, end, tp.string[start:end]]
 
 def get_candidate_name(resume_l):
+    '''
+    get_candidate_name: extract the candidate name from resume_l, a list of string lines in
+    a resume
+    :param resume_l: a list of string lines in a resume
+    :return: candidate name
+    '''
     st = resume_l[0]
     doc = nlp(st)
     p_name = ""
@@ -216,6 +264,12 @@ get_date_and_remove_it_from_title:  find the date and remove it.
 
 
 def get_date_and_remove_it_from_title(st):
+    '''
+    get_date_and_remove_it_from_title: in some instances, like getting job info, and education,
+    one may want to remove the date
+    :param st: string
+    :return: date, and string with no date
+    '''
     s = st.strip()
     start, end, date_s = get_date(s)
     if date_s:
@@ -829,7 +883,7 @@ def get_education_info(resume_df, edu_start):
             edu_list = edu_list.append(degree_dict,ignore_index= True)
             in_edu = False
 
-    return(i)
+    return edu_list,i
 
 # In[8]:
 
@@ -1593,45 +1647,7 @@ def find_heading_position(resume_df, chosen_heading):
 # In[200]:
 
 
-def V2_get_start_and_end_experience(resume_df, experience_headings):
-    global heading_dictionary
-    experience_headings = heading_dictionary[heading_dictionary.Label == "experience"]
-    skills_headings = heading_dictionary[heading_dictionary.Label == "skills"]
-    education_headings = heading_dictionary[heading_dictionary.Label == "education"]
-    resume_df = resume_df.reset_index()
-    pos = find_heading_position(resume_df, experience_headings.Block_Title)
 
-    if (pos == -1):
-        print("Please add the name of the Experience heading to big_heading_dictionary")
-        return (0, 0)
-    else:
-        start_t = resume_df.Block_Pos.iloc[pos] + 1
-        pos = find_heading_position(resume_df, education_headings.Block_Title)
-
-        if (pos == -1):
-            print("Please add the heading to Education to the big_headings_dictionary.csv")
-            education_pos = -1
-        else:
-            education_pos = resume_df.Block_Pos.iloc[pos] + 1
-        pos = find_heading_position(resume_df, skills_headings.Block_Title)
-
-        if (pos == - 1):
-            skills_pos = -1
-        else:
-            skills_pos = resume_df.Block_Pos.iloc[pos] + 1
-
-        if (start_t < education_pos) & (start_t < skills_pos):
-            end_extract_pos = min(education_pos, skills_pos)
-        elif (start_t > education_pos) & (start_t < skills_pos):
-            end_extract_pos = skills_pos
-        elif (start_t < education_pos) & (start_t > skills_pos):
-            end_extract_pos = education_pos
-        else:
-            end_extract_pos = len(resume_l)
-        return (start_t, end_extract_pos)
-
-
-# In[201]:
 
 
 # Detect start of an experience (Company name, location, position, place)
@@ -1754,7 +1770,7 @@ def parse_all_engineers_resume():
     return ("Complete")
 
 def get_job_info_1_resume(pdf_document):
-    global job_list,master_job_df,resume_df,resume_l,master_ski_df
+    global job_list,master_job_df,resume_df,resume_l,master_ski_df,master_edu_df
     resume_df = pd.DataFrame()
     resume_l = []
     text = read_pdf_resume(pdf_document)
@@ -1776,12 +1792,15 @@ def get_job_info_1_resume(pdf_document):
             master_job_df = master_job_df.append(job_list, ignore_index=True)
             master_job_df.to_csv("hiring_manager_Job_201118-24-12.csv")
             found = True
-        elif check_if_heading(resume_df.Block_Title[counter]) == "SKI":
+        elif check_if_heading(resume_df.Block_Title[counter]) == "XXX":
             skill_df,i = get_skills_info(resume_df,resume_l,counter)
             master_ski_df = master_ski_df.append(skill_df)
-
             master_ski_df.to_csv("hiring_manager_ski_201119-2-29.csv")
             found = True
+        elif check_if_heading(resume_df.Block_Title[counter]) == "EDU":
+            edu_list,i = get_education_info(resume_df, counter+1)
+            master_edu_df = master_edu_df.append(edu_list)
+            master_edu_df.to_csv("hiring_manager_edu_201119-2-29.csv")
         counter += 1
         if counter == resume_df.shape[0]:
             found = True
@@ -1796,124 +1815,6 @@ for j in range(2,29):
     pdf_document = path_name + resume_name
     final_df = get_job_info_1_resume(pdf_document)
 final_df.reset_index(inplace=True, drop=True)
-final_df.to_csv("resume_hiring_manager_review1_skill_201119.csv")
-# print("test")
-# resume_df.to_csv("resume_df_130118433.csv")
-# outcome = parse_all_engineers_resume()
-
-# path_name = "../HSS_Resumes/"
-# resume_name = "Engineers Resume_df201026.csv"
-#
-# keep_Experience_headings = pd.DataFrame()
-# pdf_document = path_name+ resume_name
-# text = read_pdf_resume(pdf_document)
-# resume_l = initial_cleaning(text)
-# resume_df = V2_gather_headings(resume_l,resume_name)
-# resume_df.EDU = ""
-# resume_df.MAJ = ""
-# resume_df.Job_Title = ""
-# resume_df.Head_Tag = ""
-# resume_df.Subheading = ""
-#
-# for ndx, row in resume_df.iterrows():
-#     tmp = check_if_heading(row.Block_Title)
-#     if tmp in ["EDU","GEO","DATE"]:
-#         resume_df.loc[ndx,"Subheading"] = tmp
-#         resume_df.loc[ndx,"Head_Tag"] = ""
-#     else:
-#         resume_df.loc[ndx,"Head_Tag"] =  tmp
-#         resume_df.loc[ndx,"Subheading"]= ""
-# resume_df.to_csv("Analyze Resume_df.csv")
-
-
-
-resumes2process = pd.read_csv("../CFDS_Resume_2_Process.csv")
-
-# In[1014]:
-
-
-os.getcwd()
-
-# In[1017]:
-
-
-all_job_titles = pd.DataFrame()
-path_name = "../CFDS/"
-resumes2process = pd.read_csv("../CFDS_Resume_2_Process.csv")
-pdf_files = resumes2process.CFDS_Resume
-for resume_name in pdf_files:
-    keep_Experience_headings = pd.DataFrame()
-    pdf_document = path_name + resume_name
-    text = read_pdf_resume(pdf_document)
-    if text:
-        resume_l = initial_cleaning(text)
-        resume_df = V2_gather_headings(resume_l, resume_name)
-        if resume_df.empty:
-            print("No Headings")
-        else:
-            start_t, end_extract_pos = V2_get_start_and_end_experience(resume_df, experience_headings)
-            resume_df.reset_index(inplace=True, drop=True)
-            resume_df2 = tag_headings(resume_df)
-            resume_df2.loc[resume_df2.Block_Pos < start_t, "Job_Title"] = ""
-            all_job_titles = all_job_titles.append(resume_df2, ignore_index=True)
-
-
-def add_flags_2_resume_df(resume_df):
-    resume_df2 = resume_df.copy()
-
-    for index, row in resume_df2.iterrows():
-        _, _, job_t = list(get_job_title(row["Block_Title"]))[0]
-        date_d, company_s = get_date_or_company(row["Block_Title"])
-        _, _, date_s = get_date(row.Block_Title)
-        city_s = extract_city(row["Block_Title"])
-        degree_level = extract_degree_level(row["Block_Title"])
-        if job_t:
-            resume_df2.loc[index, "Job_Title"] = 1
-            resume_df2.loc[index, "Job_Title_txt"] = job_t
-            print("title :", job_t, row["Block_Pos"])
-        if company_s:
-            resume_df2.loc[index, "Company_Name"] = 1
-            resume_df2.loc[index, "Company_Name_txt"] = company_s
-            print("Company: ", company_s, row.Block_Pos)
-        if date_s:
-            resume_df2.loc[index, "Date_s"] = 1
-            resume_df2.loc[index, "Date_s_txt"] = date_s
-            print("Date: ", date_s, row.Block_Pos)
-        if city_s:
-            resume_df2.loc[index, "City_Name"] = 1
-            resume_df2.loc[index, "City_Name_txt"] = city_s
-        if degree_level:
-            resume_df2.loc[index, "Degree_level"] = 1
-            resume_df2.loc[index, "Degree_level_txt"] = degree_level
-        if date_d and not date_s:
-            resume_df2.loc[index, "Degree_Date"] = 1
-            resume_df2.loc[index, "Degree_Date_txt"] = date_d
-    return resume_df2
-
-
-def tag_headings(resume_df):
-    for index, row in resume_df.iterrows():
-        degree, degree_type = extract_degree_level(row["Block_Title"])
-        if degree:
-
-            degree_info = extract_all_info_degree(row["Block_Title"])
-            #
-            #    print(key, " * ",index)
-            for key, val in degree_info.items():
-                resume_df.loc[index, key] = val
-        else:
-            job_info = get_job_info(row["Block_Title"])
-            print(" JOB INFO ", job_info)
-            for key, val in job_info.items():
-                resume_df.loc[index, key] = val
-            # tp = [1 for x in list(job_info.values()) if x]
-            # if tp:
-            #   for key, val in job_info.items():
-            #       print(key, " * ",index)
-            #       resume_df.iloc[index,key] = val
-    return resume_df
-
-
-
+final_df.to_csv("resume_hiring_manager_review1_edu_201119.csv")
 
 
