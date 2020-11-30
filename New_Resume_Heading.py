@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # In[1]:
-
+from typing import Union
 
 import geograpy3
 import os
@@ -1244,6 +1244,34 @@ def extract_GPA_clean_s(st):
                 s_gpa = ""
     return (s_gpa, st)
 
+def extract_GS(st):
+    '''
+    extract_GS: find and extract GS level and series from a string
+    :param st: string
+    :return: grade_level, and grade series
+    Note: if multiple grades are in a string, only the latest is kept
+    '''
+    s = st.strip()
+    grade_series = re.search("Series:\s?0\d{3}",s)
+    grade_level = re.search("Grade:\s?\d{1,2}",s)
+    if grade_series and grade_level:
+        grade_series = grade_series.string[grade_series.start():grade_series.end()].strip()
+        grade_series = grade_series[-4:]
+        grade_level = grade_level.string[grade_level.start():grade_level.end()].strip()
+        grade_level = grade_level[-2:]
+        return grade_level, grade_series
+    pattern1 = "\-0\d{3}\-\d{1,2}"
+    grades = re.findall(pattern1, s)
+    highest_grade = 0
+    for grade in grades:
+        gd = grade.strip()
+        gd = re.sub("\s*","",gd)
+        grade_level = gd[-2:]
+        if int(grade_level) > int(highest_grade):
+            highest_grade = grade_level
+            grade_series = re.search("\d{4}",gd).group()
+        print(grade_level,grade_series)
+    return highest_grade,grade_series
 
 def extract_degree_IN(st):
     doc = nlp(st)
