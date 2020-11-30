@@ -1272,7 +1272,20 @@ def extract_GS(st):
             grade_series = re.search("\d{4}",gd).group()
         print(grade_level,grade_series)
     return highest_grade,grade_series
-
+def extract_salary(st):
+    '''
+    extract_salary: extract the salary from resume
+    :param st: string
+    :return: salary as string
+    the extract patterns  XX,XXX.XX,  XX XXX.XX,  XXXXX.XX, XXX,XXX.XX with either $ in front or USD at the
+    end of the amount
+    '''
+    s = st.strip()
+    pattern1 = "\$?\s?\d{1,3}(\,|\s)?\d{3}(\.\d{2})?\s?(USD)?"
+    salary = re.search(pattern1,s)
+    if salary:
+        salary = salary.group()
+        return salary
 def extract_degree_IN(st):
     doc = nlp(st)
     for ent in doc.ents:
