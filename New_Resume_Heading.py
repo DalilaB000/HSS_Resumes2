@@ -1277,6 +1277,7 @@ def extract_GS(st):
             grade_series = ""
 
     return grade_level,grade_series
+
 def extract_salary(st):
     '''
     extract_salary: extract the salary from resume
@@ -1290,6 +1291,9 @@ def extract_salary(st):
     salary = re.search(pattern1,s)
     if salary:
         salary = salary.group().strip()
+        return salary
+    else:
+        return ""
 
 
 
