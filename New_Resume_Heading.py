@@ -1281,16 +1281,11 @@ def extract_salary(st):
     end of the amount
     '''
     s = st.strip()
-    pattern1 = "\$?\s?\d{1,3}(\,|\s)?\d{3}(\.\d{2})?\s?(USD)?"
+    pattern1 = "((\$\s?\d{1,3}(\,|\s)?\d{3}(\.\d{2})?)|(\s?\d{1,3}(\,|\s)?\d{3}(\.\d{2})?\s*USD))"
     salary = re.search(pattern1,s)
     if salary:
-        salary = salary.group()
-        return salary
-def extract_degree_IN(st):
-    doc = nlp(st)
-    for ent in doc.ents:
-        print(ent.label_, ent.text)
-    return ("1")
+        salary = salary.group().strip()
+
 
 
 def extract_all_info_degree(s):
