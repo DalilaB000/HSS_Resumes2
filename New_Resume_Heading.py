@@ -1265,15 +1265,20 @@ def extract_GS(st):
                 grade_series = re.search("\d{4}", gd).group()
         grade_level = highest_grade
     else:
-        grade_series = re.search("Series:\s?0\d{3}",s)
-        grade_level = re.search("Grade:\s?\d{1,2}",s)
+        grade_series = re.search("Series:\s?(GS-)?\d{4}",s)
+        grade_level = re.search("Grade(\s\w{3,})?:\s?\d{1,2}",s)
         if grade_series and grade_level:
             grade_series = grade_series.string[grade_series.start():grade_series.end()].strip()
             grade_series = grade_series[-4:]
             grade_level = grade_level.string[grade_level.start():grade_level.end()].strip()
             grade_level = grade_level[-2:]
-        else:
+        elif grade_series:
             grade_level = ""
+            grade_series = grade_series.string[grade_series.start():grade_series.end()].strip()
+            grade_series = grade_series[-4:]
+        elif grade_level:
+            grade_level = grade_level.string[grade_level.start():grade_level.end()].strip()
+            grade_level = grade_level[-2:]
             grade_series = ""
 
     return grade_level,grade_series
@@ -1288,12 +1293,42 @@ def extract_salary(st):
     '''
     s = st.strip()
     pattern1 = "((\$\s?\d{1,3}(\,|\s)?\d{3}(\.\d{2})?)|(\s?\d{1,3}(\,|\s)?\d{3}(\.\d{2})?\s*USD))"
+
+    full_salary_pattern = pattern1+"(\s?-\s?"+ pattern1+")?"
     salary = re.search(pattern1,s)
     if salary:
         salary = salary.group().strip()
         return salary
     else:
         return ""
+
+def get_gs_level(text_l):
+    found = False
+    pos = 0
+    val = 0
+    grade_series = ""
+    grade_level = ""
+    for count,text_s in enumerate(text_l):
+        text_s = text_s.strip()
+        text_s = re.sub("\s+"," ",text_s)
+        g_level, g_series = extract_GS(text_s)
+        if g_level and g_series:
+            grade_level = g_level
+            grade_series = g_series
+            val = 2
+        elif g_level:
+            grade_level = g_level
+            val += 1
+            print("grade ",val)
+        elif g_series:
+            grade_series = g_series
+            val += 1
+            print("series ",val)
+        if val == 2:
+            break
+    return grade_level, grade_series
+
+
 
 
 
