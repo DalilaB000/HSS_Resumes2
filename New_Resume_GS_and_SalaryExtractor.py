@@ -194,9 +194,9 @@ def get_date(st):
     # Covers 90% of date patters
     s = st.title()
     months = "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)([a-z]{0,6})?\.?\s*"
-    tp = re.search("("+months+"|\d{1,2})?(\/|\.)?\s*(1|2)\d{3}\s?(-|–|—|—|to|TO|To)?\s?(P|p|C|c|("+months+"|\d{1,2})?(\/|\.)?\s*(1|2)\d{3})?",s)
+    tp = re.search("("+months+"|\d{1,2})?(\/|\.)?(\s+(1|2)|^(1|2))\d{3}\s?(-|–|—|—|to|TO|To)?\s?(P|p|C|c|("+months+"|\d{1,2})?(\/|\.)?\s*(1|2)\d{3})?",s)
     if not tp:
-        tp2 = re.search("(\d{4}\s*(\-|\–|—|To|to|TO)\s*((1|2)\d{3}|(P|p|C|c)))|(\s+(\d{2}\/(1|2)\d{3}))", s)
+        tp2 = re.search("((^\d{4}|\s\d{4})\s*(\-|\–|—|To|to|TO)\s*((1|2)\d{3}|(P|p|C|c)))|(\s+(\d{2}\/(1|2)\d{3}))", s)
         if not tp2:
             tp3 = re.search("(1|2)\d{3}\-\d{2}\s*(\-|\–|—|To|to|TO)\s*((P|p|C|c)|(1|2)\d{3}\-\d{2})", s)
             if tp3:
@@ -988,11 +988,18 @@ def get_gs_salary(resume_df,resume_l,work_start):
                 counter += 1
         salary_s = extract_salary(s)
         if salary_s:
+            job_list = job_list.append(job_dict, ignore_index=True)
+            for key in job_dict:
+                job_dict[key] = ""
             job_dict["Salary"]= salary_s
         s = re.sub(r'\([^)]*\)', '', s).strip()
         s = re.sub(r'\([^)]*', '', s).strip()
         date_s, s = get_date_and_remove_it_from_title(s)
         if date_s:
+            if job_dict["Date"]:
+                job_list = job_list.append(job_dict, ignore_index=True)
+                for key in job_dict:
+                    job_dict[key] = ""
             job_dict["Date"] = date_s
         if len(s) > 2:
             city_s = extract_city_spacy(s)
@@ -1012,7 +1019,6 @@ def get_gs_salary(resume_df,resume_l,work_start):
 
     return job_list
 
-def get_education_info(resume_df, edu_start):
 def parse_all_engineers_resume():
     path_name = "../HSS_Resumes/"
     resume_name = "Engineers Resume_df201026.csv"
@@ -1050,9 +1056,9 @@ def get_job_info_1_resume(pdf_document):
     job_list = pd.DataFrame()
     while not found:
         if check_if_heading(resume_df.Block_Title[counter]) == "EXP":
-            job_list, i = get_salary_gs(resume_df, resume_l, counter)
+            job_list, i = get_gs_salary(resume_df, resume_l, counter)
             master_job_df = master_job_df.append(job_list, ignore_index=True)
-            master_job_df.to_csv("hiring_manager_Job_201118-24-12.csv")
+            master_job_df.to_csv("hss_Job_201202.csv")
             found = True
         counter += 1
         if counter == resume_df.shape[0]:
@@ -1062,11 +1068,10 @@ def get_job_info_1_resume(pdf_document):
 nlp = spacy.load('./')
 initialize_headings_file()
 resume_2_process = pd.read_csv("../Resume2Parse.csv")
-path_name = "../HSS Resumes/hiring-manager/"
-for j in range(2,29):
-    resume_name = "hiring_manager_review1 (dragged) "+str(j)+".pdf"
-    pdf_document = path_name + resume_name
-    final_df = get_job_info_1_resume(pdf_document)
+path_name = "../HSS_Resumes/Data/"
+resume_name = "10539885_A227I-QJJO_ Jason Boim.pdf"
+pdf_document = path_name + resume_name
+final_df = get_job_info_1_resume(pdf_document)
 final_df.reset_index(inplace=True, drop=True)
 final_df.to_csv("resume_hiring_manager_review1_edu_201119.csv")
 
