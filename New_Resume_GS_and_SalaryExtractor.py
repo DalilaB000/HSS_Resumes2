@@ -1,15 +1,9 @@
 #!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-from typing import Union
-
 import geograpy3
 import os
 from os import listdir
 from os.path import isfile, join
 import spacy
-from find_job_titles import FinderAcora
 import pandas as pd
 from datetime import date
 import re
