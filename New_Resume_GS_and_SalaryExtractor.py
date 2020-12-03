@@ -11,7 +11,6 @@ from find_job_titles import FinderAcora
 import pandas as pd
 import re
 import nltk
-import fitz
 from nltk.corpus import stopwords
 from allennlp.predictors.predictor import Predictor
 import allennlp_models.tagging
@@ -19,6 +18,8 @@ from nltk.tokenize import word_tokenize
 from ipykernel import kernelapp as app
 import pytesseract as pt
 import pdf2image
+from os import listdir
+from os.path import isfile, join
 
 
 from nltk import word_tokenize, pos_tag, ne_chunk
@@ -28,7 +29,7 @@ from nltk import word_tokenize, pos_tag, ne_chunk
 
 
 # Load en_core_web_md augmented
-nlp = spacy.load('./')
+nlp = spacy.load('en_core_web_md')
 heading_dictionary = pd.DataFrame()
 experience_headings = pd.DataFrame()
 skills_headings = pd.DataFrame()
@@ -44,7 +45,15 @@ fine-grained-ner.2020-06-24.tar.gz")
 skill_list = ""
 
 
-
+def get_pdf_files(fpath):
+    '''
+    get_pdf_files:  given a path to a directory extract file names with pdf extension
+    :param fpath: path to the pdf files
+    :return: list of pdf file names
+    '''
+    onlyfiles = [f for f in listdir(fpath) if isfile(join(fpath, f))]
+    onlyfiles = [f for f in onlyfiles if f[-4:] == ".pdf"]
+    return onlyfiles
 
 # Get Dictionary of Experience
 # This can also be added to the dictionary spacy, and can be updated as needed
@@ -361,12 +370,15 @@ def check_if_potential_title(st):
     s = re.sub("\s+[a-z]{1,2}\s+",", ",s)
     s = re.sub("\s+[^a-zA-Z0-9\s\.\,]\s+",", ",s)
     s = re.sub("\A,","",s).strip()
+    if re.search("[^a-zA-Z0-9](current|present)(\s|\Z)",s):
+        return True
     if len(s) <= 3:
         return (False)
     if re.search("\s*((C|c)*(GPA|gpa)\:*)", s):
         return (True)
     if re.search("\s+Salary",s):
         return(True)
+
     if re.search("\A[a-z][A-Z]",s):
         return(True)
     if re.search("\A([a-z]|(A\s+))", s):
@@ -384,7 +396,7 @@ def check_if_potential_title(st):
     if len(tp) >= 2:
         word_tokens = word_tokenize(s)
         filtered_sentence = [w for w in word_tokens if w in stop_words]
-        left = set(filtered_sentence) - set(["in", "of", "at", "the", "for", "and", "to", "by", "s"])
+        left = set(filtered_sentence) - set(["per","in", "of", "at", "the", "for", "and", "to", "by", "s"])
         if left:
             return (False)
     s_tp = re.sub(r'[^\w\s]', '', s)
@@ -563,7 +575,7 @@ def extract_GS(st):
     Note: if multiple grades are in a string, only the latest is kept
     '''
     s = st.strip()
-    pattern1 = "\-0\d{3}\-\d{1,2}"
+    pattern1 = "-\d{4}\-\d{1,2}"
     grades = re.findall(pattern1, s)
     if grades:
         highest_grade = 0
@@ -666,7 +678,6 @@ def extract_city(s):
 
 def extract_city_spacy(s):
     doc = nlp(s)
-    states = '\s*(AZ|BC|AL|AK|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|LA|ME|MD|MA|MI|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)([^a-zA-Z0-9]|\Z)'
     city = ""
     for ent in doc.ents:
         if ent.label_ == "GPE":
@@ -674,10 +685,6 @@ def extract_city_spacy(s):
                 city = ent.text
             else:
                 city = city + ", " + ent.text
-    tp = re.search(states, s)
-    if tp:
-        state_s = tp.group()
-        city = city + ", "+state_s
     return city
 def count_n_POS(s):
     tmp = s.split(",")
@@ -975,6 +982,14 @@ def get_gs_salary(resume_df,resume_l,work_start):
                 job_dict["Level"] = g_level
                 job_dict["Series"]= g_grade
                 counter += 1
+            else:
+                job_list = job_list.append(job_dict, ignore_index=True)
+                for key in job_dict:
+                    job_dict[key] = ""
+                job_dict["Counter"] = counter
+                job_dict["Level"] = g_level
+                job_dict["Series"] = g_grade
+                counter += 1
         elif g_level:
             if not job_dict["Level"]:
                 job_dict["Level"] = g_level
@@ -1051,7 +1066,7 @@ def parse_all_engineers_resume():
     print("Finished")
     return ("Complete")
 
-def get_job_info_1_resume(pdf_document):
+def get_job_info_1_resume(pdf_document,resume_name):
     global job_list,master_job_df,resume_df,resume_l,master_ski_df,master_edu_df
     resume_df = pd.DataFrame()
     resume_l = []
@@ -1077,16 +1092,19 @@ def get_job_info_1_resume(pdf_document):
         counter += 1
         if counter == resume_df.shape[0]:
             found = True
-    return master_ski_df
+    return master_job_df
 # In[1008]:
-nlp = spacy.load('./')
+
 initialize_headings_file()
 resume_2_process = pd.read_csv("../Resume2Parse.csv")
 path_name = "../HSS_Resumes/Data/"
-resume_name = "10539885_A227I-QJJO_ Jason Boim.pdf"
-pdf_document = path_name + resume_name
-final_df = get_job_info_1_resume(pdf_document)
-final_df.reset_index(inplace=True, drop=True)
-final_df.to_csv("resume_hiring_manager_review1_edu_201119.csv")
+resumes = get_pdf_files(path_name)
+
+for resume in resumes:
+    pdf_document = path_name + resume
+    resume_name = resume
+    final_df = get_job_info_1_resume(pdf_document,resume_name)
+    final_df.reset_index(inplace=True, drop=True)
+    final_df.to_csv("resume_hss_201203.csv")
 
 
