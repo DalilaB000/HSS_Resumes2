@@ -372,6 +372,8 @@ def check_if_potential_title(st):
     s = re.sub("\A,","",s).strip()
     if re.search("[^a-zA-Z0-9](current|present)(\s|\Z)",s):
         return True
+    if re.search("(H|h)ours\s*(P|p)er\s*(W|w)eek\:?\s*\d{1,2}",s):
+        return True
     if len(s) <= 3:
         return (False)
     if re.search("\s*((C|c)*(GPA|gpa)\:*)", s):
@@ -958,7 +960,7 @@ def get_gs_salary(resume_df,resume_l,work_start):
     :return: dataframe, and position reached in resume_df
     '''
     job_list = pd.DataFrame()
-    job_dict = {"Counter": 0,"Salary":"","Level":"","Series":"","GPE":"","Date" :""}
+    job_dict = {"Counter": 0,"Salary":"","Level":"","Series":"","GPE":"","Date" :"","HoursWeek":""}
     #work_start = 3
     in_job = True
     i = work_start
@@ -1018,10 +1020,23 @@ def get_gs_salary(resume_df,resume_l,work_start):
                 job_list = job_list.append(job_dict, ignore_index=True)
                 for key in job_dict:
                     job_dict[key] = ""
+                job_dict["Counter"] = counter
                 job_dict["Salary"]= salary_s
+                counter += 1
         s = re.sub(r'\([^)]*\)', '', s).strip()
         s = re.sub(r'\([^)]*', '', s).strip()
         s = re.sub("\s\d{5}","",s)
+        hour_week = re.search("(H|h)ours\s+(P|p)er\s+(W|w)eek\:?\s+\d{1,2}", s)
+        if hour_week:
+            h_week = re.search("\d{1,2}",hour_week.group())
+            if job_dict["HoursWeek"]:
+                job_list = job_list.append(job_dict, ignore_index=True)
+                for key in job_dict:
+                    job_dict[key] = ""
+                job_dict["Counter"] = counter
+                job_dict["HoursWeek"] = h_week.group()
+                counter += 1
+
         if re.search("(^(1|2)\d{3}|\D(1|2)\d{3})",s):
             date_s, s = get_date_and_remove_it_from_title(s)
             if date_s:
@@ -1029,7 +1044,9 @@ def get_gs_salary(resume_df,resume_l,work_start):
                     job_list = job_list.append(job_dict, ignore_index=True)
                     for key in job_dict:
                         job_dict[key] = ""
+                job_dict["Counter"] = counter
                 job_dict["Date"] = date_s
+                counter += 1
         if len(s) > 2:
             city_s = extract_city_spacy(s)
             if city_s:
