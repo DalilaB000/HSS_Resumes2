@@ -202,8 +202,16 @@ def get_date(st):
     '''
     # Covers 90% of date patters
     s = st.title()
+    s = s.strip()
+    maybe_date = re.search("\A\d{4}", s)
+    if maybe_date:
+        dt = int(maybe_date.group())
+        if dt > 2021 or dt < 1960:
+            s = s.replace(maybe_date.group(),"")
     months = "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)([a-z]{0,6})?\.?\s*"
     tp = re.search("("+months+"|\d{1,2})?(\/|\.)?(\s*(1|2)|^(1|2))\d{3}\s?(-|–|—|—|to|TO|To)?\s?(P|p|C|c|("+months+"|\d{1,2})?(\/|\.)?\s*(1|2)\d{3})?",s)
+
+
     if not tp:
         tp2 = re.search("((^\d{4}|\s\d{4})\s*(\-|\–|—|To|to|TO)\s*((1|2)\d{3}|(P|p|C|c)))|(\s+(\d{2}\/(1|2)\d{3}))", s)
         if not tp2:
@@ -269,7 +277,6 @@ def get_date_and_remove_it_from_title(st):
             pat = r'(P|p|C|c)$'
             match = re.search(pat, date_s)
             if match:
-                print("found")
                 end = end + 7
                 s = s[end:]
             else:
@@ -960,7 +967,7 @@ def get_gs_salary(resume_df,resume_l,work_start):
     :return: dataframe, and position reached in resume_df
     '''
     job_list = pd.DataFrame()
-    job_dict = {"Counter": 0,"Salary":"","Level":"","Series":"","GPE":"","Date" :"","HoursWeek":""}
+    job_dict = {"Salary":"","Level":"","Series":"","GPE":"","Date" :"","HoursWeek":""}
     #work_start = 3
     in_job = True
     i = work_start
@@ -980,7 +987,6 @@ def get_gs_salary(resume_df,resume_l,work_start):
         g_level, g_grade,s = extract_GS(s)
         if g_level and g_grade:
             if not job_dict["Level"] and not job_dict["Series"]:
-                job_dict["Counter"] = counter
                 job_dict["Level"] = g_level
                 job_dict["Series"]= g_grade
                 counter += 1
@@ -988,7 +994,6 @@ def get_gs_salary(resume_df,resume_l,work_start):
                 job_list = job_list.append(job_dict, ignore_index=True)
                 for key in job_dict:
                     job_dict[key] = ""
-                job_dict["Counter"] = counter
                 job_dict["Level"] = g_level
                 job_dict["Series"] = g_grade
                 counter += 1
@@ -999,7 +1004,6 @@ def get_gs_salary(resume_df,resume_l,work_start):
                 job_list = job_list.append(job_dict, ignore_index=True)
                 for key in job_dict:
                     job_dict[key] = ""
-                job_dict["Counter"] = counter
                 job_dict["Level"] = g_level
                 counter += 1
         elif g_grade:
@@ -1009,7 +1013,6 @@ def get_gs_salary(resume_df,resume_l,work_start):
                 job_list = job_list.append(job_dict, ignore_index=True)
                 for key in job_dict:
                     job_dict[key] = ""
-                job_dict["Counter"] = counter
                 job_dict["Series"] = g_grade
                 counter += 1
         salary_s = extract_salary(s)
@@ -1020,22 +1023,21 @@ def get_gs_salary(resume_df,resume_l,work_start):
                 job_list = job_list.append(job_dict, ignore_index=True)
                 for key in job_dict:
                     job_dict[key] = ""
-                job_dict["Counter"] = counter
                 job_dict["Salary"]= salary_s
                 counter += 1
         s = re.sub(r'\([^)]*\)', '', s).strip()
         s = re.sub(r'\([^)]*', '', s).strip()
         s = re.sub("\s\d{5}","",s)
-        hour_week = re.search("(H|h)ours\s+(P|p)er\s+(W|w)eek\:?\s+\d{1,2}", s)
+        hour_week = re.search("(H|h)ours\s+(P|p)er\s+(W|w)eek:?\s+\d{1,2}", s)
         if hour_week:
-            h_week = re.search("\d{1,2}",hour_week.group())
+            h_week = hour_week.group().strip()
+            h_week = re.search("\d{1,2}\Z",h_week)
             if job_dict["HoursWeek"]:
                 job_list = job_list.append(job_dict, ignore_index=True)
                 for key in job_dict:
                     job_dict[key] = ""
-                job_dict["Counter"] = counter
-                job_dict["HoursWeek"] = h_week.group()
-                counter += 1
+            job_dict["HoursWeek"] = h_week.group()
+            counter += 1
 
         if re.search("(^(1|2)\d{3}|\D(1|2)\d{3})",s):
             date_s, s = get_date_and_remove_it_from_title(s)
@@ -1044,7 +1046,7 @@ def get_gs_salary(resume_df,resume_l,work_start):
                     job_list = job_list.append(job_dict, ignore_index=True)
                     for key in job_dict:
                         job_dict[key] = ""
-                job_dict["Counter"] = counter
+
                 job_dict["Date"] = date_s
                 counter += 1
         if len(s) > 2:
@@ -1055,33 +1057,21 @@ def get_gs_salary(resume_df,resume_l,work_start):
         if i == resume_df.shape[0]:
             job_list = job_list.append(job_dict, ignore_index=True)
             job_list["Resume_Name"] = resume_df.Resume_Name[work_start]
+            job_list.reset_index(inplace=True)
+            job_list = job_list.rename(columns = {'index' : 'Counter'})
             in_job = False
         elif check_if_heading(resume_df.Block_Title[i]):
             print(last_pos)
             print(resume_df.Block_Pos[i])
             job_list = job_list.append(job_dict, ignore_index=True)
             job_list["Resume_Name"]= resume_df.Resume_Name[i]
+            job_list.reset_index(inplace=True)
+            job_list = job_list.rename(columns={'index' : 'Counter'})
             in_job = False
 
     return job_list, i
 
-def parse_all_engineers_resume():
-    path_name = "../HSS_Resumes/"
-    resume_name = "Engineers Resume_df201026.csv"
-    csv_filename = path_name + resume_name
-    resume_df = pd.read_csv(csv_filename)
-    resume_df.EDU = ""
-    resume_df.MAJ = ""
-    resume_df.Job_Title = ""
-    resume_df.Head_Tag = ""
-    resume_df.Subheading = ""
-    resume_df = resume_df[1:629]
-    for ndx, row in resume_df.iterrows():
-        tmp = check_if_heading(row.Block_Title)
-        resume_df.loc[ndx, "Head_Tag"] = tmp
-    resume_df.to_csv("Analyze_Engineers_500_Resume_df201027.csv")
-    print("Finished")
-    return ("Complete")
+
 
 def get_job_info_1_resume(pdf_document,resume_name):
     global job_list,master_job_df,resume_df,resume_l,master_ski_df,master_edu_df
