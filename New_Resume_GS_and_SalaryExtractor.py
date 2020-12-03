@@ -6,23 +6,23 @@ from typing import Union
 
 import geograpy3
 import os
+from os import listdir
+from os.path import isfile, join
 import spacy
 from find_job_titles import FinderAcora
 import pandas as pd
+from datetime import date
 import re
 import nltk
 from nltk.corpus import stopwords
-from allennlp.predictors.predictor import Predictor
-import allennlp_models.tagging
+# from nltk import word_tokenize
+# from allennlp.predictors.predictor import Predictor
+# import allennlp_models.tagging
 from nltk.tokenize import word_tokenize
-from ipykernel import kernelapp as app
+# from ipykernel import kernelapp as app
 import pytesseract as pt
 import pdf2image
-from os import listdir
-from os.path import isfile, join
 
-
-from nltk import word_tokenize, pos_tag, ne_chunk
 
 
 
@@ -40,8 +40,10 @@ job_list = pd.DataFrame()
 master_job_df = pd.DataFrame()
 master_ski_df = pd.DataFrame()
 master_edu_df = pd.DataFrame()
-predictor = Predictor.from_path("https://storage.googleapis.com/allennlp-public-models/\
-fine-grained-ner.2020-06-24.tar.gz")
+path_name = "../HSS_Resumes/Data/" #Path where the pdf resumes are.  Change the path here to read all pdf resumes
+resultFile = "Resume_GS_"+str(date.today())+".csv" #you can choose any name and you can add the path for it here
+# predictor = Predictor.from_path("https://storage.googleapis.com/allennlp-public-models/\
+# fine-grained-ner.2020-06-24.tar.gz")
 skill_list = ""
 
 
@@ -64,7 +66,7 @@ Initialize the heading dictionary
 def initialize_headings_file():
     global heading_dictionary
     global heading_dict
-    heading_dictionary = pd.read_csv("../Lower_big_headings_dictionary.csv")
+    heading_dictionary = pd.read_csv("../HSS_Resumes/rawData/Lower_big_headings_dictionary.csv")
     heading_dictionary.drop_duplicates(inplace=True)
     heading_dict = heading_dictionary[["Block_Title", "label_id"]]
     heading_dict = dict(heading_dict.values.tolist())
@@ -242,7 +244,15 @@ def get_date(st):
     else:
         start = tp.span()[0]
         end = tp.span()[1]
-        return [start, end, tp.string[start:end]]
+        dif_val = tp.group().strip()
+        if len(dif_val) == 4:
+            dif_val = int(tp.group())
+            if dif_val < 1960 or dif_val > 2021:
+                return [0, 0, ""]
+            else:
+                return [start, end, tp.string[start:end]]
+        else:
+            return [start, end, tp.string[start:end]]
 
 def get_candidate_name(resume_l):
     '''
@@ -285,7 +295,6 @@ def get_date_and_remove_it_from_title(st):
             pat = r'(P|p|C|c)$'
             match = re.search(pat, date_s)
             if match:
-                print("found")
                 end = end + 7
             s = s[:start] + s[end:]
     else:
@@ -312,33 +321,6 @@ def get_date_ent(st):
             s = st.replace(date_s, "")
             return date_s, s
     return (date_s, s)
-
-
-
-def get_city_allennlp_and_remove_it(st):
-    '''
-    get_city_allennlp_and_remove_it: get a string and extract the city if it is in it
-    :param: st: string
-    :return city, and remaining of the string
-    '''
-    s = st
-    city_s = ""
-    tp = predictor.predict(
-        sentence= st
-    )
-    for word, tag in zip(tp["words"], tp["tags"]):
-        if tag[2:] == "GPE":
-            city_s = word
-            s = rreplace(s,word,"",1)
-    states = '\s*(AZ|BC|AL|AK|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|LA|ME|MD|MA|MI|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)([^a-zA-Z0-9]|\Z)'
-    s = re.sub(states,"",s).strip()
-    s = re.sub(",$","",s).strip()
-    s = s.strip()
-    s= re.sub("[^a-zA-Z0-9]$","",s).strip()
-    return(city_s, s)
-
-
-
 
 
 
@@ -657,11 +639,9 @@ def get_gs_level(text_l):
         elif g_level:
             grade_level = g_level
             val += 1
-            print("grade ",val)
         elif g_series:
             grade_series = g_series
             val += 1
-            print("series ",val)
         if val == 2:
             break
     return grade_level, grade_series
@@ -714,35 +694,6 @@ def is_phone_number(s):
 
 
 
-# "from find_job_titles import FinderAcora"
-
-# s = 'SR. DATA PROCESSING SYSTEMS ANALYST'
-# Find Job Title
-def get_job_title(s):
-    f = re.search("(QA\s|Head|HEAD|ASSISTANT|Intern|INTERN|Assistant|ANALYST|\
-    Analyst|PRINCIPAL|Principal|Consultant|CONSULTANT)", s)
-    if f:
-        start, end = f.span(0)
-        title_s = f.string
-        print(start, end)
-        yield start, end, title_s[start:end]
-    else:
-        s = s.title()
-        finder = FinderAcora()
-        result = finder.finditer(s)
-        try:
-            gen = iter(result)
-            it = next(gen)
-            start = it.start
-            end = it.end
-            title_s = it.match
-            yield start, end, title_s
-        except RuntimeError:
-            # return start, end, title_s
-            yield 0, 0, ""
-
-
-# In[193]:
 
 
 # Teach For America – High School STEM Teacher, Chicago, IL May 2011-December 2012
@@ -763,46 +714,9 @@ def get_city_and_remove_it(st):
         matches_positions = matches_positions[len(matches_positions) - 1]
         s = st
         s = s[:matches_positions - 1]
-        print("Company ", s)
         return city_s, s
     else:
         return "", st
-
-
-# In[458]:
-
-
-# In here we assume city and company after job description
-# but we have Company, City, KY. - Title
-
-'''
-CHECK IT OUT 
-'''
-
-
-def get_title_company_AT(st, pattern_at):
-    tp = re.split(pattern_at, st)
-    tp = [x.strip() for x in tp if x]
-    tp = [x for x in tp if x not in ["at", "At"]]
-    job_title = tp[0]
-    city_s = extract_city(tp[1])
-    if city_s and re.search("\,", tp[1]):
-        tp_city = re.split("\,", tp[1])
-        print(tp_city)
-        company_s = tp_city[0]
-    return job_title, company_s
-
-
-
-
-
-
-'''RETHINK THIS'''
-
-
-
-
-# In[197]:
 
 
 def is_place(s):
@@ -1061,8 +975,8 @@ def get_gs_salary(resume_df,resume_l,work_start):
             job_list = job_list.rename(columns = {'index' : 'Counter'})
             in_job = False
         elif check_if_heading(resume_df.Block_Title[i]):
-            print(last_pos)
-            print(resume_df.Block_Pos[i])
+
+            #print(resume_df.Block_Pos[i])
             job_list = job_list.append(job_dict, ignore_index=True)
             job_list["Resume_Name"]= resume_df.Resume_Name[i]
             job_list.reset_index(inplace=True)
@@ -1074,7 +988,7 @@ def get_gs_salary(resume_df,resume_l,work_start):
 
 
 def get_job_info_1_resume(pdf_document,resume_name):
-    global job_list,master_job_df,resume_df,resume_l,master_ski_df,master_edu_df
+    global job_list,master_job_df,resume_df,resume_l,master_ski_df,master_edu_df,resultFile
     resume_df = pd.DataFrame()
     resume_l = []
     text = read_pdf_resume(pdf_document)
@@ -1088,30 +1002,28 @@ def get_job_info_1_resume(pdf_document,resume_name):
         resume_df.reset_index(inplace=True, drop=True)
     found = False
     counter = 0
-    print(resume_name)
+    #print(resume_name)
     job_list = pd.DataFrame()
     while not found:
         if check_if_heading(resume_df.Block_Title[counter]) == "EXP":
             job_list, i = get_gs_salary(resume_df, resume_l, counter)
             master_job_df = master_job_df.append(job_list, ignore_index=True)
-            master_job_df.to_csv("hss_Job_201202.csv")
+            master_job_df.to_csv(resultFile)
             found = True
         counter += 1
         if counter == resume_df.shape[0]:
             found = True
     return master_job_df
 # In[1008]:
-
-initialize_headings_file()
-resume_2_process = pd.read_csv("../Resume2Parse.csv")
-path_name = "../HSS_Resumes/Data/"
-resumes = get_pdf_files(path_name)
-
-for resume in resumes:
-    pdf_document = path_name + resume
-    resume_name = resume
-    final_df = get_job_info_1_resume(pdf_document,resume_name)
-    final_df.reset_index(inplace=True, drop=True)
-    final_df.to_csv("resume_hss_201203.csv")
-
+def resume_GS():
+    global path_name, resume_name, final_df
+    initialize_headings_file()
+    resumes = get_pdf_files(path_name)
+    for resume in resumes:
+        pdf_document = path_name + resume
+        resume_name = resume
+        final_df = get_job_info_1_resume(pdf_document,resume_name)
+        final_df.reset_index(inplace=True, drop=True)
+if __name__ == '__main__':
+    resume_GS()
 

@@ -1,0 +1,363 @@
+DegreeName,DegreeAcronym,Type
+Bachelor,Bachelor of Arts,EDU
+Bachelor,BA,EDU
+Bachelor,B.A.,EDU
+Bachelor,AB,EDU
+Bachelor,A.B.,EDU
+Bachelor,B.Arts,EDU
+Bachelor,Bachelor of Science And Arts,EDU
+Bachelor,BSA,EDU
+Bachelor,Bachelor of Accountancy,EDU
+Bachelor,BAcy,EDU
+Bachelor,B.Acy.,EDU
+Bachelor,Bachelor of Accounting,EDU
+Bachelor,BAcc,EDU
+Bachelor,B.Acc.,EDU
+Bachelor,Bachelor of Animal and Veterinary Bioscience,EDU
+Bachelor,B.An.Vet.Bio.Sc.,EDU
+Bachelor,Bachelor of Applied Science,EDU
+Bachelor,B.App.Sc.,EDU
+Bachelor,B.A.Sc.,EDU
+Bachelor,Bachelor of Architecture,EDU
+Bachelor,BArch,EDU
+Bachelor,B.Arch.,EDU
+Bachelor,Bachelor of Business Administration,EDU
+Bachelor,BBA,EDU
+Bachelor,B.B.A.,EDU
+Bachelor,Bachelor of Civil Engineering,EDU
+Bachelor,BCE,EDU
+Bachelor,B.C.E.,EDU
+Bachelor,Bachelor of Commerce,EDU
+Bachelor,BComm,EDU
+Bachelor,B.Comm.,EDU
+Bachelor,BCom,EDU
+Bachelor,B.Com.,EDU
+Bachelor,Bachelor of Communications,EDU
+Bachelor,B.Comm.,EDU
+Bachelor,Bachelor of Computer Application,EDU
+Bachelor,BCA,EDU
+Bachelor,Bachelor of Dental Hygiene,EDU
+Bachelor,BDH,EDU
+Bachelor,B.D.H,EDU
+Bachelor,Bachelor of Dental Medicine,EDU
+Bachelor,BDM,EDU
+Bachelor,B.D.M.,EDU
+Bachelor,Bachelor of Dental Science,EDU
+Bachelor,BDSc,EDU
+Bachelor,B.D.Sc.,EDU
+Bachelor,Bachelor of Dental Surgery,EDU
+Bachelor,BDS,EDU
+Bachelor,B.D.S. ;,EDU
+Bachelor,BChD,EDU
+Bachelor,B.Ch.D.,EDU
+Bachelor,Bachelor of Dentistry,EDU
+Bachelor,BDent,EDU
+Bachelor,B.Dent.,EDU
+Bachelor,Bachelor of Design,EDU
+Bachelor,BDes,EDU
+Bachelor,B.Des.,EDU
+Bachelor,Bachelor of Design Computing,EDU
+Bachelor,B.Des.Comp.,EDU
+Bachelor,Bachelor of Design in Architecture,EDU
+Bachelor,B.Des.Arch.,EDU
+Bachelor,Bachelor of Education,EDU
+Bachelor,BEd,EDU
+Bachelor,B.Ed.,EDU
+Bachelor,Bachelor of Engineering,EDU
+Bachelor,BEng,EDU
+Bachelor,B.Eng.,EDU
+Bachelor,BE,EDU
+Bachelor,B.E,EDU
+Bachelor,Bachelor of Electronic Commerce,EDU
+Bachelor,BEC,EDU
+Bachelor,B.E-COM.,EDU
+Bachelor,Bachelor of Electrical Engineering,EDU
+Bachelor,BEE,EDU
+Bachelor,B.E.E.,EDU
+Bachelor,Bachelor of Fine Arts,EDU
+Bachelor,BFA,EDU
+Bachelor,B.F.A.,EDU
+Bachelor,Bachelor of Health Sciences,EDU
+Bachelor,B.Hlth.Sci,EDU
+Bachelor,Bachelor of Information Technology,EDU
+Bachelor,BIT,EDU
+Bachelor,B.I.T.,EDU
+Bachelor,Bachelor of International and Global Studies,EDU
+Bachelor,BIGS,EDU
+Bachelor,B.I.G.S.,EDU
+Bachelor,Bachelor of Law,EDU
+Bachelor,LLB,EDU
+Bachelor,LL.B.,EDU
+Bachelor,Bachelor of Liberal Arts and Sciences,EDU
+Bachelor,BLAS,EDU
+Bachelor,B.L.A.S.,EDU
+Bachelor,Bachelor of Library Science,EDU
+Bachelor,BLib,EDU
+Bachelor,B.Lib.,EDU
+Bachelor,BLS,EDU
+Bachelor,B.L.S.,EDU
+Bachelor,Bachelor of Literature,EDU
+Bachelor,BLit,EDU
+Bachelor,B.Lit.,EDU
+Bachelor,Bachelor of Mathematics,EDU
+Bachelor,BMath,EDU
+Bachelor,B.Math,EDU
+Bachelor,Bachelor of Mechanical Engineering,EDU
+Bachelor,BME,EDU
+Bachelor,B.M.E.,EDU
+Bachelor,Bachelor of Medical Science,EDU
+Bachelor,B.Med.Sc.,EDU
+Bachelor,Bachelor of Medicine,EDU
+Bachelor,MB,EDU
+Bachelor,M.B.,EDU
+Bachelor,Bachelor of Music,EDU
+Bachelor,B.M.,EDU
+Bachelor,Bachelor of Music Studies,EDU
+Bachelor,B.Mus.Studies,EDU
+Bachelor,Bachelor of Nursing,EDU
+Bachelor,BN,EDU
+Bachelor,B.N.,EDU
+Bachelor,Bachelor of Pharmacy,EDU
+Bachelor,B.Pharm.,EDU
+Bachelor,Bachelor of Philosophy,EDU
+Bachelor,B.Ph.,EDU
+Bachelor,Bachelor of Political,EDU
+Bachelor,Economic and Social Sciences,EDU
+Bachelor,B.P.E.S.S.,EDU
+Bachelor,Bachelor of Resource Economics,EDU
+Bachelor,B.Res.Ec.,EDU
+Bachelor,Bachelor of Science,EDU
+Bachelor,BS,EDU
+Bachelor,B.S.,EDU
+Bachelor,B.Sc.,EDU
+Bachelor,Bachelor of Science in Dental Hygiene,EDU
+Bachelor,BSDH,EDU
+Bachelor,B.S.D.H,EDU
+Bachelor,Bachelor of Science in Environmental and Occupational Health,EDU
+Bachelor,BS.EOH,EDU
+Bachelor,Bachelor of Science in Nursing,EDU
+Bachelor,BSN,EDU
+Bachelor,Bachelor of Socio-Legal Studies,EDU
+Bachelor,BSLS,EDU
+Bachelor,B.S.L.S.,EDU
+Bachelor,Bachelor of Surgery,EDU
+Bachelor,BS,EDU
+Bachelor,B.S.,EDU
+Bachelor,Bachelor of Technology,EDU
+Bachelor,BTech,EDU
+Bachelor,B.Tech.,EDU
+Bachelor,Bachelor of Veterinary Science,EDU
+Bachelor,B.V.Sc.,EDU
+Bachelor,Bachelor of Visual Arts,EDU
+Bachelor,BVA,EDU
+Bachelor,B.V.A.,EDU
+Master,Master of Architecture (Professional Degree),EDU
+Master,Master of Science in Architecture (Research Degree),EDU
+Master,M.Arch.,EDU
+Master,M.S.,EDU
+Master,Master of Arts,EDU
+Master,MA,EDU
+Master,M.A.,EDU
+Master,A.M.,EDU
+Master,Master of Business Administration,EDU
+Master,MBA,EDU
+Master,M.B.A.,EDU
+Master,MChem,EDU
+Master,MCom,EDU
+Master,M.Com,EDU
+Master,Master of Computer Application,EDU
+Master,MCA,EDU
+Master,Master of Divinity,EDU
+Master,MDiv,EDU
+Master,M.Div.,EDU
+Master,Master of Education (Master of Science in Education),EDU
+Master,M.Ed.,EDU
+Master,M.S.Ed.,EDU
+Master,MSEd.,EDU
+Master,Master of Emergency Management,EDU
+Master,MEM,EDU
+Master,M.E.M.,EDU
+Master,Master of Emergency and Disaster Management,EDU
+Master,MEDM,EDU
+Master,M.E.D.M.,EDU
+Master,Master of Engineering,EDU
+Master,M.E.,EDU
+Master,MEng,EDU
+Master,M.Eng.,EDU
+Master,Master of Fine Arts,EDU
+Master,MFA,EDU
+Master,M.F.A.,EDU
+Master,Master of Health,EDU
+Master,Healthcare Management,EDU
+Master,MSc.HM,EDU
+Master,MHM,EDU
+Master,Master of Health Infromatics,EDU
+Master,MSc.HI,EDU
+Master,MHI,EDU
+Master,Master of International Affairs,EDU
+Master,MIA,EDU
+Master,M.I.A.,EDU
+Master,Master of International Studies,EDU
+Master,MIS,EDU
+Master,M.I.S.,EDU
+Master,Master of Laws,EDU
+Master,LLM,EDU
+Master,LL.M.,EDU
+Master,Master of Library Science,EDU
+Master,MLS,EDU
+Master,Master of Liberal Arts,EDU
+Master,MLA,EDU
+Master,Master of Library and Information Science,EDU
+Master,MLIS,EDU
+Master,Master of Music,EDU
+Master,M.M.,EDU
+Master,Master of Professional Studies,EDU
+Master,MPS,EDU
+Master,Master of Public Administration,EDU
+Master,MPA,EDU
+Master,M.P.A.,EDU
+Master,Master of Public Health,EDU
+Master,MPH,EDU
+Master,M.P.H.,EDU
+Master,Master of Science,EDU
+Master,MS,EDU
+Master,MSc,EDU
+Master,M.Sc.,EDU
+Master,Master of Science in Information,EDU
+Master,MSI,EDU
+Master,M.S.I.,EDU
+Master,Master of Social Work,EDU
+Master,MSW,EDU
+Master,M.S.W.,EDU
+Master,Master of Strategic Foresight,EDU
+Master,MSF,EDU
+Master,M.S.F.,EDU
+Master,Master of Sustainable Energy and Environmental Management,EDU
+Master,MSEEM,EDU
+Master,Master of Technology,EDU
+Master,MTech,EDU
+Master,M.Tech.,EDU
+Master,Master of Theology,EDU
+Master,ThM,EDU
+Master,Th.M.,EDU
+Doctor,Doctor of Acupuncture,EDU
+Doctor,DAc,EDU
+Doctor,D.Ac.,EDU
+Doctor,DAc.,EDU
+Doctor,Doctor of Audiology,EDU
+Doctor,AuD,EDU
+Doctor,Au.D.,EDU
+Doctor,Doctor of Biblical Studies,EDU
+Doctor,DBS,EDU
+Doctor,D.B.S.,EDU
+Doctor,DB,EDU
+Doctor,Doctor of Chiropractic,EDU
+Doctor,DC,EDU
+Doctor,D.C.,EDU
+Doctor,Doctor of Dental Surgery,EDU
+Doctor,DDS,EDU
+Doctor,D.D.S.,EDU
+Doctor,Doctor of Divinity,EDU
+Doctor,DD,EDU
+Doctor,D.D.,EDU
+Doctor,Doctor of Education,EDU
+Doctor,EdD,EDU
+Doctor,Ed.D.,EDU
+Doctor,Doctor of Jurisprudence (Juris Doctor),EDU
+Doctor,JD,EDU
+Doctor,J.D.,EDU
+Doctor,Doctor of Immortality,EDU
+Doctor,ImD,EDU
+Doctor,Im.D.,EDU
+Doctor,Doctor of Law and Policy,EDU
+Doctor,LP.D.,EDU
+Doctor,DLP,EDU
+Doctor,Doctor of Medical Dentistry,EDU
+Doctor,DMD,EDU
+Doctor,D.M.D.,EDU
+Doctor,Doctor of Medicine,EDU
+Doctor,MD,EDU
+Doctor,M.D.,EDU
+Doctor,Doctor of Ministry,EDU
+Doctor,DMin,EDU
+Doctor,Doctor of Metaphysics,EDU
+Doctor,Dr. mph.,EDU
+Doctor,Doctor of Musical Arts,EDU
+Doctor,D.M.A.,EDU
+Doctor,Doctor of Naturopathy,EDU
+Doctor,ND,EDU
+Doctor,N.D.,EDU
+Doctor,Doctor of Nursing Practice,EDU
+Doctor,DNP,EDU
+Doctor,D.N.P.,EDU
+Doctor,Doctor of Optometry,EDU
+Doctor,OD,EDU
+Doctor,O.D.,EDU
+Doctor,Doctor of Osteopathy,EDU
+Doctor,DO,EDU
+Doctor,D.O.,EDU
+Doctor,Doctor of Pharmacy,EDU
+Doctor,PharmD,EDU
+Doctor,Pharm.D.,EDU
+Doctor,Doctor of Philosophy,EDU
+Doctor,PhD,EDU
+Doctor,Ph.D.,EDU
+Doctor,DPhil,EDU
+Doctor,D.Phil.,EDU
+Doctor,DPh,EDU
+Doctor,D.Ph.,EDU
+Doctor,Doctor of Physical Therapy,EDU
+Doctor,DPT,EDU
+Doctor,D.P.T.,EDU
+Doctor,Doctor of Practical Theology,EDU
+Doctor,DPT,EDU
+Doctor,D.P.T.,EDU
+Doctor,Doctor of Psychology,EDU
+Doctor,PsyD,EDU
+Doctor,Psy.D.,EDU
+Doctor,Doctor of Public Health,EDU
+Doctor,DrPH,EDU
+Doctor,Doctor of Religious Sciences,EDU
+Doctor,Dr. sc. rel.,EDU
+Doctor,D.R.S.,EDU
+Doctor,Doctor of Science,EDU
+Doctor,DSc,EDU
+Doctor,D.Sc.,EDU
+Doctor,ScD,EDU
+Doctor,Doctor of Theology,EDU
+Doctor,D.Th.,EDU
+Doctor,Th.D.,EDU
+Doctor,ThD,EDU
+Doctor,Doctor of Veterinary Medicine,EDU
+Doctor,DVM,EDU
+Doctor,D.V.M.,EDU
+Bachelor,Bachelor's,EDU
+Master,Master's,EDU
+Doctor,Doctor's,EDU
+Bachelor,Bachelor of,EDU
+Master,Master of,EDU
+Master,M.S.,EDU
+Bachelor,Bachelor degree,EDU
+Bachelor,Bachelors of Arts,EDU
+Bachelor,Bachelor Degree,EDU
+Bachelor,BSc,EDU
+Master,M.C.A.,EDU
+Bachelor,BACHELOR OF ART,EDU
+Bachelor,Diploma,EDU
+Bachelor,BASc,EDU
+Doctor,PhD.,EDU
+Bachelor,BMS,EDU
+Bachelor,B.M.S,EDU
+Master,Masters,EDU
+Bachelor,Bachelor's Degree,EDU
+Master,Master's Degree,EDU
+Doctor,PhD Degree,EDU
+Bachelor,BoE,EDU
+Master,Masters of Science,EDU
+Master,Postgraduate,EDU
+Bachelor,Bachelors,EDU
+Master,MASTERS,EDU
+Master,MASTERS OF SCIENCE,EDU
+Bachelor,Bachelor,EDU
+Bachelor,B-Tech,EDU
+Doctor,Ph.D,EDU

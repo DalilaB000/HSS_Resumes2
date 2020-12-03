@@ -1,0 +1,315 @@
+Entity,Majors
+MAJ,Agriculture
+MAJ,Agribusiness Operations
+MAJ,Agricultural Business & Management
+MAJ,Agricultural Economics
+MAJ,Agricultural Mechanization
+MAJ,Agricultural Production
+MAJ,Agronomy & Crop Science
+MAJ,Animal Sciences
+MAJ,Food Sciences & Technology
+MAJ,Horticulture Operations & Management
+MAJ,Horticulture Science
+MAJ,Natural Resources Conservation
+MAJ,Environmental Science
+MAJ,Forestry
+MAJ,Natural Resources Management
+MAJ,Wildlife & Wildlands Management
+MAJ,Architecture
+MAJ,Architectural Environmental Design
+MAJ,City/Urban/Regional Planning
+MAJ,Interior Architecture
+MAJ,Landscape Architecture
+MAJ,Area Studies
+MAJ,Asian Area Studies
+MAJ,European Area Studies
+MAJ,Latin American Area Studies
+MAJ,North American Area Studies
+MAJ,Ethnic & Minority Studies
+MAJ,African American Studies
+MAJ,American Indian/Native American Studies
+MAJ,Latino/Chicano Studies
+MAJ,Women Studies
+MAJ,Liberal Arts & General Studies
+MAJ,Library Science
+MAJ,Multi/Interdisciplinary Studies
+MAJ,Art
+MAJ,"Art History, Criticism & Conservation"
+MAJ,Fine/Studio Arts
+MAJ,Cinema/Film
+MAJ,Cinematography/Film/Vide Production
+MAJ,Dance
+MAJ,Design & Visual Communications
+MAJ,Fashion/Apparel Design
+MAJ,Graphic Design
+MAJ,Industrial Design
+MAJ,Interior Design
+MAJ,Music
+MAJ,"Music, Performance"
+MAJ,"Music, Theory & Composition"
+MAJ,Photography
+MAJ,Theatre Arts/Drama
+MAJ,Accounting
+MAJ,Accounting Technician
+MAJ,Business Administration
+MAJ,Hotel/Motel Management
+MAJ,Human Resources Development/Training
+MAJ,Human Resources Management
+MAJ,International Business Management
+MAJ,Labor/Industrial Relations
+MAJ,Logistics & Materials Management
+MAJ,Marketing Management & Research
+MAJ,Office Supervision & Management
+MAJ,Operations Management & Supervision
+MAJ,Organizational Behavior
+MAJ,Purchasing/Procurement/Contracts Management
+MAJ,Restaurant/Food Services Management
+MAJ,Small Business Management/Operations
+MAJ,Travel/Tourism Management
+MAJ,Business/Management Quantitative Methods
+MAJ,Actuarial Science
+MAJ,Business/Managerial Economics
+MAJ,Finance
+MAJ,Banking & Financial Support Services
+MAJ,Financial Planning & Services
+MAJ,Insurance & Risk Management
+MAJ,Investments & Securities
+MAJ,Management Information Systems
+MAJ,Real Estate
+MAJ,"Sales, Merchandising, & Marketing"
+MAJ,Fashion Merchandising
+MAJ,Tourism & Travel Marketing
+MAJ,Secretarial Studies & Office Administration
+MAJ,Communications
+MAJ,Advertising
+MAJ,Digital Communications/Media
+MAJ,"Journalism, Broadcast"
+MAJ,"Journalism, Print"
+MAJ,Mass Communications
+MAJ,Public Relations & Organizational Communication
+MAJ,Radio & Television Broadcasting
+MAJ,Communications Technology
+MAJ,Graphic & Printing Equipment Operation*
+MAJ,Multimedia/Animation/Special Effects
+MAJ,Radio & Television Broadcasting Technology*
+MAJ,Family & Consumer Sciences
+MAJ,Adult Development & Aging/Gerontology
+MAJ,Child Care Services Management
+MAJ,Child Development
+MAJ,Consumer & Family Economics
+MAJ,Food & Nutrition
+MAJ,Textile & Apparel
+MAJ,"Parks, Recreation, & Leisure"
+MAJ,Exercise Science/Physiology/Kinesiology
+MAJ,Health & Physical Education/Fitness
+MAJ,Parks/Rec/Leisure Facilities Management
+MAJ,Sport & Fitness Administration/Management
+MAJ,Personal Services
+MAJ,Cosmetology/Hairstyling*
+MAJ,Culinary Arts/Chef Training
+MAJ,Funeral Services & Mortuary Science
+MAJ,Protective Services
+MAJ,Corrections
+MAJ,Criminal Justice
+MAJ,Fire Protection & Safety Technology
+MAJ,Law Enforcement
+MAJ,Military Technologies*
+MAJ,Public Administration & Services
+MAJ,Community Organization & Advocacy
+MAJ,Public Administration
+MAJ,Public Affairs
+MAJ,Social Work
+MAJ,Computer & Information Sciences
+MAJ,Computer Networking/Telecommunications
+MAJ,Computer Science & Programming
+MAJ,Computer Software & Media Applications
+MAJ,Computer System Administration
+MAJ,Data Management Technology
+MAJ,Information Science
+MAJ,Webpage Design
+MAJ,Mathematics
+MAJ,Applied Mathematics
+MAJ,Statistics
+MAJ,Counseling & Student Services
+MAJ,Educational Administration
+MAJ,Special Education
+MAJ,Teacher Education
+MAJ,Curriculum & Instruction
+MAJ,Early Childhood Education
+MAJ,Elementary Education
+MAJ,Junior High/Middle School Education
+MAJ,Postsecondary Education
+MAJ,Secondary Education
+MAJ,Teacher Assisting/Aide Education
+MAJ,"Teacher Education, Subject-Specific*"
+MAJ,Agricultural Education
+MAJ,Art Education
+MAJ,Business Education
+MAJ,Career & Technical Education
+MAJ,English-as-a-Second-Language Education
+MAJ,English/Language Arts Education
+MAJ,Foreign Languages Education
+MAJ,Health Education
+MAJ,Mathematics Education
+MAJ,Music Education
+MAJ,Physical Education & Coaching
+MAJ,Science Education
+MAJ,Social Studies/Sciences Education
+MAJ,Engineering (Pre-Engineering)
+MAJ,Aerospace/Aeronautical Engineering
+MAJ,Agricultural/Bioengineering
+MAJ,Architectural Engineering
+MAJ,Biomedical Engineering
+MAJ,Chemical Engineering
+MAJ,Civil Engineering
+MAJ,Computer Engineering
+MAJ,Construction Engineering/Management
+MAJ,"Electrical, Electronics & Communications Engineering"
+MAJ,Environmental Health Engineering
+MAJ,Industrial Engineering
+MAJ,Mechanical Engineering
+MAJ,Nuclear Engineering
+MAJ,Drafting/CAD Technology
+MAJ,Architectural Drafting/CAD Technology
+MAJ,Mechanical Drafting/CAD Technology
+MAJ,Engineering Technology
+MAJ,Aeronautical/Aerospace Engineering Technologies
+MAJ,Architectural Engineering Technology
+MAJ,Automotive Engineering Technology
+MAJ,Civil Engineering Technology
+MAJ,Computer Engineering Technology
+MAJ,Construction/Building Technology
+MAJ,Electrical Engineering 
+MAJ,Electromechanical/Biomedical Engineering Technologies
+MAJ,Environmental Control Technologies
+MAJ,Industrial Production Technologies
+MAJ,Mechanical Engineering Technology
+MAJ,Quality Control & Safety Technologies
+MAJ,Surveying Technology
+MAJ,English Language & Literature
+MAJ,American/English Literature
+MAJ,Creative Writing
+MAJ,Public Speaking
+MAJ,Foreign Languages/Literatures
+MAJ,Asian Languages & Literatures
+MAJ,Classical/Ancient Languages & Literatures
+MAJ,Comparative Literature
+MAJ,French Language & Literature
+MAJ,German Language & Literature
+MAJ,Linguistics
+MAJ,Middle Eastern Languages & Literatures
+MAJ,Spanish Language & Literature
+MAJ,"Health Services Administration,General"
+MAJ,Hospital/Facilities Administration
+MAJ,Medical Office/Secretarial
+MAJ,Medical Records
+MAJ,Medical/Clinical Assisting
+MAJ,Dental Assisting
+MAJ,Medical Assisting
+MAJ,Occupational Therapy Assisting
+MAJ,Physical Therapy Assisting
+MAJ,Veterinarian Assisting/Technology
+MAJ,Chiropractic (Pre-Chiropractic)
+MAJ,Dental Hygiene
+MAJ,Dentistry (Pre-Dentistry)
+MAJ,Emergency Medical Technology
+MAJ,Health-Related Professions & Services
+MAJ,Athletic Training
+MAJ,Communication Disorder Services 
+MAJ,Public Health
+MAJ,Health/Medical Technology
+MAJ,Medical Laboratory Technology
+MAJ,Medical Radiologic Technology
+MAJ,Nuclear Medicine Technology
+MAJ,Respiratory Therapy Technology
+MAJ,Surgical Technology
+MAJ,Medicine (Pre-Medicine)
+MAJ,Nursing
+MAJ,"Nursing, Registered "
+MAJ,Optometry (Pre-Optometry)
+MAJ,Osteopathic Medicine
+MAJ,Pharmacy (Pre-Pharmacy)
+MAJ,Physician Assisting
+MAJ,Therapy & Rehabilitation
+MAJ,Alcohol/Drug Abuse Counseling
+MAJ,Massage Therapy
+MAJ,Mental Health Counseling
+MAJ,Occupational Therapy
+MAJ,Physical Therapy (Pre-Physical Therapy)
+MAJ,Psychiatric/Mental Health Technician
+MAJ,Rehabilitation Therapy
+MAJ,Vocational Rehabilitation Counseling
+MAJ,Veterinary Medicine (Pre-Veterinarian)
+MAJ,Philosophy
+MAJ,Religion
+MAJ,Theology
+MAJ,Bible/Biblical Studies
+MAJ,Divinity/Ministry
+MAJ,Religious Education
+MAJ,Aviation & Airway Science
+MAJ,Aircraft Piloting & Navigation
+MAJ,Aviation Management & Operations
+MAJ,Construction Trades
+MAJ,Mechanics & Repairers
+MAJ,Aircraft Mechanics/Technology
+MAJ,Autobody Repair/Technology
+MAJ,Automotive Mechanics/Technology
+MAJ,Avionics Technology
+MAJ,Diesel Mechanics/Technology
+MAJ,Electrical/Electronics Equip Installation & Repair
+MAJ,Heating/Air Cond/Refrig Install/Repair
+MAJ,Precision Production Trades
+MAJ,Machine Tool Technology
+MAJ,Welding Technology
+MAJ,Transportation & Materials Moving
+MAJ,Biology
+MAJ,Biochemistry
+MAJ,Cell/Cellular Biology
+MAJ,Ecology
+MAJ,Genetics
+MAJ,Marine/Aquatic Biology
+MAJ,Microbiology & Immunology
+MAJ,Zoology
+MAJ,Physical Sciences
+MAJ,Astronomy
+MAJ,Atmospheric Sciences & Meteorology
+MAJ,Chemistry
+MAJ,Geological & Earth Sciences
+MAJ,Physics
+MAJ,Legal Studies
+MAJ,Court Reporting
+MAJ,Law (Pre-Law)
+MAJ,Legal Administrative Assisting
+MAJ,Paralegal/Legal Assistant
+MAJ,Social Sciences
+MAJ,Anthropology
+MAJ,Criminology
+MAJ,Economics
+MAJ,Geography
+MAJ,History
+MAJ,International Relations & Affairs
+MAJ,Political Science
+MAJ,"Psychology, Clinical & Counseling"
+MAJ,Psychology
+MAJ,Sociology
+MAJ,Urban Studies/Urban Affairs
+MAJ,Computer Science 
+MAJ,BS/RN
+MAJ,Electronics Engineering Technologies
+MAJ,Data Science
+MAJ,Pharmaceutical Sciences
+MAJ,Biological Sciences
+MAJ,Information Technology
+MAJ,Biostatistics
+MAJ,Epidemiology
+MAJ,Public Policy Analysis
+MAJ,Public Policy
+MAJ,Microeconomics
+MAJ,Econ
+MAJ,Biophysics
+MAJ,International Business Strategy
+MAJ,Industrial and Systems Engineering
+MAJ,Computer and Information Science and Engineering 
+MAJ,Food Science
+MAJ,information Management Systems
+MAJ,Electronics
