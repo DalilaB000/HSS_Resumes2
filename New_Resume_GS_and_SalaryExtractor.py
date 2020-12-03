@@ -194,7 +194,7 @@ def get_date(st):
     # Covers 90% of date patters
     s = st.title()
     months = "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)([a-z]{0,6})?\.?\s*"
-    tp = re.search("("+months+"|\d{1,2})?(\/|\.)?(\s+(1|2)|^(1|2))\d{3}\s?(-|–|—|—|to|TO|To)?\s?(P|p|C|c|("+months+"|\d{1,2})?(\/|\.)?\s*(1|2)\d{3})?",s)
+    tp = re.search("("+months+"|\d{1,2})?(\/|\.)?(\s*(1|2)|^(1|2))\d{3}\s?(-|–|—|—|to|TO|To)?\s?(P|p|C|c|("+months+"|\d{1,2})?(\/|\.)?\s*(1|2)\d{3})?",s)
     if not tp:
         tp2 = re.search("((^\d{4}|\s\d{4})\s*(\-|\–|—|To|to|TO)\s*((1|2)\d{3}|(P|p|C|c)))|(\s+(\d{2}\/(1|2)\d{3}))", s)
         if not tp2:
@@ -365,6 +365,8 @@ def check_if_potential_title(st):
         return (False)
     if re.search("\s*((C|c)*(GPA|gpa)\:*)", s):
         return (True)
+    if re.search("\s+Salary",s):
+        return(True)
     if re.search("\A[a-z][A-Z]",s):
         return(True)
     if re.search("\A([a-z]|(A\s+))", s):
@@ -567,6 +569,7 @@ def extract_GS(st):
         highest_grade = 0
         for grade in grades:
             gd = grade.strip()
+            s= s.replace(gd," ")
             gd = re.sub("\s*", "", gd)
             grade_level = gd[-2:]
             if int(grade_level) > int(highest_grade):
@@ -578,19 +581,24 @@ def extract_GS(st):
         grade_level = re.search("Grade(\s\w{3,})?:\s?\d{1,2}",s)
         if grade_series and grade_level:
             grade_series = grade_series.string[grade_series.start():grade_series.end()].strip()
+            s = s.replace(grade_series," ")
             grade_series = grade_series[-4:]
             grade_level = grade_level.string[grade_level.start():grade_level.end()].strip()
+            s = s.replace(grade_level," ")
             grade_level = grade_level[-2:]
         elif grade_series:
             grade_level = ""
             grade_series = grade_series.string[grade_series.start():grade_series.end()].strip()
+            s = s.replace(grade_series," ")
             grade_series = grade_series[-4:]
         elif grade_level:
             grade_level = grade_level.string[grade_level.start():grade_level.end()].strip()
+            s = s.replace(grade_level," ")
             grade_level = grade_level[-2:]
             grade_series = ""
-
-    return grade_level,grade_series
+        s = s.strip()
+        s = re.sub("\s+"," ",s)
+    return grade_level,grade_series, s
 
 def extract_salary(st):
     '''
@@ -620,7 +628,7 @@ def get_gs_level(text_l):
     for count,text_s in enumerate(text_l):
         text_s = text_s.strip()
         text_s = re.sub("\s+"," ",text_s)
-        g_level, g_series = extract_GS(text_s)
+        g_level, g_series,s = extract_GS(text_s)
         if g_level and g_series:
             grade_level = g_level
             grade_series = g_series
@@ -661,14 +669,15 @@ def extract_city_spacy(s):
     states = '\s*(AZ|BC|AL|AK|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|LA|ME|MD|MA|MI|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)([^a-zA-Z0-9]|\Z)'
     city = ""
     for ent in doc.ents:
-        tp = re.search(states, ent.text)
         if ent.label_ == "GPE":
             if not city:
                 city = ent.text
             else:
                 city = city + ", " + ent.text
-        if tp:
-            city = city + ", " + tp.group()
+    tp = re.search(states, s)
+    if tp:
+        state_s = tp.group()
+        city = city + ", "+state_s
     return city
 def count_n_POS(s):
     tmp = s.split(",")
@@ -959,7 +968,7 @@ def get_gs_salary(resume_df,resume_l,work_start):
         s = re.sub("\s{1,}", " ", s)
         s = re.sub("\s+[b-hj-z]\s+",", ",s)
         s = re.sub("\s+gg\s+",",",s)
-        g_level, g_grade = extract_GS(s)
+        g_level, g_grade,s = extract_GS(s)
         if g_level and g_grade:
             if not job_dict["Level"] and not job_dict["Series"]:
                 job_dict["Counter"] = counter
@@ -988,19 +997,24 @@ def get_gs_salary(resume_df,resume_l,work_start):
                 counter += 1
         salary_s = extract_salary(s)
         if salary_s:
-            job_list = job_list.append(job_dict, ignore_index=True)
-            for key in job_dict:
-                job_dict[key] = ""
-            job_dict["Salary"]= salary_s
-        s = re.sub(r'\([^)]*\)', '', s).strip()
-        s = re.sub(r'\([^)]*', '', s).strip()
-        date_s, s = get_date_and_remove_it_from_title(s)
-        if date_s:
-            if job_dict["Date"]:
+            if not job_dict["Salary"]:
+                job_dict["Salary"] = salary_s
+            else:
                 job_list = job_list.append(job_dict, ignore_index=True)
                 for key in job_dict:
                     job_dict[key] = ""
-            job_dict["Date"] = date_s
+                job_dict["Salary"]= salary_s
+        s = re.sub(r'\([^)]*\)', '', s).strip()
+        s = re.sub(r'\([^)]*', '', s).strip()
+        s = re.sub("\s\d{5}","",s)
+        if re.search("(^(1|2)\d{3}|\D(1|2)\d{3})",s):
+            date_s, s = get_date_and_remove_it_from_title(s)
+            if date_s:
+                if job_dict["Date"]:
+                    job_list = job_list.append(job_dict, ignore_index=True)
+                    for key in job_dict:
+                        job_dict[key] = ""
+                job_dict["Date"] = date_s
         if len(s) > 2:
             city_s = extract_city_spacy(s)
             if city_s:
@@ -1017,7 +1031,7 @@ def get_gs_salary(resume_df,resume_l,work_start):
             job_list["Resume_Name"]= resume_df.Resume_Name[i]
             in_job = False
 
-    return job_list
+    return job_list, i
 
 def parse_all_engineers_resume():
     path_name = "../HSS_Resumes/"
