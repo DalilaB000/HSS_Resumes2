@@ -1,0 +1,339 @@
+{"label":"EDU","pattern":"Bachelor of Arts","id":"Doctor"}
+{"label":"EDU","pattern":"BA","id":"Doctor"}
+{"label":"EDU","pattern":"B.A.","id":"Doctor"}
+{"label":"EDU","pattern":"AB","id":"Doctor"}
+{"label":"EDU","pattern":"A.B.","id":"Doctor"}
+{"label":"EDU","pattern":"B.Arts","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Science And Arts","id":"Doctor"}
+{"label":"EDU","pattern":"BSA","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Accountancy","id":"Doctor"}
+{"label":"EDU","pattern":"BAcy","id":"Doctor"}
+{"label":"EDU","pattern":"B.Acy.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Accounting","id":"Doctor"}
+{"label":"EDU","pattern":"BAcc","id":"Doctor"}
+{"label":"EDU","pattern":"B.Acc.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Animal and Veterinary Bioscience","id":"Doctor"}
+{"label":"EDU","pattern":"B.An.Vet.Bio.Sc.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Applied Science","id":"Doctor"}
+{"label":"EDU","pattern":"B.App.Sc.","id":"Doctor"}
+{"label":"EDU","pattern":"B.A.Sc.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Architecture","id":"Doctor"}
+{"label":"EDU","pattern":"BArch","id":"Doctor"}
+{"label":"EDU","pattern":"B.Arch.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Business Administration","id":"Doctor"}
+{"label":"EDU","pattern":"BBA","id":"Doctor"}
+{"label":"EDU","pattern":"B.B.A.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Civil Engineering","id":"Doctor"}
+{"label":"EDU","pattern":"BCE","id":"Doctor"}
+{"label":"EDU","pattern":"B.C.E.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Commerce","id":"Doctor"}
+{"label":"EDU","pattern":"BComm","id":"Doctor"}
+{"label":"EDU","pattern":"B.Comm.","id":"Doctor"}
+{"label":"EDU","pattern":"BCom","id":"Doctor"}
+{"label":"EDU","pattern":"B.Com.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Communications","id":"Doctor"}
+{"label":"EDU","pattern":"B.Comm.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Computer Application","id":"Doctor"}
+{"label":"EDU","pattern":"BCA","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Dental Hygiene","id":"Doctor"}
+{"label":"EDU","pattern":"BDH","id":"Doctor"}
+{"label":"EDU","pattern":"B.D.H","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Dental Medicine","id":"Doctor"}
+{"label":"EDU","pattern":"BDM","id":"Doctor"}
+{"label":"EDU","pattern":"B.D.M.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Dental Science","id":"Doctor"}
+{"label":"EDU","pattern":"BDSc","id":"Doctor"}
+{"label":"EDU","pattern":"B.D.Sc.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Dental Surgery","id":"Doctor"}
+{"label":"EDU","pattern":"BDS","id":"Doctor"}
+{"label":"EDU","pattern":"B.D.S. ;","id":"Doctor"}
+{"label":"EDU","pattern":"BChD","id":"Doctor"}
+{"label":"EDU","pattern":"B.Ch.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Dentistry","id":"Doctor"}
+{"label":"EDU","pattern":"BDent","id":"Doctor"}
+{"label":"EDU","pattern":"B.Dent.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Design","id":"Doctor"}
+{"label":"EDU","pattern":"BDes","id":"Doctor"}
+{"label":"EDU","pattern":"B.Des.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Design Computing","id":"Doctor"}
+{"label":"EDU","pattern":"B.Des.Comp.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Design in Architecture","id":"Doctor"}
+{"label":"EDU","pattern":"B.Des.Arch.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Education","id":"Doctor"}
+{"label":"EDU","pattern":"BEd","id":"Doctor"}
+{"label":"EDU","pattern":"B.Ed.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Engineering","id":"Doctor"}
+{"label":"EDU","pattern":"BEng","id":"Doctor"}
+{"label":"EDU","pattern":"B.Eng.","id":"Doctor"}
+{"label":"EDU","pattern":"BE","id":"Doctor"}
+{"label":"EDU","pattern":"B.E","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Electronic Commerce","id":"Doctor"}
+{"label":"EDU","pattern":"BEC","id":"Doctor"}
+{"label":"EDU","pattern":"B.E-COM.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Electrical Engineering","id":"Doctor"}
+{"label":"EDU","pattern":"BEE","id":"Doctor"}
+{"label":"EDU","pattern":"B.E.E.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Fine Arts","id":"Doctor"}
+{"label":"EDU","pattern":"BFA","id":"Doctor"}
+{"label":"EDU","pattern":"B.F.A.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Health Sciences","id":"Doctor"}
+{"label":"EDU","pattern":"B.Hlth.Sci","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Information Technology","id":"Doctor"}
+{"label":"EDU","pattern":"BIT","id":"Doctor"}
+{"label":"EDU","pattern":"B.I.T.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of International and Global Studies","id":"Doctor"}
+{"label":"EDU","pattern":"BIGS","id":"Doctor"}
+{"label":"EDU","pattern":"B.I.G.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Law","id":"Doctor"}
+{"label":"EDU","pattern":"LLB","id":"Doctor"}
+{"label":"EDU","pattern":"LL.B.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Liberal Arts and Sciences","id":"Doctor"}
+{"label":"EDU","pattern":"BLAS","id":"Doctor"}
+{"label":"EDU","pattern":"B.L.A.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Library Science","id":"Doctor"}
+{"label":"EDU","pattern":"BLib","id":"Doctor"}
+{"label":"EDU","pattern":"B.Lib.","id":"Doctor"}
+{"label":"EDU","pattern":"BLS","id":"Doctor"}
+{"label":"EDU","pattern":"B.L.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Literature","id":"Doctor"}
+{"label":"EDU","pattern":"BLit","id":"Doctor"}
+{"label":"EDU","pattern":"B.Lit.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Mathematics","id":"Doctor"}
+{"label":"EDU","pattern":"BMath","id":"Doctor"}
+{"label":"EDU","pattern":"B.Math","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Mechanical Engineering","id":"Doctor"}
+{"label":"EDU","pattern":"BME","id":"Doctor"}
+{"label":"EDU","pattern":"B.M.E.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Medical Science","id":"Doctor"}
+{"label":"EDU","pattern":"B.Med.Sc.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Medicine","id":"Doctor"}
+{"label":"EDU","pattern":"MB","id":"Doctor"}
+{"label":"EDU","pattern":"M.B.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Music","id":"Doctor"}
+{"label":"EDU","pattern":"B.M.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Music Studies","id":"Doctor"}
+{"label":"EDU","pattern":"B.Mus.Studies","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Nursing","id":"Doctor"}
+{"label":"EDU","pattern":"BN","id":"Doctor"}
+{"label":"EDU","pattern":"B.N.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Pharmacy","id":"Doctor"}
+{"label":"EDU","pattern":"B.Pharm.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Philosophy","id":"Doctor"}
+{"label":"EDU","pattern":"B.Ph.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Political","id":"Doctor"}
+{"label":"EDU","pattern":"Economic and Social Sciences","id":"Doctor"}
+{"label":"EDU","pattern":"B.P.E.S.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Resource Economics","id":"Doctor"}
+{"label":"EDU","pattern":"B.Res.Ec.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Science","id":"Doctor"}
+{"label":"EDU","pattern":"BS","id":"Doctor"}
+{"label":"EDU","pattern":"B.S. ;  BSc","id":"Doctor"}
+{"label":"EDU","pattern":"B.Sc.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Science in Dental Hygiene","id":"Doctor"}
+{"label":"EDU","pattern":"BSDH","id":"Doctor"}
+{"label":"EDU","pattern":"B.S.D.H","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Science in Environmental and Occupational Health","id":"Doctor"}
+{"label":"EDU","pattern":"BS.EOH","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Science in Nursing","id":"Doctor"}
+{"label":"EDU","pattern":"BSN","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Socio-Legal Studies","id":"Doctor"}
+{"label":"EDU","pattern":"BSLS","id":"Doctor"}
+{"label":"EDU","pattern":"B.S.L.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Surgery","id":"Doctor"}
+{"label":"EDU","pattern":"BS","id":"Doctor"}
+{"label":"EDU","pattern":"B.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Technology","id":"Doctor"}
+{"label":"EDU","pattern":"BTech","id":"Doctor"}
+{"label":"EDU","pattern":"B.Tech.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Veterinary Science","id":"Doctor"}
+{"label":"EDU","pattern":"B.V.Sc.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of Visual Arts","id":"Doctor"}
+{"label":"EDU","pattern":"BVA","id":"Doctor"}
+{"label":"EDU","pattern":"B.V.A.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Architecture (Professional Degree)","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Science in Architecture (Research Degree)","id":"Doctor"}
+{"label":"EDU","pattern":"M.Arch.","id":"Doctor"}
+{"label":"EDU","pattern":"M.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Arts","id":"Doctor"}
+{"label":"EDU","pattern":"MA","id":"Doctor"}
+{"label":"EDU","pattern":"M.A.","id":"Doctor"}
+{"label":"EDU","pattern":"A.M.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Business Administration","id":"Doctor"}
+{"label":"EDU","pattern":"MBA","id":"Doctor"}
+{"label":"EDU","pattern":"M.B.A.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Chemistry","id":"Doctor"}
+{"label":"EDU","pattern":"MChem","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Commerce","id":"Doctor"}
+{"label":"EDU","pattern":"MCom","id":"Doctor"}
+{"label":"EDU","pattern":"M.Com","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Computer Application","id":"Doctor"}
+{"label":"EDU","pattern":"MCA","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Divinity","id":"Doctor"}
+{"label":"EDU","pattern":"MDiv","id":"Doctor"}
+{"label":"EDU","pattern":"M.Div.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Education (Master of Science in Education)","id":"Doctor"}
+{"label":"EDU","pattern":"M.Ed.","id":"Doctor"}
+{"label":"EDU","pattern":"M.S.Ed.","id":"Doctor"}
+{"label":"EDU","pattern":"MSEd.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Emergency Management","id":"Doctor"}
+{"label":"EDU","pattern":"MEM","id":"Doctor"}
+{"label":"EDU","pattern":"M.E.M.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Emergency and Disaster Management","id":"Doctor"}
+{"label":"EDU","pattern":"MEDM","id":"Doctor"}
+{"label":"EDU","pattern":"M.E.D.M.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Engineering","id":"Doctor"}
+{"label":"EDU","pattern":"M.E.","id":"Doctor"}
+{"label":"EDU","pattern":"MEng","id":"Doctor"}
+{"label":"EDU","pattern":"M.Eng.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Fine Arts","id":"Doctor"}
+{"label":"EDU","pattern":"MFA","id":"Doctor"}
+{"label":"EDU","pattern":"M.F.A.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Health","id":"Doctor"}
+{"label":"EDU","pattern":"Healthcare Management","id":"Doctor"}
+{"label":"EDU","pattern":"MSc.HM","id":"Doctor"}
+{"label":"EDU","pattern":"MHM","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Health Infromatics","id":"Doctor"}
+{"label":"EDU","pattern":"MSc.HI","id":"Doctor"}
+{"label":"EDU","pattern":"MHI","id":"Doctor"}
+{"label":"EDU","pattern":"Master of International Affairs","id":"Doctor"}
+{"label":"EDU","pattern":"MIA","id":"Doctor"}
+{"label":"EDU","pattern":"M.I.A.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of International Studies","id":"Doctor"}
+{"label":"EDU","pattern":"MIS","id":"Doctor"}
+{"label":"EDU","pattern":"M.I.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Laws","id":"Doctor"}
+{"label":"EDU","pattern":"LLM","id":"Doctor"}
+{"label":"EDU","pattern":"LL.M.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Library Science","id":"Doctor"}
+{"label":"EDU","pattern":"MLS","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Liberal Arts","id":"Doctor"}
+{"label":"EDU","pattern":"MLA","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Library and Information Science","id":"Doctor"}
+{"label":"EDU","pattern":"MLIS","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Music","id":"Doctor"}
+{"label":"EDU","pattern":"M.M.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Professional Studies","id":"Doctor"}
+{"label":"EDU","pattern":"MPS","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Public Administration","id":"Doctor"}
+{"label":"EDU","pattern":"MPA","id":"Doctor"}
+{"label":"EDU","pattern":"M.P.A.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Public Health","id":"Doctor"}
+{"label":"EDU","pattern":"MPH","id":"Doctor"}
+{"label":"EDU","pattern":"M.P.H.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Science","id":"Doctor"}
+{"label":"EDU","pattern":"( US ) MS","id":"Doctor"}
+{"label":"EDU","pattern":"M.S. ; ( UK ) MSc","id":"Doctor"}
+{"label":"EDU","pattern":"M.Sc.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Science in Information","id":"Doctor"}
+{"label":"EDU","pattern":"MSI","id":"Doctor"}
+{"label":"EDU","pattern":"M.S.I.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Social Work","id":"Doctor"}
+{"label":"EDU","pattern":"MSW","id":"Doctor"}
+{"label":"EDU","pattern":"M.S.W.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Strategic Foresight","id":"Doctor"}
+{"label":"EDU","pattern":"MSF","id":"Doctor"}
+{"label":"EDU","pattern":"M.S.F.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Sustainable Energy and Environmental Management","id":"Doctor"}
+{"label":"EDU","pattern":"MSEEM","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Technology","id":"Doctor"}
+{"label":"EDU","pattern":"MTech","id":"Doctor"}
+{"label":"EDU","pattern":"M.Tech.","id":"Doctor"}
+{"label":"EDU","pattern":"Master of Theology","id":"Doctor"}
+{"label":"EDU","pattern":"ThM","id":"Doctor"}
+{"label":"EDU","pattern":"Th.M.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Acupuncture","id":"Doctor"}
+{"label":"EDU","pattern":"DAc","id":"Doctor"}
+{"label":"EDU","pattern":"D.Ac.","id":"Doctor"}
+{"label":"EDU","pattern":"DAc.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Audiology","id":"Doctor"}
+{"label":"EDU","pattern":"AuD","id":"Doctor"}
+{"label":"EDU","pattern":"Au.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Biblical Studies","id":"Doctor"}
+{"label":"EDU","pattern":"DBS","id":"Doctor"}
+{"label":"EDU","pattern":"D.B.S.","id":"Doctor"}
+{"label":"EDU","pattern":"DB","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Chiropractic","id":"Doctor"}
+{"label":"EDU","pattern":"DC","id":"Doctor"}
+{"label":"EDU","pattern":"D.C.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Dental Surgery","id":"Doctor"}
+{"label":"EDU","pattern":"DDS","id":"Doctor"}
+{"label":"EDU","pattern":"D.D.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Divinity","id":"Doctor"}
+{"label":"EDU","pattern":"DD","id":"Doctor"}
+{"label":"EDU","pattern":"D.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Education","id":"Doctor"}
+{"label":"EDU","pattern":"EdD","id":"Doctor"}
+{"label":"EDU","pattern":"Ed.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Jurisprudence (Juris Doctor)","id":"Doctor"}
+{"label":"EDU","pattern":"JD","id":"Doctor"}
+{"label":"EDU","pattern":"J.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Immortality","id":"Doctor"}
+{"label":"EDU","pattern":"ImD","id":"Doctor"}
+{"label":"EDU","pattern":"Im.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Law and Policy","id":"Doctor"}
+{"label":"EDU","pattern":"LP.D.","id":"Doctor"}
+{"label":"EDU","pattern":"DLP","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Medical Dentistry","id":"Doctor"}
+{"label":"EDU","pattern":"DMD","id":"Doctor"}
+{"label":"EDU","pattern":"D.M.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Medicine","id":"Doctor"}
+{"label":"EDU","pattern":"MD","id":"Doctor"}
+{"label":"EDU","pattern":"M.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Ministry","id":"Doctor"}
+{"label":"EDU","pattern":"DMin","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Metaphysics","id":"Doctor"}
+{"label":"EDU","pattern":"Dr. mph.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Musical Arts","id":"Doctor"}
+{"label":"EDU","pattern":"D.M.A.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Naturopathy","id":"Doctor"}
+{"label":"EDU","pattern":"ND","id":"Doctor"}
+{"label":"EDU","pattern":"N.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Nursing Practice","id":"Doctor"}
+{"label":"EDU","pattern":"DNP","id":"Doctor"}
+{"label":"EDU","pattern":"D.N.P.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Optometry","id":"Doctor"}
+{"label":"EDU","pattern":"OD","id":"Doctor"}
+{"label":"EDU","pattern":"O.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Osteopathy","id":"Doctor"}
+{"label":"EDU","pattern":"DO","id":"Doctor"}
+{"label":"EDU","pattern":"D.O.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Pharmacy","id":"Doctor"}
+{"label":"EDU","pattern":"PharmD","id":"Doctor"}
+{"label":"EDU","pattern":"Pharm.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Philosophy","id":"Doctor"}
+{"label":"EDU","pattern":"PhD","id":"Doctor"}
+{"label":"EDU","pattern":"Ph.D.","id":"Doctor"}
+{"label":"EDU","pattern":"DPhil","id":"Doctor"}
+{"label":"EDU","pattern":"D.Phil.","id":"Doctor"}
+{"label":"EDU","pattern":"DPh","id":"Doctor"}
+{"label":"EDU","pattern":"D.Ph.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Physical Therapy","id":"Doctor"}
+{"label":"EDU","pattern":"DPT","id":"Doctor"}
+{"label":"EDU","pattern":"D.P.T.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Practical Theology","id":"Doctor"}
+{"label":"EDU","pattern":"DPT","id":"Doctor"}
+{"label":"EDU","pattern":"D.P.T.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Psychology","id":"Doctor"}
+{"label":"EDU","pattern":"PsyD","id":"Doctor"}
+{"label":"EDU","pattern":"Psy.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Public Health","id":"Doctor"}
+{"label":"EDU","pattern":"DrPH","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Religious Sciences","id":"Doctor"}
+{"label":"EDU","pattern":"Dr. sc. rel.","id":"Doctor"}
+{"label":"EDU","pattern":"D.R.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Science","id":"Doctor"}
+{"label":"EDU","pattern":"DSc","id":"Doctor"}
+{"label":"EDU","pattern":"D.Sc.","id":"Doctor"}
+{"label":"EDU","pattern":"ScD","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Theology","id":"Doctor"}
+{"label":"EDU","pattern":"D.Th.","id":"Doctor"}
+{"label":"EDU","pattern":"Th.D.","id":"Doctor"}
+{"label":"EDU","pattern":"ThD","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Veterinary Medicine","id":"Doctor"}
+{"label":"EDU","pattern":"DVM","id":"Doctor"}
+{"label":"EDU","pattern":"D.V.M.","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor's","id":"Doctor"}
+{"label":"EDU","pattern":"Master's","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor's","id":"Doctor"}
+{"label":"EDU","pattern":"Bachelor of","id":"Doctor"}
+{"label":"EDU","pattern":"Master of","id":"Doctor"}

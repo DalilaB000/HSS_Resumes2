@@ -1,0 +1,678 @@
+{"label":"EDU","pattern":"Bachelor of Arts","id":"Bachelor"}
+{"label":"EDU","pattern":"BA","id":"Bachelor"}
+{"label":"EDU","pattern":"B.A.","id":"Bachelor"}
+{"label":"EDU","pattern":"AB","id":"Bachelor"}
+{"label":"EDU","pattern":"A.B.","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Arts","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Science And Arts","id":"Bachelor"}
+{"label":"EDU","pattern":"BSA","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Accountancy","id":"Bachelor"}
+{"label":"EDU","pattern":"BAcy","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Acy.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Accounting","id":"Bachelor"}
+{"label":"EDU","pattern":"BAcc","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Acc.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Animal and Veterinary Bioscience","id":"Bachelor"}
+{"label":"EDU","pattern":"B.An.Vet.Bio.Sc.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Applied Science","id":"Bachelor"}
+{"label":"EDU","pattern":"B.App.Sc.","id":"Bachelor"}
+{"label":"EDU","pattern":"B.A.Sc.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Architecture","id":"Bachelor"}
+{"label":"EDU","pattern":"BArch","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Arch.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Business Administration","id":"Bachelor"}
+{"label":"EDU","pattern":"BBA","id":"Bachelor"}
+{"label":"EDU","pattern":"B.B.A.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Civil Engineering","id":"Bachelor"}
+{"label":"EDU","pattern":"BCE","id":"Bachelor"}
+{"label":"EDU","pattern":"B.C.E.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Commerce","id":"Bachelor"}
+{"label":"EDU","pattern":"BComm","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Comm.","id":"Bachelor"}
+{"label":"EDU","pattern":"BCom","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Com.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Communications","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Comm.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Computer Application","id":"Bachelor"}
+{"label":"EDU","pattern":"BCA","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Dental Hygiene","id":"Bachelor"}
+{"label":"EDU","pattern":"BDH","id":"Bachelor"}
+{"label":"EDU","pattern":"B.D.H","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Dental Medicine","id":"Bachelor"}
+{"label":"EDU","pattern":"BDM","id":"Bachelor"}
+{"label":"EDU","pattern":"B.D.M.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Dental Science","id":"Bachelor"}
+{"label":"EDU","pattern":"BDSc","id":"Bachelor"}
+{"label":"EDU","pattern":"B.D.Sc.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Dental Surgery","id":"Bachelor"}
+{"label":"EDU","pattern":"BDS","id":"Bachelor"}
+{"label":"EDU","pattern":"B.D.S. ;","id":"Bachelor"}
+{"label":"EDU","pattern":"BChD","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Ch.D.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Dentistry","id":"Bachelor"}
+{"label":"EDU","pattern":"BDent","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Dent.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Design","id":"Bachelor"}
+{"label":"EDU","pattern":"BDes","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Des.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Design Computing","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Des.Comp.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Design in Architecture","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Des.Arch.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Education","id":"Bachelor"}
+{"label":"EDU","pattern":"BEd","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Ed.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Engineering","id":"Bachelor"}
+{"label":"EDU","pattern":"BEng","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Eng.","id":"Bachelor"}
+{"label":"EDU","pattern":"BE","id":"Bachelor"}
+{"label":"EDU","pattern":"B.E","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Electronic Commerce","id":"Bachelor"}
+{"label":"EDU","pattern":"BEC","id":"Bachelor"}
+{"label":"EDU","pattern":"B.E-COM.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Electrical Engineering","id":"Bachelor"}
+{"label":"EDU","pattern":"BEE","id":"Bachelor"}
+{"label":"EDU","pattern":"B.E.E.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Fine Arts","id":"Bachelor"}
+{"label":"EDU","pattern":"BFA","id":"Bachelor"}
+{"label":"EDU","pattern":"B.F.A.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Health Sciences","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Hlth.Sci","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Information Technology","id":"Bachelor"}
+{"label":"EDU","pattern":"BIT","id":"Bachelor"}
+{"label":"EDU","pattern":"B.I.T.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of International and Global Studies","id":"Bachelor"}
+{"label":"EDU","pattern":"BIGS","id":"Bachelor"}
+{"label":"EDU","pattern":"B.I.G.S.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Law","id":"Bachelor"}
+{"label":"EDU","pattern":"LLB","id":"Bachelor"}
+{"label":"EDU","pattern":"LL.B.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Liberal Arts and Sciences","id":"Bachelor"}
+{"label":"EDU","pattern":"BLAS","id":"Bachelor"}
+{"label":"EDU","pattern":"B.L.A.S.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Library Science","id":"Bachelor"}
+{"label":"EDU","pattern":"BLib","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Lib.","id":"Bachelor"}
+{"label":"EDU","pattern":"BLS","id":"Bachelor"}
+{"label":"EDU","pattern":"B.L.S.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Literature","id":"Bachelor"}
+{"label":"EDU","pattern":"BLit","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Lit.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Mathematics","id":"Bachelor"}
+{"label":"EDU","pattern":"BMath","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Math","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Mechanical Engineering","id":"Bachelor"}
+{"label":"EDU","pattern":"BME","id":"Bachelor"}
+{"label":"EDU","pattern":"B.M.E.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Medical Science","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Med.Sc.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Medicine","id":"Bachelor"}
+{"label":"EDU","pattern":"MB","id":"Bachelor"}
+{"label":"EDU","pattern":"M.B.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Music","id":"Bachelor"}
+{"label":"EDU","pattern":"B.M.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Music Studies","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Mus.Studies","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Nursing","id":"Bachelor"}
+{"label":"EDU","pattern":"BN","id":"Bachelor"}
+{"label":"EDU","pattern":"B.N.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Pharmacy","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Pharm.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Philosophy","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Ph.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Political","id":"Bachelor"}
+{"label":"EDU","pattern":"Economic and Social Sciences","id":"Bachelor"}
+{"label":"EDU","pattern":"B.P.E.S.S.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Resource Economics","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Res.Ec.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Science","id":"Bachelor"}
+{"label":"EDU","pattern":"BS","id":"Bachelor"}
+{"label":"EDU","pattern":"B.S.","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Sc.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Science in Dental Hygiene","id":"Bachelor"}
+{"label":"EDU","pattern":"BSDH","id":"Bachelor"}
+{"label":"EDU","pattern":"B.S.D.H","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Science in Environmental and Occupational Health","id":"Bachelor"}
+{"label":"EDU","pattern":"BS.EOH","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Science in Nursing","id":"Bachelor"}
+{"label":"EDU","pattern":"BSN","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Socio-Legal Studies","id":"Bachelor"}
+{"label":"EDU","pattern":"BSLS","id":"Bachelor"}
+{"label":"EDU","pattern":"B.S.L.S.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Surgery","id":"Bachelor"}
+{"label":"EDU","pattern":"BS","id":"Bachelor"}
+{"label":"EDU","pattern":"B.S.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Technology","id":"Bachelor"}
+{"label":"EDU","pattern":"BTech","id":"Bachelor"}
+{"label":"EDU","pattern":"B.Tech.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Veterinary Science","id":"Bachelor"}
+{"label":"EDU","pattern":"B.V.Sc.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of Visual Arts","id":"Bachelor"}
+{"label":"EDU","pattern":"BVA","id":"Bachelor"}
+{"label":"EDU","pattern":"B.V.A.","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor's","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor of","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor degree","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelors of Arts","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor Degree","id":"Bachelor"}
+{"label":"EDU","pattern":"BSc","id":"Bachelor"}
+{"label":"EDU","pattern":"BACHELOR OF ART","id":"Bachelor"}
+{"label":"EDU","pattern":"Diploma","id":"Bachelor"}
+{"label":"EDU","pattern":"BASc","id":"Bachelor"}
+{"label":"EDU","pattern":"BMS","id":"Bachelor"}
+{"label":"EDU","pattern":"B.M.S","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor's Degree","id":"Bachelor"}
+{"label":"EDU","pattern":"BoE","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelors","id":"Bachelor"}
+{"label":"EDU","pattern":"Bachelor","id":"Bachelor"}
+{"label":"EDU","pattern":"B-Tech","id":"Bachelor"}
+{"label":"EDU","pattern":"Master of Architecture (Professional Degree)","id":"Master"}
+{"label":"EDU","pattern":"Master of Science in Architecture (Research Degree)","id":"Master"}
+{"label":"EDU","pattern":"M.Arch.","id":"Master"}
+{"label":"EDU","pattern":"M.S.","id":"Master"}
+{"label":"EDU","pattern":"Master of Arts","id":"Master"}
+{"label":"EDU","pattern":"MA","id":"Master"}
+{"label":"EDU","pattern":"M.A.","id":"Master"}
+{"label":"EDU","pattern":"A.M.","id":"Master"}
+{"label":"EDU","pattern":"Master of Business Administration","id":"Master"}
+{"label":"EDU","pattern":"MBA","id":"Master"}
+{"label":"EDU","pattern":"M.B.A.","id":"Master"}
+{"label":"EDU","pattern":"Master of Chemistry","id":"Master"}
+{"label":"EDU","pattern":"MChem","id":"Master"}
+{"label":"EDU","pattern":"Master of Commerce","id":"Master"}
+{"label":"EDU","pattern":"MCom","id":"Master"}
+{"label":"EDU","pattern":"M.Com","id":"Master"}
+{"label":"EDU","pattern":"Master of Computer Application","id":"Master"}
+{"label":"EDU","pattern":"MCA","id":"Master"}
+{"label":"EDU","pattern":"Master of Divinity","id":"Master"}
+{"label":"EDU","pattern":"MDiv","id":"Master"}
+{"label":"EDU","pattern":"M.Div.","id":"Master"}
+{"label":"EDU","pattern":"Master of Education (Master of Science in Education)","id":"Master"}
+{"label":"EDU","pattern":"M.Ed.","id":"Master"}
+{"label":"EDU","pattern":"M.S.Ed.","id":"Master"}
+{"label":"EDU","pattern":"MSEd.","id":"Master"}
+{"label":"EDU","pattern":"Master of Emergency Management","id":"Master"}
+{"label":"EDU","pattern":"MEM","id":"Master"}
+{"label":"EDU","pattern":"M.E.M.","id":"Master"}
+{"label":"EDU","pattern":"Master of Emergency and Disaster Management","id":"Master"}
+{"label":"EDU","pattern":"MEDM","id":"Master"}
+{"label":"EDU","pattern":"M.E.D.M.","id":"Master"}
+{"label":"EDU","pattern":"Master of Engineering","id":"Master"}
+{"label":"EDU","pattern":"M.E.","id":"Master"}
+{"label":"EDU","pattern":"MEng","id":"Master"}
+{"label":"EDU","pattern":"M.Eng.","id":"Master"}
+{"label":"EDU","pattern":"Master of Fine Arts","id":"Master"}
+{"label":"EDU","pattern":"MFA","id":"Master"}
+{"label":"EDU","pattern":"M.F.A.","id":"Master"}
+{"label":"EDU","pattern":"Master of Health","id":"Master"}
+{"label":"EDU","pattern":"Healthcare Management","id":"Master"}
+{"label":"EDU","pattern":"MSc.HM","id":"Master"}
+{"label":"EDU","pattern":"MHM","id":"Master"}
+{"label":"EDU","pattern":"Master of Health Infromatics","id":"Master"}
+{"label":"EDU","pattern":"MSc.HI","id":"Master"}
+{"label":"EDU","pattern":"MHI","id":"Master"}
+{"label":"EDU","pattern":"Master of International Affairs","id":"Master"}
+{"label":"EDU","pattern":"MIA","id":"Master"}
+{"label":"EDU","pattern":"M.I.A.","id":"Master"}
+{"label":"EDU","pattern":"Master of International Studies","id":"Master"}
+{"label":"EDU","pattern":"MIS","id":"Master"}
+{"label":"EDU","pattern":"M.I.S.","id":"Master"}
+{"label":"EDU","pattern":"Master of Laws","id":"Master"}
+{"label":"EDU","pattern":"LLM","id":"Master"}
+{"label":"EDU","pattern":"LL.M.","id":"Master"}
+{"label":"EDU","pattern":"Master of Library Science","id":"Master"}
+{"label":"EDU","pattern":"MLS","id":"Master"}
+{"label":"EDU","pattern":"Master of Liberal Arts","id":"Master"}
+{"label":"EDU","pattern":"MLA","id":"Master"}
+{"label":"EDU","pattern":"Master of Library and Information Science","id":"Master"}
+{"label":"EDU","pattern":"MLIS","id":"Master"}
+{"label":"EDU","pattern":"Master of Music","id":"Master"}
+{"label":"EDU","pattern":"M.M.","id":"Master"}
+{"label":"EDU","pattern":"Master of Professional Studies","id":"Master"}
+{"label":"EDU","pattern":"MPS","id":"Master"}
+{"label":"EDU","pattern":"Master of Public Administration","id":"Master"}
+{"label":"EDU","pattern":"MPA","id":"Master"}
+{"label":"EDU","pattern":"M.P.A.","id":"Master"}
+{"label":"EDU","pattern":"Master of Public Health","id":"Master"}
+{"label":"EDU","pattern":"MPH","id":"Master"}
+{"label":"EDU","pattern":"M.P.H.","id":"Master"}
+{"label":"EDU","pattern":"Master of Science","id":"Master"}
+{"label":"EDU","pattern":"MS","id":"Master"}
+{"label":"EDU","pattern":"MSc","id":"Master"}
+{"label":"EDU","pattern":"M.Sc.","id":"Master"}
+{"label":"EDU","pattern":"Master of Science in Information","id":"Master"}
+{"label":"EDU","pattern":"MSI","id":"Master"}
+{"label":"EDU","pattern":"M.S.I.","id":"Master"}
+{"label":"EDU","pattern":"Master of Social Work","id":"Master"}
+{"label":"EDU","pattern":"MSW","id":"Master"}
+{"label":"EDU","pattern":"M.S.W.","id":"Master"}
+{"label":"EDU","pattern":"Master of Strategic Foresight","id":"Master"}
+{"label":"EDU","pattern":"MSF","id":"Master"}
+{"label":"EDU","pattern":"M.S.F.","id":"Master"}
+{"label":"EDU","pattern":"Master of Sustainable Energy and Environmental Management","id":"Master"}
+{"label":"EDU","pattern":"MSEEM","id":"Master"}
+{"label":"EDU","pattern":"Master of Technology","id":"Master"}
+{"label":"EDU","pattern":"MTech","id":"Master"}
+{"label":"EDU","pattern":"M.Tech.","id":"Master"}
+{"label":"EDU","pattern":"Master of Theology","id":"Master"}
+{"label":"EDU","pattern":"ThM","id":"Master"}
+{"label":"EDU","pattern":"Th.M.","id":"Master"}
+{"label":"EDU","pattern":"Master's","id":"Master"}
+{"label":"EDU","pattern":"Master of","id":"Master"}
+{"label":"EDU","pattern":"M.S.","id":"Master"}
+{"label":"EDU","pattern":"M.C.A.","id":"Master"}
+{"label":"EDU","pattern":"Masters","id":"Master"}
+{"label":"EDU","pattern":"Master's Degree","id":"Master"}
+{"label":"EDU","pattern":"Masters of Science","id":"Master"}
+{"label":"EDU","pattern":"Postgraduate","id":"Master"}
+{"label":"EDU","pattern":"MASTERS","id":"Master"}
+{"label":"EDU","pattern":"MASTERS OF SCIENCE","id":"Master"}
+{"label":"EDU","pattern":"Doctor of Acupuncture","id":"Doctor"}
+{"label":"EDU","pattern":"DAc","id":"Doctor"}
+{"label":"EDU","pattern":"D.Ac.","id":"Doctor"}
+{"label":"EDU","pattern":"DAc.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Audiology","id":"Doctor"}
+{"label":"EDU","pattern":"AuD","id":"Doctor"}
+{"label":"EDU","pattern":"Au.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Biblical Studies","id":"Doctor"}
+{"label":"EDU","pattern":"DBS","id":"Doctor"}
+{"label":"EDU","pattern":"D.B.S.","id":"Doctor"}
+{"label":"EDU","pattern":"DB","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Chiropractic","id":"Doctor"}
+{"label":"EDU","pattern":"DC","id":"Doctor"}
+{"label":"EDU","pattern":"D.C.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Dental Surgery","id":"Doctor"}
+{"label":"EDU","pattern":"DDS","id":"Doctor"}
+{"label":"EDU","pattern":"D.D.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Divinity","id":"Doctor"}
+{"label":"EDU","pattern":"DD","id":"Doctor"}
+{"label":"EDU","pattern":"D.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Education","id":"Doctor"}
+{"label":"EDU","pattern":"EdD","id":"Doctor"}
+{"label":"EDU","pattern":"Ed.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Jurisprudence (Juris Doctor)","id":"Doctor"}
+{"label":"EDU","pattern":"JD","id":"Doctor"}
+{"label":"EDU","pattern":"J.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Immortality","id":"Doctor"}
+{"label":"EDU","pattern":"ImD","id":"Doctor"}
+{"label":"EDU","pattern":"Im.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Law and Policy","id":"Doctor"}
+{"label":"EDU","pattern":"LP.D.","id":"Doctor"}
+{"label":"EDU","pattern":"DLP","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Medical Dentistry","id":"Doctor"}
+{"label":"EDU","pattern":"DMD","id":"Doctor"}
+{"label":"EDU","pattern":"D.M.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Medicine","id":"Doctor"}
+{"label":"EDU","pattern":"MD","id":"Doctor"}
+{"label":"EDU","pattern":"M.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Ministry","id":"Doctor"}
+{"label":"EDU","pattern":"DMin","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Metaphysics","id":"Doctor"}
+{"label":"EDU","pattern":"Dr. mph.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Musical Arts","id":"Doctor"}
+{"label":"EDU","pattern":"D.M.A.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Naturopathy","id":"Doctor"}
+{"label":"EDU","pattern":"ND","id":"Doctor"}
+{"label":"EDU","pattern":"N.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Nursing Practice","id":"Doctor"}
+{"label":"EDU","pattern":"DNP","id":"Doctor"}
+{"label":"EDU","pattern":"D.N.P.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Optometry","id":"Doctor"}
+{"label":"EDU","pattern":"OD","id":"Doctor"}
+{"label":"EDU","pattern":"O.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Osteopathy","id":"Doctor"}
+{"label":"EDU","pattern":"DO","id":"Doctor"}
+{"label":"EDU","pattern":"D.O.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Pharmacy","id":"Doctor"}
+{"label":"EDU","pattern":"PharmD","id":"Doctor"}
+{"label":"EDU","pattern":"Pharm.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Philosophy","id":"Doctor"}
+{"label":"EDU","pattern":"PhD","id":"Doctor"}
+{"label":"EDU","pattern":"Ph.D.","id":"Doctor"}
+{"label":"EDU","pattern":"DPhil","id":"Doctor"}
+{"label":"EDU","pattern":"D.Phil.","id":"Doctor"}
+{"label":"EDU","pattern":"DPh","id":"Doctor"}
+{"label":"EDU","pattern":"D.Ph.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Physical Therapy","id":"Doctor"}
+{"label":"EDU","pattern":"DPT","id":"Doctor"}
+{"label":"EDU","pattern":"D.P.T.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Practical Theology","id":"Doctor"}
+{"label":"EDU","pattern":"DPT","id":"Doctor"}
+{"label":"EDU","pattern":"D.P.T.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Psychology","id":"Doctor"}
+{"label":"EDU","pattern":"PsyD","id":"Doctor"}
+{"label":"EDU","pattern":"Psy.D.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Public Health","id":"Doctor"}
+{"label":"EDU","pattern":"DrPH","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Religious Sciences","id":"Doctor"}
+{"label":"EDU","pattern":"Dr. sc. rel.","id":"Doctor"}
+{"label":"EDU","pattern":"D.R.S.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Science","id":"Doctor"}
+{"label":"EDU","pattern":"DSc","id":"Doctor"}
+{"label":"EDU","pattern":"D.Sc.","id":"Doctor"}
+{"label":"EDU","pattern":"ScD","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Theology","id":"Doctor"}
+{"label":"EDU","pattern":"D.Th.","id":"Doctor"}
+{"label":"EDU","pattern":"Th.D.","id":"Doctor"}
+{"label":"EDU","pattern":"ThD","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor of Veterinary Medicine","id":"Doctor"}
+{"label":"EDU","pattern":"DVM","id":"Doctor"}
+{"label":"EDU","pattern":"D.V.M.","id":"Doctor"}
+{"label":"EDU","pattern":"Doctor's","id":"Doctor"}
+{"label":"EDU","pattern":"PhD.","id":"Doctor"}
+{"label":"EDU","pattern":"PhD Degree","id":"Doctor"}
+{"label":"EDU","pattern":"Ph.D","id":"Doctor"}
+{"label":"MAJ","pattern":"Agriculture"}
+{"label":"MAJ","pattern":"Agribusiness Operations"}
+{"label":"MAJ","pattern":"Agricultural Business & Management"}
+{"label":"MAJ","pattern":"Agricultural Economics"}
+{"label":"MAJ","pattern":"Agricultural Mechanization"}
+{"label":"MAJ","pattern":"Agricultural Production"}
+{"label":"MAJ","pattern":"Agronomy & Crop Science"}
+{"label":"MAJ","pattern":"Animal Sciences"}
+{"label":"MAJ","pattern":"Food Sciences & Technology"}
+{"label":"MAJ","pattern":"Horticulture Operations & Management"}
+{"label":"MAJ","pattern":"Horticulture Science"}
+{"label":"MAJ","pattern":"Natural Resources Conservation"}
+{"label":"MAJ","pattern":"Environmental Science"}
+{"label":"MAJ","pattern":"Forestry"}
+{"label":"MAJ","pattern":"Natural Resources Management"}
+{"label":"MAJ","pattern":"Wildlife & Wildlands Management"}
+{"label":"MAJ","pattern":"Architecture"}
+{"label":"MAJ","pattern":"Architectural Environmental Design"}
+{"label":"MAJ","pattern":"City/Urban/Regional Planning"}
+{"label":"MAJ","pattern":"Interior Architecture"}
+{"label":"MAJ","pattern":"Landscape Architecture"}
+{"label":"MAJ","pattern":"Area Studies"}
+{"label":"MAJ","pattern":"Asian Area Studies"}
+{"label":"MAJ","pattern":"European Area Studies"}
+{"label":"MAJ","pattern":"Latin American Area Studies"}
+{"label":"MAJ","pattern":"North American Area Studies"}
+{"label":"MAJ","pattern":"Ethnic & Minority Studies"}
+{"label":"MAJ","pattern":"African American Studies"}
+{"label":"MAJ","pattern":"American Indian/Native American Studies"}
+{"label":"MAJ","pattern":"Latino/Chicano Studies"}
+{"label":"MAJ","pattern":"Women Studies"}
+{"label":"MAJ","pattern":"Liberal Arts & General Studies"}
+{"label":"MAJ","pattern":"Library Science"}
+{"label":"MAJ","pattern":"Multi/Interdisciplinary Studies"}
+{"label":"MAJ","pattern":"Art"}
+{"label":"MAJ","pattern":"Art History, Criticism & Conservation"}
+{"label":"MAJ","pattern":"Fine/Studio Arts"}
+{"label":"MAJ","pattern":"Cinema/Film"}
+{"label":"MAJ","pattern":"Cinematography/Film/Vide Production"}
+{"label":"MAJ","pattern":"Dance"}
+{"label":"MAJ","pattern":"Design & Visual Communications"}
+{"label":"MAJ","pattern":"Fashion/Apparel Design"}
+{"label":"MAJ","pattern":"Graphic Design"}
+{"label":"MAJ","pattern":"Industrial Design"}
+{"label":"MAJ","pattern":"Interior Design"}
+{"label":"MAJ","pattern":"Music"}
+{"label":"MAJ","pattern":"Music, Performance"}
+{"label":"MAJ","pattern":"Music, Theory & Composition"}
+{"label":"MAJ","pattern":"Photography"}
+{"label":"MAJ","pattern":"Theatre Arts/Drama"}
+{"label":"MAJ","pattern":"Accounting"}
+{"label":"MAJ","pattern":"Accounting Technician"}
+{"label":"MAJ","pattern":"Business Administration"}
+{"label":"MAJ","pattern":"Hotel/Motel Management"}
+{"label":"MAJ","pattern":"Human Resources Development/Training"}
+{"label":"MAJ","pattern":"Human Resources Management"}
+{"label":"MAJ","pattern":"International Business Management"}
+{"label":"MAJ","pattern":"Labor/Industrial Relations"}
+{"label":"MAJ","pattern":"Logistics & Materials Management"}
+{"label":"MAJ","pattern":"Marketing Management & Research"}
+{"label":"MAJ","pattern":"Office Supervision & Management"}
+{"label":"MAJ","pattern":"Operations Management & Supervision"}
+{"label":"MAJ","pattern":"Organizational Behavior"}
+{"label":"MAJ","pattern":"Purchasing/Procurement/Contracts Management"}
+{"label":"MAJ","pattern":"Restaurant/Food Services Management"}
+{"label":"MAJ","pattern":"Small Business Management/Operations"}
+{"label":"MAJ","pattern":"Travel/Tourism Management"}
+{"label":"MAJ","pattern":"Business/Management Quantitative Methods"}
+{"label":"MAJ","pattern":"Actuarial Science"}
+{"label":"MAJ","pattern":"Business/Managerial Economics"}
+{"label":"MAJ","pattern":"Finance"}
+{"label":"MAJ","pattern":"Banking & Financial Support Services"}
+{"label":"MAJ","pattern":"Financial Planning & Services"}
+{"label":"MAJ","pattern":"Insurance & Risk Management"}
+{"label":"MAJ","pattern":"Investments & Securities"}
+{"label":"MAJ","pattern":"Management Information Systems"}
+{"label":"MAJ","pattern":"Real Estate"}
+{"label":"MAJ","pattern":"Sales, Merchandising, & Marketing"}
+{"label":"MAJ","pattern":"Fashion Merchandising"}
+{"label":"MAJ","pattern":"Tourism & Travel Marketing"}
+{"label":"MAJ","pattern":"Secretarial Studies & Office Administration"}
+{"label":"MAJ","pattern":"Communications"}
+{"label":"MAJ","pattern":"Advertising"}
+{"label":"MAJ","pattern":"Digital Communications/Media"}
+{"label":"MAJ","pattern":"Journalism, Broadcast"}
+{"label":"MAJ","pattern":"Journalism, Print"}
+{"label":"MAJ","pattern":"Mass Communications"}
+{"label":"MAJ","pattern":"Public Relations & Organizational Communication"}
+{"label":"MAJ","pattern":"Radio & Television Broadcasting"}
+{"label":"MAJ","pattern":"Communications Technology"}
+{"label":"MAJ","pattern":"Graphic & Printing Equipment Operation*"}
+{"label":"MAJ","pattern":"Multimedia/Animation/Special Effects"}
+{"label":"MAJ","pattern":"Radio & Television Broadcasting Technology*"}
+{"label":"MAJ","pattern":"Family & Consumer Sciences"}
+{"label":"MAJ","pattern":"Adult Development & Aging/Gerontology"}
+{"label":"MAJ","pattern":"Child Care Services Management"}
+{"label":"MAJ","pattern":"Child Development"}
+{"label":"MAJ","pattern":"Consumer & Family Economics"}
+{"label":"MAJ","pattern":"Food & Nutrition"}
+{"label":"MAJ","pattern":"Textile & Apparel"}
+{"label":"MAJ","pattern":"Parks, Recreation, & Leisure"}
+{"label":"MAJ","pattern":"Exercise Science/Physiology/Kinesiology"}
+{"label":"MAJ","pattern":"Health & Physical Education/Fitness"}
+{"label":"MAJ","pattern":"Parks/Rec/Leisure Facilities Management"}
+{"label":"MAJ","pattern":"Sport & Fitness Administration/Management"}
+{"label":"MAJ","pattern":"Personal Services"}
+{"label":"MAJ","pattern":"Cosmetology/Hairstyling*"}
+{"label":"MAJ","pattern":"Culinary Arts/Chef Training"}
+{"label":"MAJ","pattern":"Funeral Services & Mortuary Science"}
+{"label":"MAJ","pattern":"Protective Services"}
+{"label":"MAJ","pattern":"Corrections"}
+{"label":"MAJ","pattern":"Criminal Justice"}
+{"label":"MAJ","pattern":"Fire Protection & Safety Technology"}
+{"label":"MAJ","pattern":"Law Enforcement"}
+{"label":"MAJ","pattern":"Military Technologies*"}
+{"label":"MAJ","pattern":"Public Administration & Services"}
+{"label":"MAJ","pattern":"Community Organization & Advocacy"}
+{"label":"MAJ","pattern":"Public Administration"}
+{"label":"MAJ","pattern":"Public Affairs"}
+{"label":"MAJ","pattern":"Social Work"}
+{"label":"MAJ","pattern":"Computer & Information Sciences"}
+{"label":"MAJ","pattern":"Computer Networking/Telecommunications"}
+{"label":"MAJ","pattern":"Computer Science & Programming"}
+{"label":"MAJ","pattern":"Computer Software & Media Applications"}
+{"label":"MAJ","pattern":"Computer System Administration"}
+{"label":"MAJ","pattern":"Data Management Technology"}
+{"label":"MAJ","pattern":"Information Science"}
+{"label":"MAJ","pattern":"Webpage Design"}
+{"label":"MAJ","pattern":"Mathematics"}
+{"label":"MAJ","pattern":"Applied Mathematics"}
+{"label":"MAJ","pattern":"Statistics"}
+{"label":"MAJ","pattern":"Counseling & Student Services"}
+{"label":"MAJ","pattern":"Educational Administration"}
+{"label":"MAJ","pattern":"Special Education"}
+{"label":"MAJ","pattern":"Teacher Education"}
+{"label":"MAJ","pattern":"Curriculum & Instruction"}
+{"label":"MAJ","pattern":"Early Childhood Education"}
+{"label":"MAJ","pattern":"Elementary Education"}
+{"label":"MAJ","pattern":"Junior High/Middle School Education"}
+{"label":"MAJ","pattern":"Postsecondary Education"}
+{"label":"MAJ","pattern":"Secondary Education"}
+{"label":"MAJ","pattern":"Teacher Assisting/Aide Education"}
+{"label":"MAJ","pattern":"Teacher Education, Subject-Specific*"}
+{"label":"MAJ","pattern":"Agricultural Education"}
+{"label":"MAJ","pattern":"Art Education"}
+{"label":"MAJ","pattern":"Business Education"}
+{"label":"MAJ","pattern":"Career & Technical Education"}
+{"label":"MAJ","pattern":"English-as-a-Second-Language Education"}
+{"label":"MAJ","pattern":"English/Language Arts Education"}
+{"label":"MAJ","pattern":"Foreign Languages Education"}
+{"label":"MAJ","pattern":"Health Education"}
+{"label":"MAJ","pattern":"Mathematics Education"}
+{"label":"MAJ","pattern":"Music Education"}
+{"label":"MAJ","pattern":"Physical Education & Coaching"}
+{"label":"MAJ","pattern":"Science Education"}
+{"label":"MAJ","pattern":"Social Studies/Sciences Education"}
+{"label":"MAJ","pattern":"Engineering (Pre-Engineering)"}
+{"label":"MAJ","pattern":"Aerospace/Aeronautical Engineering"}
+{"label":"MAJ","pattern":"Agricultural/Bioengineering"}
+{"label":"MAJ","pattern":"Architectural Engineering"}
+{"label":"MAJ","pattern":"Biomedical Engineering"}
+{"label":"MAJ","pattern":"Chemical Engineering"}
+{"label":"MAJ","pattern":"Civil Engineering"}
+{"label":"MAJ","pattern":"Computer Engineering"}
+{"label":"MAJ","pattern":"Construction Engineering/Management"}
+{"label":"MAJ","pattern":"Electrical, Electronics & Communications Engineering"}
+{"label":"MAJ","pattern":"Environmental Health Engineering"}
+{"label":"MAJ","pattern":"Industrial Engineering"}
+{"label":"MAJ","pattern":"Mechanical Engineering"}
+{"label":"MAJ","pattern":"Nuclear Engineering"}
+{"label":"MAJ","pattern":"Drafting/CAD Technology"}
+{"label":"MAJ","pattern":"Architectural Drafting/CAD Technology"}
+{"label":"MAJ","pattern":"Mechanical Drafting/CAD Technology"}
+{"label":"MAJ","pattern":"Engineering Technology"}
+{"label":"MAJ","pattern":"Aeronautical/Aerospace Engineering Technologies"}
+{"label":"MAJ","pattern":"Architectural Engineering Technology"}
+{"label":"MAJ","pattern":"Automotive Engineering Technology"}
+{"label":"MAJ","pattern":"Civil Engineering Technology"}
+{"label":"MAJ","pattern":"Computer Engineering Technology"}
+{"label":"MAJ","pattern":"Construction/Building Technology"}
+{"label":"MAJ","pattern":"Electrical Engineering "}
+{"label":"MAJ","pattern":"Electromechanical/Biomedical Engineering Technologies"}
+{"label":"MAJ","pattern":"Environmental Control Technologies"}
+{"label":"MAJ","pattern":"Industrial Production Technologies"}
+{"label":"MAJ","pattern":"Mechanical Engineering Technology"}
+{"label":"MAJ","pattern":"Quality Control & Safety Technologies"}
+{"label":"MAJ","pattern":"Surveying Technology"}
+{"label":"MAJ","pattern":"English Language & Literature"}
+{"label":"MAJ","pattern":"American/English Literature"}
+{"label":"MAJ","pattern":"Creative Writing"}
+{"label":"MAJ","pattern":"Public Speaking"}
+{"label":"MAJ","pattern":"Foreign Languages/Literatures"}
+{"label":"MAJ","pattern":"Asian Languages & Literatures"}
+{"label":"MAJ","pattern":"Classical/Ancient Languages & Literatures"}
+{"label":"MAJ","pattern":"Comparative Literature"}
+{"label":"MAJ","pattern":"French Language & Literature"}
+{"label":"MAJ","pattern":"German Language & Literature"}
+{"label":"MAJ","pattern":"Linguistics"}
+{"label":"MAJ","pattern":"Middle Eastern Languages & Literatures"}
+{"label":"MAJ","pattern":"Spanish Language & Literature"}
+{"label":"MAJ","pattern":"Health Services Administration,General"}
+{"label":"MAJ","pattern":"Hospital/Facilities Administration"}
+{"label":"MAJ","pattern":"Medical Office/Secretarial"}
+{"label":"MAJ","pattern":"Medical Records"}
+{"label":"MAJ","pattern":"Medical/Clinical Assisting"}
+{"label":"MAJ","pattern":"Dental Assisting"}
+{"label":"MAJ","pattern":"Medical Assisting"}
+{"label":"MAJ","pattern":"Occupational Therapy Assisting"}
+{"label":"MAJ","pattern":"Physical Therapy Assisting"}
+{"label":"MAJ","pattern":"Veterinarian Assisting/Technology"}
+{"label":"MAJ","pattern":"Chiropractic (Pre-Chiropractic)"}
+{"label":"MAJ","pattern":"Dental Hygiene"}
+{"label":"MAJ","pattern":"Dentistry (Pre-Dentistry)"}
+{"label":"MAJ","pattern":"Emergency Medical Technology"}
+{"label":"MAJ","pattern":"Health-Related Professions & Services"}
+{"label":"MAJ","pattern":"Athletic Training"}
+{"label":"MAJ","pattern":"Communication Disorder Services "}
+{"label":"MAJ","pattern":"Public Health"}
+{"label":"MAJ","pattern":"Health/Medical Technology"}
+{"label":"MAJ","pattern":"Medical Laboratory Technology"}
+{"label":"MAJ","pattern":"Medical Radiologic Technology"}
+{"label":"MAJ","pattern":"Nuclear Medicine Technology"}
+{"label":"MAJ","pattern":"Respiratory Therapy Technology"}
+{"label":"MAJ","pattern":"Surgical Technology"}
+{"label":"MAJ","pattern":"Medicine (Pre-Medicine)"}
+{"label":"MAJ","pattern":"Nursing"}
+{"label":"MAJ","pattern":"Nursing, Registered "}
+{"label":"MAJ","pattern":"Optometry (Pre-Optometry)"}
+{"label":"MAJ","pattern":"Osteopathic Medicine"}
+{"label":"MAJ","pattern":"Pharmacy (Pre-Pharmacy)"}
+{"label":"MAJ","pattern":"Physician Assisting"}
+{"label":"MAJ","pattern":"Therapy & Rehabilitation"}
+{"label":"MAJ","pattern":"Alcohol/Drug Abuse Counseling"}
+{"label":"MAJ","pattern":"Massage Therapy"}
+{"label":"MAJ","pattern":"Mental Health Counseling"}
+{"label":"MAJ","pattern":"Occupational Therapy"}
+{"label":"MAJ","pattern":"Physical Therapy (Pre-Physical Therapy)"}
+{"label":"MAJ","pattern":"Psychiatric/Mental Health Technician"}
+{"label":"MAJ","pattern":"Rehabilitation Therapy"}
+{"label":"MAJ","pattern":"Vocational Rehabilitation Counseling"}
+{"label":"MAJ","pattern":"Veterinary Medicine (Pre-Veterinarian)"}
+{"label":"MAJ","pattern":"Philosophy"}
+{"label":"MAJ","pattern":"Religion"}
+{"label":"MAJ","pattern":"Theology"}
+{"label":"MAJ","pattern":"Bible/Biblical Studies"}
+{"label":"MAJ","pattern":"Divinity/Ministry"}
+{"label":"MAJ","pattern":"Religious Education"}
+{"label":"MAJ","pattern":"Aviation & Airway Science"}
+{"label":"MAJ","pattern":"Aircraft Piloting & Navigation"}
+{"label":"MAJ","pattern":"Aviation Management & Operations"}
+{"label":"MAJ","pattern":"Construction Trades"}
+{"label":"MAJ","pattern":"Mechanics & Repairers"}
+{"label":"MAJ","pattern":"Aircraft Mechanics/Technology"}
+{"label":"MAJ","pattern":"Autobody Repair/Technology"}
+{"label":"MAJ","pattern":"Automotive Mechanics/Technology"}
+{"label":"MAJ","pattern":"Avionics Technology"}
+{"label":"MAJ","pattern":"Diesel Mechanics/Technology"}
+{"label":"MAJ","pattern":"Electrical/Electronics Equip Installation & Repair"}
+{"label":"MAJ","pattern":"Heating/Air Cond/Refrig Install/Repair"}
+{"label":"MAJ","pattern":"Precision Production Trades"}
+{"label":"MAJ","pattern":"Machine Tool Technology"}
+{"label":"MAJ","pattern":"Welding Technology"}
+{"label":"MAJ","pattern":"Transportation & Materials Moving"}
+{"label":"MAJ","pattern":"Biology"}
+{"label":"MAJ","pattern":"Biochemistry"}
+{"label":"MAJ","pattern":"Cell/Cellular Biology"}
+{"label":"MAJ","pattern":"Ecology"}
+{"label":"MAJ","pattern":"Genetics"}
+{"label":"MAJ","pattern":"Marine/Aquatic Biology"}
+{"label":"MAJ","pattern":"Microbiology & Immunology"}
+{"label":"MAJ","pattern":"Zoology"}
+{"label":"MAJ","pattern":"Physical Sciences"}
+{"label":"MAJ","pattern":"Astronomy"}
+{"label":"MAJ","pattern":"Atmospheric Sciences & Meteorology"}
+{"label":"MAJ","pattern":"Chemistry"}
+{"label":"MAJ","pattern":"Geological & Earth Sciences"}
+{"label":"MAJ","pattern":"Physics"}
+{"label":"MAJ","pattern":"Legal Studies"}
+{"label":"MAJ","pattern":"Court Reporting"}
+{"label":"MAJ","pattern":"Law (Pre-Law)"}
+{"label":"MAJ","pattern":"Legal Administrative Assisting"}
+{"label":"MAJ","pattern":"Paralegal/Legal Assistant"}
+{"label":"MAJ","pattern":"Social Sciences"}
+{"label":"MAJ","pattern":"Anthropology"}
+{"label":"MAJ","pattern":"Criminology"}
+{"label":"MAJ","pattern":"Economics"}
+{"label":"MAJ","pattern":"Geography"}
+{"label":"MAJ","pattern":"History"}
+{"label":"MAJ","pattern":"International Relations & Affairs"}
+{"label":"MAJ","pattern":"Political Science"}
+{"label":"MAJ","pattern":"Psychology, Clinical & Counseling"}
+{"label":"MAJ","pattern":"Psychology"}
+{"label":"MAJ","pattern":"Sociology"}
+{"label":"MAJ","pattern":"Urban Studies/Urban Affairs"}
+{"label":"MAJ","pattern":"Computer Science "}
+{"label":"MAJ","pattern":"BS/RN"}
+{"label":"MAJ","pattern":"Electronics Engineering Technologies"}
+{"label":"MAJ","pattern":"Data Science"}
+{"label":"MAJ","pattern":"Pharmaceutical Sciences"}
+{"label":"MAJ","pattern":"Biological Sciences"}
+{"label":"MAJ","pattern":"Information Technology"}
+{"label":"MAJ","pattern":"Biostatistics"}
+{"label":"MAJ","pattern":"Epidemiology"}
+{"label":"MAJ","pattern":"Public Policy Analysis"}
+{"label":"MAJ","pattern":"Public Policy"}
+{"label":"MAJ","pattern":"Microeconomics"}
+{"label":"MAJ","pattern":"Econ"}
+{"label":"MAJ","pattern":"Biophysics"}
+{"label":"MAJ","pattern":"International Business Strategy"}
+{"label":"MAJ","pattern":"Industrial and Systems Engineering"}
+{"label":"MAJ","pattern":"Computer and Information Science and Engineering "}
+{"label":"MAJ","pattern":"Food Science"}
+{"label":"MAJ","pattern":"information Management Systems"}
+{"label":"MAJ","pattern":"Electronics"}
