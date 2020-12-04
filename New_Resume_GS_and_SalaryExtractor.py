@@ -17,11 +17,6 @@ from nltk.tokenize import word_tokenize
 import pytesseract as pt
 import pdf2image
 
-
-
-
-
-
 # Load en_core_web_md augmented
 nlp = spacy.load('en_core_web_md')
 heading_dictionary = pd.DataFrame()
